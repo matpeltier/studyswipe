@@ -13,7 +13,12 @@ from utils.models import (
     TopicCard,
 )
 
-DB_PATH = "data/studyswipe.db"
+import tempfile
+import os
+
+_DB_DIR = os.path.join(tempfile.gettempdir(), "studyswipe")
+os.makedirs(_DB_DIR, exist_ok=True)
+DB_PATH = os.path.join(_DB_DIR, "studyswipe.db")
 
 
 def get_connection() -> sqlite3.Connection:
