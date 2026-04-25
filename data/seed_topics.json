@@ -1,0 +1,896 @@
+[
+  {
+    "topic_id": "sci-001",
+    "title": "DNA",
+    "summary": "Deoxyribonucleic acid is a molecule composed of two polynucleotide chains that coil around each other to form a double helix. It carries the genetic instructions used in the growth, development, functioning, and reproduction of all known organisms and many viruses.",
+    "category": "Science",
+    "url": "https://en.wikipedia.org/wiki/DNA",
+    "why_matters": "Understanding DNA revolutionized medicine, forensics, and our understanding of inheritance and evolution.",
+    "difficulty_score": 2.5,
+    "facts": [
+      {"fact_id": "sci-001-f1", "fact_text": "The DNA double helix structure was discovered by James Watson and Francis Crick in 1953, using data from Rosalind Franklin's X-ray crystallography.", "source_section": "History"},
+      {"fact_id": "sci-001-f2", "fact_text": "Human DNA is about 99.9% identical between all people on Earth.", "source_section": "Properties"},
+      {"fact_id": "sci-001-f3", "fact_text": "If uncoiled, the DNA in all the cells of a human body would stretch to the Sun and back over 600 times.", "source_section": "Properties"},
+      {"fact_id": "sci-001-f4", "fact_text": "DNA is made up of four chemical bases: adenine (A), guanine (G), cytosine (C), and thymine (T).", "source_section": "Structure"}
+    ],
+    "quiz": [
+      {"quiz_id": "sci-001-q1", "question": "What shape does the DNA molecule form?", "option_a": "Double helix", "option_b": "Single strand", "option_c": "Triple helix", "option_d": "Circular ring", "correct_option": "a"},
+      {"quiz_id": "sci-001-q2", "question": "Who co-discovered the DNA double helix structure in 1953?", "option_a": "Charles Darwin", "option_b": "Watson and Crick", "option_c": "Gregor Mendel", "option_d": "Louis Pasteur", "correct_option": "b"},
+      {"quiz_id": "sci-001-q3", "question": "How similar is human DNA between all people on Earth?", "option_a": "About 50%", "option_b": "About 75%", "option_c": "About 99.9%", "option_d": "About 90%", "correct_option": "c"}
+    ]
+  },
+  {
+    "topic_id": "sci-002",
+    "title": "Theory of Relativity",
+    "summary": "Einstein's theory of relativity encompasses special relativity and general relativity. Special relativity applies to all physical phenomena in the absence of gravity, while general relativity explains the law of gravitation and its relation to other forces of nature.",
+    "category": "Science",
+    "url": "https://en.wikipedia.org/wiki/Theory_of_relativity",
+    "why_matters": "It fundamentally changed our understanding of space, time, gravity, and the universe, leading to technologies like GPS.",
+    "difficulty_score": 4.0,
+    "facts": [
+      {"fact_id": "sci-002-f1", "fact_text": "E = mc² shows that mass and energy are interchangeable; a small amount of mass can be converted into a enormous amount of energy.", "source_section": "Special Relativity"},
+      {"fact_id": "sci-002-f2", "fact_text": "Time dilation means that time passes slower for objects moving at speeds close to the speed of light.", "source_section": "Special Relativity"},
+      {"fact_id": "sci-002-f3", "fact_text": "GPS satellites must account for both special and general relativity to maintain accuracy within a few meters.", "source_section": "Applications"},
+      {"fact_id": "sci-002-f4", "fact_text": "Albert Einstein published his theory of general relativity in 1915.", "source_section": "History"}
+    ],
+    "quiz": [
+      {"quiz_id": "sci-002-q1", "question": "What does E = mc² describe?", "option_a": "The speed of light", "option_b": "The equivalence of mass and energy", "option_c": "The force of gravity", "option_d": "Electromagnetic radiation", "correct_option": "b"},
+      {"quiz_id": "sci-002-q2", "question": "What everyday technology requires corrections from relativity?", "option_a": "Microwave ovens", "option_b": "Television", "option_c": "GPS satellites", "option_d": "Mobile phones", "correct_option": "c"}
+    ]
+  },
+  {
+    "topic_id": "sci-003",
+    "title": "Photosynthesis",
+    "summary": "Photosynthesis is a biological process used by plants, algae, and certain bacteria to convert light energy into chemical energy stored in glucose. This process produces oxygen as a byproduct and is essential for most life on Earth.",
+    "category": "Science",
+    "url": "https://en.wikipedia.org/wiki/Photosynthesis",
+    "why_matters": "Photosynthesis is the primary source of oxygen in the atmosphere and the foundation of most food chains on Earth.",
+    "difficulty_score": 2.0,
+    "facts": [
+      {"fact_id": "sci-003-f1", "fact_text": "The overall equation for photosynthesis is: 6CO₂ + 6H₂O + light → C₆H₁₂O₆ + 6O₂.", "source_section": "Overview"},
+      {"fact_id": "sci-003-f2", "fact_text": "Chlorophyll, the green pigment in plants, is responsible for absorbing light energy.", "source_section": "Light Reactions"},
+      {"fact_id": "sci-003-f3", "fact_text": "Photosynthesis occurs in two main stages: light-dependent reactions and the Calvin cycle.", "source_section": "Overview"},
+      {"fact_id": "sci-003-f4", "fact_text": "Tropical rainforests produce about 28% of the world's oxygen through photosynthesis.", "source_section": "Ecology"}
+    ],
+    "quiz": [
+      {"quiz_id": "sci-003-q1", "question": "What gas is produced as a byproduct of photosynthesis?", "option_a": "Carbon dioxide", "option_b": "Nitrogen", "option_c": "Oxygen", "option_d": "Hydrogen", "correct_option": "c"},
+      {"quiz_id": "sci-003-q2", "question": "What pigment gives plants their green color and absorbs light?", "option_a": "Melanin", "option_b": "Chlorophyll", "option_c": "Carotene", "option_d": "Hemoglobin", "correct_option": "b"}
+    ]
+  },
+  {
+    "topic_id": "sci-004",
+    "title": "Periodic Table",
+    "summary": "The periodic table is a tabular arrangement of chemical elements organized by their atomic number, electron configuration, and recurring chemical properties. It was first published by Dmitri Mendeleev in 1869.",
+    "category": "Science",
+    "url": "https://en.wikipedia.org/wiki/Periodic_table",
+    "why_matters": "The periodic table is the foundational reference for chemistry, allowing scientists to predict element properties and behaviors.",
+    "difficulty_score": 2.5,
+    "facts": [
+      {"fact_id": "sci-004-f1", "fact_text": "There are 118 confirmed elements in the periodic table as of 2024.", "source_section": "Overview"},
+      {"fact_id": "sci-004-f2", "fact_text": "Dmitri Mendeleev created the first widely recognized periodic table in 1869.", "source_section": "History"},
+      {"fact_id": "sci-004-f3", "fact_text": "Elements in the same column (group) tend to have similar chemical properties.", "source_section": "Structure"},
+      {"fact_id": "sci-004-f4", "fact_text": "The newest elements (113-118) were all officially named between 2016 and 2017.", "source_section": "Modern"}
+    ],
+    "quiz": [
+      {"quiz_id": "sci-004-q1", "question": "Who created the first widely recognized periodic table?", "option_a": "Isaac Newton", "option_b": "Dmitri Mendeleev", "option_c": "Marie Curie", "option_d": "Niels Bohr", "correct_option": "b"},
+      {"quiz_id": "sci-004-q2", "question": "How many confirmed elements are in the periodic table as of 2024?", "option_a": "92", "option_b": "103", "option_c": "118", "option_d": "126", "correct_option": "c"}
+    ]
+  },
+  {
+    "topic_id": "sci-005",
+    "title": "Black Holes",
+    "summary": "A black hole is a region of spacetime where gravity is so strong that nothing, including light or other electromagnetic waves, has enough energy to escape. Black holes are formed when massive stars collapse at the end of their life cycle.",
+    "category": "Science",
+    "url": "https://en.wikipedia.org/wiki/Black_hole",
+    "why_matters": "Black holes challenge our understanding of physics and are key to unifying general relativity with quantum mechanics.",
+    "difficulty_score": 3.5,
+    "facts": [
+      {"fact_id": "sci-005-f1", "fact_text": "The first direct image of a black hole was captured in 2019 by the Event Horizon Telescope, showing the supermassive black hole in galaxy M87.", "source_section": "Discovery"},
+      {"fact_id": "sci-005-f2", "fact_text": "The boundary of a black hole is called the event horizon — the point of no return.", "source_section": "Structure"},
+      {"fact_id": "sci-005-f3", "fact_text": "The nearest known black hole, Gaia BH1, is about 1,560 light-years from Earth.", "source_section": "Location"},
+      {"fact_id": "sci-005-f4", "fact_text": "Supermassive black holes at the centers of galaxies can have masses billions of times that of the Sun.", "source_section": "Types"}
+    ],
+    "quiz": [
+      {"quiz_id": "sci-005-q1", "question": "What is the boundary of a black hole called?", "option_a": "The core", "option_b": "The event horizon", "option_c": "The singularity", "option_d": "The photon sphere", "correct_option": "b"},
+      {"quiz_id": "sci-005-q2", "question": "When was the first direct image of a black hole captured?", "option_a": "2015", "option_b": "2017", "option_c": "2019", "option_d": "2021", "correct_option": "c"}
+    ]
+  },
+  {
+    "topic_id": "sci-006",
+    "title": "Evolution",
+    "summary": "Evolution is the change in heritable characteristics of biological populations over successive generations through processes such as natural selection, genetic drift, and mutation. It explains the diversity of life on Earth.",
+    "category": "Science",
+    "url": "https://en.wikipedia.org/wiki/Evolution",
+    "why_matters": "Evolution is the unifying theory of biology, explaining how all life on Earth is related and how species adapt.",
+    "difficulty_score": 2.5,
+    "facts": [
+      {"fact_id": "sci-006-f1", "fact_text": "Charles Darwin published 'On the Origin of Species' in 1859, introducing the theory of evolution by natural selection.", "source_section": "History"},
+      {"fact_id": "sci-006-f2", "fact_text": "Humans share about 98.7% of their DNA with chimpanzees, our closest living relatives.", "source_section": "Evidence"},
+      {"fact_id": "sci-006-f3", "fact_text": "The fossil record spans over 3.5 billion years of life on Earth.", "source_section": "Evidence"},
+      {"fact_id": "sci-006-f4", "fact_text": "Antibiotic resistance in bacteria is a modern example of evolution in action.", "source_section": "Modern Examples"}
+    ],
+    "quiz": [
+      {"quiz_id": "sci-006-q1", "question": "Who published 'On the Origin of Species' in 1859?", "option_a": "Gregor Mendel", "option_b": "Charles Darwin", "option_c": "Alfred Russel Wallace", "option_d": "Jean-Baptiste Lamarck", "correct_option": "b"},
+      {"quiz_id": "sci-006-q2", "question": "What percentage of DNA do humans share with chimpanzees?", "option_a": "About 85%", "option_b": "About 90%", "option_c": "About 95%", "option_d": "About 98.7%", "correct_option": "d"}
+    ]
+  },
+  {
+    "topic_id": "sci-007",
+    "title": "Quantum Mechanics",
+    "summary": "Quantum mechanics is a fundamental theory in physics describing nature at the smallest scales of energy levels of atoms and subatomic particles. It introduces wave-particle duality, superposition, and entanglement.",
+    "category": "Science",
+    "url": "https://en.wikipedia.org/wiki/Quantum_mechanics",
+    "why_matters": "Quantum mechanics underpins modern electronics, lasers, and the future of quantum computing.",
+    "difficulty_score": 4.5,
+    "facts": [
+      {"fact_id": "sci-007-f1", "fact_text": "The Heisenberg uncertainty principle states you cannot simultaneously know both the exact position and momentum of a particle.", "source_section": "Principles"},
+      {"fact_id": "sci-007-f2", "fact_text": "Quantum entanglement allows two particles to be instantly correlated regardless of distance, a phenomenon Einstein called 'spooky action at a distance.'", "source_section": "Entanglement"},
+      {"fact_id": "sci-007-f3", "fact_text": "Schrödinger's cat is a thought experiment illustrating quantum superposition — a cat that is simultaneously alive and dead.", "source_section": "Interpretations"},
+      {"fact_id": "sci-007-f4", "fact_text": "Quantum computing uses qubits which, unlike classical bits, can be both 0 and 1 simultaneously.", "source_section": "Applications"}
+    ],
+    "quiz": [
+      {"quiz_id": "sci-007-q1", "question": "What does the Heisenberg uncertainty principle state?", "option_a": "Energy is always conserved", "option_b": "You cannot know both position and momentum exactly", "option_c": "Light is always a wave", "option_d": "Particles always have defined paths", "correct_option": "b"},
+      {"quiz_id": "sci-007-q2", "question": "What did Einstein call quantum entanglement?", "option_a": "Magic force", "option_b": "Spooky action at a distance", "option_c": "Quantum leap", "option_d": "Wave collapse", "correct_option": "b"}
+    ]
+  },
+  {
+    "topic_id": "sci-008",
+    "title": "Climate Change",
+    "summary": "Climate change refers to long-term shifts in global temperatures and weather patterns. While natural processes can cause these changes, since the 1800s human activities — primarily burning fossil fuels — have been the main driver of climate change.",
+    "category": "Science",
+    "url": "https://en.wikipedia.org/wiki/Climate_change",
+    "why_matters": "Climate change is one of the greatest challenges facing humanity, affecting ecosystems, weather, sea levels, and food security.",
+    "difficulty_score": 2.0,
+    "facts": [
+      {"fact_id": "sci-008-f1", "fact_text": "Global average temperature has risen about 1.1°C since the pre-industrial era (1850-1900).", "source_section": "Temperature"},
+      {"fact_id": "sci-008-f2", "fact_text": "CO₂ levels in the atmosphere are now over 420 ppm, the highest in at least 800,000 years.", "source_section": "Greenhouse Gases"},
+      {"fact_id": "sci-008-f3", "fact_text": "The Arctic is warming about four times faster than the global average.", "source_section": "Impacts"},
+      {"fact_id": "sci-008-f4", "fact_text": "Sea levels have risen about 20 cm since 1900 and the rate of rise is accelerating.", "source_section": "Sea Level"}
+    ],
+    "quiz": [
+      {"quiz_id": "sci-008-q1", "question": "How much has global average temperature risen since the pre-industrial era?", "option_a": "About 0.5°C", "option_b": "About 1.1°C", "option_c": "About 2.0°C", "option_d": "About 3.0°C", "correct_option": "b"},
+      {"quiz_id": "sci-008-q2", "question": "What is the current CO₂ level in the atmosphere?", "option_a": "About 280 ppm", "option_b": "About 350 ppm", "option_c": "Over 420 ppm", "option_d": "About 500 ppm", "correct_option": "c"}
+    ]
+  },
+  {
+    "topic_id": "sci-009",
+    "title": "CRISPR Gene Editing",
+    "summary": "CRISPR-Cas9 is a revolutionary gene-editing technology that allows scientists to modify DNA sequences with high precision. It was adapted from a natural defense mechanism found in bacteria.",
+    "category": "Science",
+    "url": "https://en.wikipedia.org/wiki/CRISPR",
+    "why_matters": "CRISPR has the potential to cure genetic diseases, improve agriculture, and transform medicine.",
+    "difficulty_score": 3.5,
+    "facts": [
+      {"fact_id": "sci-009-f1", "fact_text": "Jennifer Doudna and Emmanuelle Charpentier won the 2020 Nobel Prize in Chemistry for developing CRISPR-Cas9.", "source_section": "History"},
+      {"fact_id": "sci-009-f2", "fact_text": "CRISPR stands for Clustered Regularly Interspaced Short Palindromic Repeats.", "source_section": "Overview"},
+      {"fact_id": "sci-009-f3", "fact_text": "The first CRISPR therapy approved for human use treats sickle cell disease and beta-thalassemia (approved December 2023).", "source_section": "Applications"},
+      {"fact_id": "sci-009-f4", "fact_text": "CRISPR was originally discovered as part of the bacterial immune system that defends against viruses.", "source_section": "Mechanism"}
+    ],
+    "quiz": [
+      {"quiz_id": "sci-009-q1", "question": "What does CRISPR stand for?", "option_a": "Controlled Regular DNA Splicing and Repair", "option_b": "Clustered Regularly Interspaced Short Palindromic Repeats", "option_c": "Cellular RNA Interference and Sequence Processing", "option_d": "Chromosomal Recombination In Situ Polymerase Reaction", "correct_option": "b"},
+      {"quiz_id": "sci-009-q2", "question": "Who won the 2020 Nobel Prize in Chemistry for CRISPR?", "option_a": "James Watson and Francis Crick", "option_b": "Jennifer Doudna and Emmanuelle Charpentier", "option_c": "Craig Venter and Francis Collins", "option_d": "Kary Mullis and Fred Sanger", "correct_option": "b"}
+    ]
+  },
+  {
+    "topic_id": "sci-010",
+    "title": "Gravity",
+    "summary": "Gravity is a fundamental force of nature that attracts any two objects with mass. It is responsible for keeping planets in orbit, holding galaxies together, and giving weight to physical objects on Earth.",
+    "category": "Science",
+    "url": "https://en.wikipedia.org/wiki/Gravity",
+    "why_matters": "Gravity shapes the structure of the universe, from falling apples to orbiting planets to the formation of galaxies.",
+    "difficulty_score": 2.0,
+    "facts": [
+      {"fact_id": "sci-010-f1", "fact_text": "Isaac Newton formulated the law of universal gravitation in 1687 in his Principia Mathematica.", "source_section": "History"},
+      {"fact_id": "sci-010-f2", "fact_text": "Gravity is the weakest of the four fundamental forces of nature, but it has infinite range.", "source_section": "Properties"},
+      {"fact_id": "sci-010-f3", "fact_text": "Einstein showed that gravity is actually the curvature of spacetime caused by mass.", "source_section": "General Relativity"},
+      {"fact_id": "sci-010-f4", "fact_text": "Gravitational waves, predicted by Einstein, were first directly detected in 2015 by LIGO.", "source_section": "Discovery"}
+    ],
+    "quiz": [
+      {"quiz_id": "sci-010-q1", "question": "When did Newton formulate the law of universal gravitation?", "option_a": "1505", "option_b": "1607", "option_c": "1687", "option_d": "1750", "correct_option": "c"},
+      {"quiz_id": "sci-010-q2", "question": "When were gravitational waves first directly detected?", "option_a": "2005", "option_b": "2010", "option_c": "2015", "option_d": "2020", "correct_option": "c"}
+    ]
+  },
+  {
+    "topic_id": "his-001",
+    "title": "French Revolution",
+    "summary": "The French Revolution (1789–1799) was a period of radical political and societal change in France. It resulted in the abolition of the monarchy, the establishment of a republic, and culminated in Napoleon's rise to power.",
+    "category": "History",
+    "url": "https://en.wikipedia.org/wiki/French_Revolution",
+    "why_matters": "The French Revolution reshaped modern politics, spreading ideas of liberty, equality, and democracy worldwide.",
+    "difficulty_score": 2.5,
+    "facts": [
+      {"fact_id": "his-001-f1", "fact_text": "The storming of the Bastille on July 14, 1789, is considered the starting point of the French Revolution.", "source_section": "Events"},
+      {"fact_id": "his-001-f2", "fact_text": "The Declaration of the Rights of Man and of the Citizen (1789) became a foundational document of human rights.", "source_section": "Documents"},
+      {"fact_id": "his-001-f3", "fact_text": "The Revolution led to the Reign of Terror (1793–1794), during which tens of thousands were executed.", "source_section": "Reign of Terror"},
+      {"fact_id": "his-001-f4", "fact_text": "The metric system was introduced during the French Revolution in 1795.", "source_section": "Legacy"}
+    ],
+    "quiz": [
+      {"quiz_id": "his-001-q1", "question": "When was the Bastille stormed?", "option_a": "July 4, 1776", "option_b": "July 14, 1789", "option_c": "September 22, 1792", "option_d": "November 9, 1799", "correct_option": "b"},
+      {"quiz_id": "his-001-q2", "question": "What system of measurement was introduced during the French Revolution?", "option_a": "Imperial system", "option_b": "Metric system", "option_c": "US customary units", "option_d": "Troy weights", "correct_option": "b"}
+    ]
+  },
+  {
+    "topic_id": "his-002",
+    "title": "World War II",
+    "summary": "World War II (1939–1945) was the deadliest global conflict in history, involving over 30 countries. It was fought between the Allies and the Axis powers and resulted in an estimated 70–85 million fatalities.",
+    "category": "History",
+    "url": "https://en.wikipedia.org/wiki/World_War_II",
+    "why_matters": "WWII reshaped the world order, leading to the United Nations, the Cold War, decolonization, and the modern international system.",
+    "difficulty_score": 2.0,
+    "facts": [
+      {"fact_id": "his-002-f1", "fact_text": "The war began when Germany invaded Poland on September 1, 1939.", "source_section": "Outbreak"},
+      {"fact_id": "his-002-f2", "fact_text": "D-Day (June 6, 1944) was the largest seaborne invasion in history, with over 156,000 Allied troops landing in Normandy.", "source_section": "Major Events"},
+      {"fact_id": "his-002-f3", "fact_text": "The war ended in Europe on May 8, 1945 (V-E Day) and in the Pacific on September 2, 1945.", "source_section": "End"},
+      {"fact_id": "his-002-f4", "fact_text": "The Holocaust resulted in the systematic murder of approximately 6 million Jews by Nazi Germany.", "source_section": "Holocaust"}
+    ],
+    "quiz": [
+      {"quiz_id": "his-002-q1", "question": "When did WWII begin?", "option_a": "September 1, 1939", "option_b": "December 7, 1941", "option_c": "June 6, 1944", "option_d": "May 8, 1945", "correct_option": "a"},
+      {"quiz_id": "his-002-q2", "question": "What was D-Day?", "option_a": "The bombing of Pearl Harbor", "option_b": "The liberation of Paris", "option_c": "The largest seaborne invasion in history", "option_d": "The fall of Berlin", "correct_option": "c"}
+    ]
+  },
+  {
+    "topic_id": "his-003",
+    "title": "Ancient Rome",
+    "summary": "Ancient Rome was a civilization centered on the city of Rome, encompassing the Roman Kingdom, Republic, and Empire. At its height around 117 CE, the Roman Empire controlled the entire Mediterranean and much of Europe.",
+    "category": "History",
+    "url": "https://en.wikipedia.org/wiki/Ancient_Rome",
+    "why_matters": "Roman law, engineering, architecture, and language profoundly shaped Western civilization and continue to influence modern society.",
+    "difficulty_score": 2.0,
+    "facts": [
+      {"fact_id": "his-003-f1", "fact_text": "Rome was traditionally founded in 753 BCE and the Roman Republic was established in 509 BCE.", "source_section": "Foundation"},
+      {"fact_id": "his-003-f2", "fact_text": "Julius Caesar was assassinated on the Ides of March (March 15) in 44 BCE.", "source_section": "Republic"},
+      {"fact_id": "his-003-f3", "fact_text": "Roman aqueducts could transport water over 50 miles using only gravity.", "source_section": "Engineering"},
+      {"fact_id": "his-003-f4", "fact_text": "At its peak, the Roman Empire had an estimated population of 50-90 million people, about 20% of the world's population.", "source_section": "Empire"}
+    ],
+    "quiz": [
+      {"quiz_id": "his-003-q1", "question": "When was Julius Caesar assassinated?", "option_a": "March 15, 44 BCE", "option_b": "July 4, 44 BCE", "option_c": "December 25, 44 BCE", "option_d": "January 1, 44 BCE", "correct_option": "a"},
+      {"quiz_id": "his-003-q2", "question": "When was Rome traditionally founded?", "option_a": "509 BCE", "option_b": "753 BCE", "option_c": "27 BCE", "option_d": "476 CE", "correct_option": "b"}
+    ]
+  },
+  {
+    "topic_id": "his-004",
+    "title": "The Renaissance",
+    "summary": "The Renaissance (14th–17th century) was a cultural and intellectual movement that began in Italy and spread across Europe. It marked a renewed interest in classical Greek and Roman art, literature, and philosophy.",
+    "category": "History",
+    "url": "https://en.wikipedia.org/wiki/Renaissance",
+    "why_matters": "The Renaissance transformed art, science, and thought, laying the groundwork for the modern world.",
+    "difficulty_score": 2.0,
+    "facts": [
+      {"fact_id": "his-004-f1", "fact_text": "Leonardo da Vinci's Mona Lisa is considered the world's most famous painting and was created between 1503 and 1519.", "source_section": "Art"},
+      {"fact_id": "his-004-f2", "fact_text": "The printing press, invented by Gutenberg around 1440, was crucial in spreading Renaissance ideas.", "source_section": "Technology"},
+      {"fact_id": "his-004-f3", "fact_text": "The Medici family of Florence were major patrons of Renaissance art and learning.", "source_section": "Patronage"},
+      {"fact_id": "his-004-f4", "fact_text": "Michelangelo painted the Sistine Chapel ceiling between 1508 and 1512 while lying on his back on scaffolding.", "source_section": "Art"}
+    ],
+    "quiz": [
+      {"quiz_id": "his-004-q1", "question": "Who painted the Sistine Chapel ceiling?", "option_a": "Leonardo da Vinci", "option_b": "Raphael", "option_c": "Michelangelo", "option_d": "Donatello", "correct_option": "c"},
+      {"quiz_id": "his-004-q2", "question": "What invention helped spread Renaissance ideas?", "option_a": "The telescope", "option_b": "The printing press", "option_c": "The compass", "option_d": "The steam engine", "correct_option": "b"}
+    ]
+  },
+  {
+    "topic_id": "his-005",
+    "title": "Industrial Revolution",
+    "summary": "The Industrial Revolution (1760–1840) was a period of transition from agrarian economies to industrial and urban ones, beginning in Britain. It introduced mechanized manufacturing, steam power, and factory systems.",
+    "category": "History",
+    "url": "https://en.wikipedia.org/wiki/Industrial_Revolution",
+    "why_matters": "The Industrial Revolution fundamentally changed how goods were produced, leading to urbanization and the modern economic world.",
+    "difficulty_score": 2.0,
+    "facts": [
+      {"fact_id": "his-005-f1", "fact_text": "James Watt's improved steam engine (1769) was a key driver of the Industrial Revolution.", "source_section": "Technology"},
+      {"fact_id": "his-005-f2", "fact_text": "Britain's population grew from about 6 million in 1750 to over 16 million by 1850.", "source_section": "Demographics"},
+      {"fact_id": "his-005-f3", "fact_text": "The spinning jenny, invented by James Hargreaves around 1764, revolutionized textile manufacturing.", "source_section": "Textiles"},
+      {"fact_id": "his-005-f4", "fact_text": "Child labor was widespread during the Industrial Revolution, with children as young as 5 working in factories.", "source_section": "Social Impact"}
+    ],
+    "quiz": [
+      {"quiz_id": "his-005-q1", "question": "Whose improved steam engine was key to the Industrial Revolution?", "option_a": "Thomas Edison", "option_b": "James Watt", "option_c": "Robert Fulton", "option_d": "Henry Ford", "correct_option": "b"},
+      {"quiz_id": "his-005-q2", "question": "Where did the Industrial Revolution begin?", "option_a": "France", "option_b": "Germany", "option_c": "Britain", "option_d": "United States", "correct_option": "c"}
+    ]
+  },
+  {
+    "topic_id": "his-006",
+    "title": "Cold War",
+    "summary": "The Cold War (1947–1991) was a geopolitical rivalry between the United States and the Soviet Union, along with their respective allies. It involved proxy wars, nuclear arms races, and ideological competition without direct military conflict.",
+    "category": "History",
+    "url": "https://en.wikipedia.org/wiki/Cold_War",
+    "why_matters": "The Cold War shaped global politics, alliances, and conflicts that continue to influence international relations today.",
+    "difficulty_score": 2.5,
+    "facts": [
+      {"fact_id": "his-006-f1", "fact_text": "The Berlin Wall was erected in 1961 and fell on November 9, 1989, symbolizing the end of the Cold War.", "source_section": "Berlin Wall"},
+      {"fact_id": "his-006-f2", "fact_text": "The Cuban Missile Crisis of 1962 brought the world closer to nuclear war than ever before.", "source_section": "Crisis"},
+      {"fact_id": "his-006-f3", "fact_text": "The Space Race between the US and USSR led to the Moon landing in 1969.", "source_section": "Space Race"},
+      {"fact_id": "his-006-f4", "fact_text": "The Soviet Union officially dissolved on December 26, 1991.", "source_section": "End"}
+    ],
+    "quiz": [
+      {"quiz_id": "his-006-q1", "question": "When did the Berlin Wall fall?", "option_a": "1987", "option_b": "1989", "option_c": "1991", "option_d": "1993", "correct_option": "b"},
+      {"quiz_id": "his-006-q2", "question": "What crisis in 1962 brought the world close to nuclear war?", "option_a": "The Korean War", "option_b": "The Vietnam War", "option_c": "The Cuban Missile Crisis", "option_d": "The Prague Spring", "correct_option": "c"}
+    ]
+  },
+  {
+    "topic_id": "his-007",
+    "title": "Silk Road",
+    "summary": "The Silk Road was a network of ancient trade routes connecting China with the Mediterranean, spanning over 6,400 km. It facilitated trade, cultural exchange, and the spread of ideas between East and West for over 1,500 years.",
+    "category": "History",
+    "url": "https://en.wikipedia.org/wiki/Silk_Road",
+    "why_matters": "The Silk Road was the first great global trade network, spreading technology, religion, and culture across continents.",
+    "difficulty_score": 2.0,
+    "facts": [
+      {"fact_id": "his-007-f1", "fact_text": "The Silk Road was named by German geographer Ferdinand von Richthofen in 1877.", "source_section": "Name"},
+      {"fact_id": "his-007-f2", "fact_text": "Besides silk, goods like spices, tea, porcelain, gold, and gems were traded along the route.", "source_section": "Trade"},
+      {"fact_id": "his-007-f3", "fact_text": "Buddhism, Christianity, and Islam all spread along Silk Road routes.", "source_section": "Cultural Exchange"},
+      {"fact_id": "his-007-f4", "fact_text": "The Silk Road routes were active from around 130 BCE until the Ottoman Empire closed them in 1453.", "source_section": "Timeline"}
+    ],
+    "quiz": [
+      {"quiz_id": "his-007-q1", "question": "Who named the Silk Road?", "option_a": "Marco Polo", "option_b": "Ferdinand von Richthofen", "option_c": "Zhang Qian", "option_d": "Ibn Battuta", "correct_option": "b"},
+      {"quiz_id": "his-007-q2", "question": "When were Silk Road routes closed by the Ottoman Empire?", "option_a": "1204", "option_b": "1348", "option_c": "1453", "option_d": "1492", "correct_option": "c"}
+    ]
+  },
+  {
+    "topic_id": "his-008",
+    "title": "Egyptian Pyramids",
+    "summary": "The Egyptian pyramids are ancient monumental structures built as tombs for pharaohs. The Great Pyramid of Giza, built around 2560 BCE, is one of the Seven Wonders of the Ancient World and the only one still standing.",
+    "category": "History",
+    "url": "https://en.wikipedia.org/wiki/Egyptian_pyramids",
+    "why_matters": "The pyramids demonstrate the extraordinary engineering capabilities of ancient civilizations and continue to inspire wonder.",
+    "difficulty_score": 1.5,
+    "facts": [
+      {"fact_id": "his-008-f1", "fact_text": "The Great Pyramid of Giza was the tallest man-made structure for over 3,800 years.", "source_section": "Great Pyramid"},
+      {"fact_id": "his-008-f2", "fact_text": "It is estimated that about 2.3 million stone blocks were used to build the Great Pyramid.", "source_section": "Construction"},
+      {"fact_id": "his-008-f3", "fact_text": "The base of the Great Pyramid covers an area of about 13 acres (5.3 hectares).", "source_section": "Dimensions"},
+      {"fact_id": "his-008-f4", "fact_text": "There are over 100 pyramids discovered in Egypt to date.", "source_section": "Overview"}
+    ],
+    "quiz": [
+      {"quiz_id": "his-008-q1", "question": "How long was the Great Pyramid the tallest man-made structure?", "option_a": "500 years", "option_b": "1,000 years", "option_c": "Over 3,800 years", "option_d": "5,000 years", "correct_option": "c"},
+      {"quiz_id": "his-008-q2", "question": "Approximately how many stone blocks were used to build the Great Pyramid?", "option_a": "500,000", "option_b": "1 million", "option_c": "2.3 million", "option_d": "5 million", "correct_option": "c"}
+    ]
+  },
+  {
+    "topic_id": "his-009",
+    "title": "Moon Landing",
+    "summary": "On July 20, 1969, NASA's Apollo 11 mission successfully landed astronauts Neil Armstrong and Buzz Aldrin on the Moon. Armstrong became the first human to walk on the lunar surface.",
+    "category": "History",
+    "url": "https://en.wikipedia.org/wiki/Moon_landing",
+    "why_matters": "The Moon landing was one of humanity's greatest achievements, demonstrating what focused science and engineering can accomplish.",
+    "difficulty_score": 1.5,
+    "facts": [
+      {"fact_id": "his-009-f1", "fact_text": "Neil Armstrong's famous words were: 'That's one small step for man, one giant leap for mankind.'", "source_section": "First Steps"},
+      {"fact_id": "his-009-f2", "fact_text": "The Apollo 11 computer had less processing power than a modern smartphone.", "source_section": "Technology"},
+      {"fact_id": "his-009-f3", "fact_text": "The astronauts spent only about 2.5 hours outside the spacecraft on the lunar surface.", "source_section": "EVA"},
+      {"fact_id": "his-009-f4", "fact_text": "A total of 12 astronauts have walked on the Moon, all during the Apollo program (1969-1972).", "source_section": "Overview"}
+    ],
+    "quiz": [
+      {"quiz_id": "his-009-q1", "question": "Who was the first person to walk on the Moon?", "option_a": "Buzz Aldrin", "option_b": "Neil Armstrong", "option_c": "John Glenn", "option_d": "Yuri Gagarin", "correct_option": "b"},
+      {"quiz_id": "his-009-q2", "question": "How many astronauts have walked on the Moon in total?", "option_a": "3", "option_b": "6", "option_c": "12", "option_d": "24", "correct_option": "c"}
+    ]
+  },
+  {
+    "topic_id": "his-010",
+    "title": "Ottoman Empire",
+    "summary": "The Ottoman Empire (1299–1922) was one of the largest and longest-lasting empires in history. At its peak, it controlled territories across Southeast Europe, Western Asia, and North Africa.",
+    "category": "History",
+    "url": "https://en.wikipedia.org/wiki/Ottoman_Empire",
+    "why_matters": "The Ottoman Empire shaped the political, cultural, and religious landscape of Europe and the Middle East for over 600 years.",
+    "difficulty_score": 2.5,
+    "facts": [
+      {"fact_id": "his-010-f1", "fact_text": "The Ottoman Empire lasted for over 600 years, from 1299 to 1922.", "source_section": "Timeline"},
+      {"fact_id": "his-010-f2", "fact_text": "Constantinople (now Istanbul) was conquered by the Ottomans in 1453, ending the Byzantine Empire.", "source_section": "Expansion"},
+      {"fact_id": "his-010-f3", "fact_text": "The Ottoman Empire was dissolved after World War I, leading to the creation of modern Turkey.", "source_section": "End"},
+      {"fact_id": "his-010-f4", "fact_text": "At its peak under Suleiman the Magnificent (1520-1566), the empire spanned three continents.", "source_section": "Golden Age"}
+    ],
+    "quiz": [
+      {"quiz_id": "his-010-q1", "question": "When did the Ottomans conquer Constantinople?", "option_a": "1204", "option_b": "1453", "option_c": "1517", "option_d": "1683", "correct_option": "b"},
+      {"quiz_id": "his-010-q2", "question": "Who was the longest-reigning sultan during the Ottoman Golden Age?", "option_a": "Osman I", "option_b": "Mehmed II", "option_c": "Suleiman the Magnificent", "option_d": "Abdul Hamid II", "correct_option": "c"}
+    ]
+  },
+  {
+    "topic_id": "pol-001",
+    "title": "Democracy",
+    "summary": "Democracy is a system of government where citizens exercise power by voting. It originated in ancient Athens around 508 BCE and has evolved into various forms including direct democracy and representative democracy.",
+    "category": "Politics",
+    "url": "https://en.wikipedia.org/wiki/Democracy",
+    "why_matters": "Democracy is the most widely adopted form of government globally, shaping the rights and freedoms of billions of people.",
+    "difficulty_score": 1.5,
+    "facts": [
+      {"fact_id": "pol-001-f1", "fact_text": "The word 'democracy' comes from Greek: 'demos' (people) and 'kratos' (power or rule).", "source_section": "Etymology"},
+      {"fact_id": "pol-001-f2", "fact_text": "Athenian democracy, established around 508 BCE, is considered the first known democracy.", "source_section": "History"},
+      {"fact_id": "pol-001-f3", "fact_text": "As of 2024, about 57% of countries use some form of democratic governance.", "source_section": "Modern"},
+      {"fact_id": "pol-001-f4", "fact_text": "New Zealand became the first country to grant all adult citizens the right to vote in 1893.", "source_section": "Suffrage"}
+    ],
+    "quiz": [
+      {"quiz_id": "pol-001-q1", "question": "Where did democracy originate?", "option_a": "Rome", "option_b": "Athens", "option_c": "Sparta", "option_d": "Egypt", "correct_option": "b"},
+      {"quiz_id": "pol-001-q2", "question": "What was the first country to grant all adult citizens voting rights?", "option_a": "United States", "option_b": "France", "option_c": "New Zealand", "option_d": "Britain", "correct_option": "c"}
+    ]
+  },
+  {
+    "topic_id": "pol-002",
+    "title": "United Nations",
+    "summary": "The United Nations (UN) is an international organization founded on October 24, 1945, after World War II. It aims to maintain international peace and security, develop friendly relations among nations, and promote social progress.",
+    "category": "Politics",
+    "url": "https://en.wikipedia.org/wiki/United_Nations",
+    "why_matters": "The UN is the primary international body for global cooperation, peacekeeping, and humanitarian efforts.",
+    "difficulty_score": 1.5,
+    "facts": [
+      {"fact_id": "pol-002-f1", "fact_text": "The UN currently has 193 member states, nearly every recognized country in the world.", "source_section": "Membership"},
+      {"fact_id": "pol-002-f2", "fact_text": "The UN Security Council has 5 permanent members with veto power: China, France, Russia, the UK, and the US.", "source_section": "Security Council"},
+      {"fact_id": "pol-002-f3", "fact_text": "The UN headquarters is located in New York City on international territory.", "source_section": "Headquarters"},
+      {"fact_id": "pol-002-f4", "fact_text": "The Universal Declaration of Human Rights was adopted by the UN General Assembly in 1948.", "source_section": "Human Rights"}
+    ],
+    "quiz": [
+      {"quiz_id": "pol-002-q1", "question": "How many member states does the UN currently have?", "option_a": "151", "option_b": "167", "option_c": "193", "option_d": "210", "correct_option": "c"},
+      {"quiz_id": "pol-002-q2", "question": "When was the Universal Declaration of Human Rights adopted?", "option_a": "1945", "option_b": "1948", "option_c": "1950", "option_d": "1953", "correct_option": "b"}
+    ]
+  },
+  {
+    "topic_id": "pol-003",
+    "title": "European Union",
+    "summary": "The European Union (EU) is a political and economic union of 27 member states located primarily in Europe. It operates through a system of supranational institutions and intergovernmental decisions.",
+    "category": "Politics",
+    "url": "https://en.wikipedia.org/wiki/European_Union",
+    "why_matters": "The EU created the world's largest single market, a common currency used by 350 million people, and transformed European politics.",
+    "difficulty_score": 2.5,
+    "facts": [
+      {"fact_id": "pol-003-f1", "fact_text": "The EU originated from the European Coal and Steel Community, founded in 1951.", "source_section": "History"},
+      {"fact_id": "pol-003-f2", "fact_text": "The Euro (€) is used by 20 of the 27 EU member states as of 2024.", "source_section": "Currency"},
+      {"fact_id": "pol-003-f3", "fact_text": "The United Kingdom left the EU on January 31, 2020 (Brexit).", "source_section": "Brexit"},
+      {"fact_id": "pol-003-f4", "fact_text": "The EU has a combined GDP of over €16 trillion, making it one of the largest economies in the world.", "source_section": "Economy"}
+    ],
+    "quiz": [
+      {"quiz_id": "pol-003-q1", "question": "How many EU member states use the Euro?", "option_a": "12", "option_b": "15", "option_c": "20", "option_d": "27", "correct_option": "c"},
+      {"quiz_id": "pol-003-q2", "question": "When did the UK leave the EU?", "option_a": "2016", "option_b": "2018", "option_c": "2020", "option_d": "2022", "correct_option": "c"}
+    ]
+  },
+  {
+    "topic_id": "pol-004",
+    "title": "Human Rights",
+    "summary": "Human rights are moral principles or norms that describe certain standards of human behavior, regularly protected in international law. The Universal Declaration of Human Rights (1948) established the first global expression of rights.",
+    "category": "Politics",
+    "url": "https://en.wikipedia.org/wiki/Human_rights",
+    "why_matters": "Human rights form the basis of international law, justice, and dignity for all people worldwide.",
+    "difficulty_score": 1.5,
+    "facts": [
+      {"fact_id": "pol-004-f1", "fact_text": "The Universal Declaration of Human Rights contains 30 articles covering fundamental rights and freedoms.", "source_section": "UDHR"},
+      {"fact_id": "pol-004-f2", "fact_text": "Eleanor Roosevelt was the chair of the committee that drafted the Universal Declaration of Human Rights.", "source_section": "Drafting"},
+      {"fact_id": "pol-004-f3", "fact_text": "The UDHR has been translated into over 500 languages, making it the most translated document in the world.", "source_section": "Impact"},
+      {"fact_id": "pol-004-f4", "fact_text": "The International Criminal Court (ICC), established in 2002, prosecutes individuals for genocide, crimes against humanity, and war crimes.", "source_section": "Enforcement"}
+    ],
+    "quiz": [
+      {"quiz_id": "pol-004-q1", "question": "How many articles does the Universal Declaration of Human Rights contain?", "option_a": "10", "option_b": "20", "option_c": "30", "option_d": "40", "correct_option": "c"},
+      {"quiz_id": "pol-004-q2", "question": "Who chaired the committee that drafted the UDHR?", "option_a": "Winston Churchill", "option_b": "Eleanor Roosevelt", "option_c": "Charles de Gaulle", "option_d": "Mahatma Gandhi", "correct_option": "b"}
+    ]
+  },
+  {
+    "topic_id": "pol-005",
+    "title": "NATO",
+    "summary": "The North Atlantic Treaty Organization (NATO) is a military alliance of 32 member countries formed in 1949. It operates on the principle of collective defense, where an attack on one member is considered an attack on all.",
+    "category": "Politics",
+    "url": "https://en.wikipedia.org/wiki/NATO",
+    "why_matters": "NATO is the world's most powerful military alliance and a cornerstone of Western security policy.",
+    "difficulty_score": 2.0,
+    "facts": [
+      {"fact_id": "pol-005-f1", "fact_text": "NATO was founded on April 4, 1949, with 12 original members.", "source_section": "Foundation"},
+      {"fact_id": "pol-005-f2", "fact_text": "Article 5 of the NATO treaty states that an attack on one member is an attack on all.", "source_section": "Treaty"},
+      {"fact_id": "pol-005-f3", "fact_text": "NATO has 32 member countries as of 2024, with Sweden being the newest member.", "source_section": "Membership"},
+      {"fact_id": "pol-005-f4", "fact_text": "Article 5 has been invoked only once, after the September 11 attacks in 2001.", "source_section": "History"}
+    ],
+    "quiz": [
+      {"quiz_id": "pol-005-q1", "question": "When was NATO founded?", "option_a": "1945", "option_b": "1947", "option_c": "1949", "option_d": "1952", "correct_option": "c"},
+      {"quiz_id": "pol-005-q2", "question": "When was NATO's Article 5 invoked for the first time?", "option_a": "During the Korean War", "option_b": "After 9/11 attacks", "option_c": "During the Gulf War", "option_d": "During the Iraq War", "correct_option": "b"}
+    ]
+  },
+  {
+    "topic_id": "pol-006",
+    "title": "Women's Suffrage",
+    "summary": "Women's suffrage is the right of women to vote in elections. The movement gained momentum in the late 19th and early 20th centuries, with New Zealand being the first country to grant women the right to vote in 1893.",
+    "category": "Politics",
+    "url": "https://en.wikipedia.org/wiki/Women%27s_suffrage",
+    "why_matters": "Women's suffrage was a pivotal step toward gender equality and democratic representation worldwide.",
+    "difficulty_score": 1.5,
+    "facts": [
+      {"fact_id": "pol-006-f1", "fact_text": "New Zealand became the first self-governing country to grant all women the right to vote in 1893.", "source_section": "Milestones"},
+      {"fact_id": "pol-006-f2", "fact_text": "Women in the US gained the right to vote with the 19th Amendment, ratified in 1920.", "source_section": "United States"},
+      {"fact_id": "pol-006-f3", "fact_text": "Switzerland didn't grant women the right to vote in federal elections until 1971.", "source_section": "Europe"},
+      {"fact_id": "pol-006-f4", "fact_text": "Saudi Arabia granted women the right to vote in 2015, making it one of the last countries to do so.", "source_section": "Modern"}
+    ],
+    "quiz": [
+      {"quiz_id": "pol-006-q1", "question": "Which country first granted women the right to vote?", "option_a": "United States", "option_b": "Britain", "option_c": "New Zealand", "option_d": "France", "correct_option": "c"},
+      {"quiz_id": "pol-006-q2", "question": "When did women gain the right to vote in the US?", "option_a": "1893", "option_b": "1918", "option_c": "1920", "option_d": "1928", "correct_option": "c"}
+    ]
+  },
+  {
+    "topic_id": "pol-007",
+    "title": "Civil Rights Movement",
+    "summary": "The Civil Rights Movement (1954–1968) was a social movement in the United States aimed at ending racial segregation and discrimination against African Americans through nonviolent protest and legal action.",
+    "category": "Politics",
+    "url": "https://en.wikipedia.org/wiki/Civil_rights_movement",
+    "why_matters": "The Civil Rights Movement transformed American society and inspired human rights movements worldwide.",
+    "difficulty_score": 2.0,
+    "facts": [
+      {"fact_id": "pol-007-f1", "fact_text": "Martin Luther King Jr.'s 'I Have a Dream' speech was delivered on August 28, 1963, to over 250,000 people.", "source_section": "Key Events"},
+      {"fact_id": "pol-007-f2", "fact_text": "Rosa Parks' refusal to give up her bus seat on December 1, 1955, sparked the Montgomery Bus Boycott.", "source_section": "Key Events"},
+      {"fact_id": "pol-007-f3", "fact_text": "The Civil Rights Act of 1964 outlawed discrimination based on race, color, religion, sex, or national origin.", "source_section": "Legislation"},
+      {"fact_id": "pol-007-f4", "fact_text": "Brown v. Board of Education (1954) declared racial segregation in public schools unconstitutional.", "source_section": "Legal"}
+    ],
+    "quiz": [
+      {"quiz_id": "pol-007-q1", "question": "When was MLK's 'I Have a Dream' speech delivered?", "option_a": "1960", "option_b": "1961", "option_c": "1963", "option_d": "1965", "correct_option": "c"},
+      {"quiz_id": "pol-007-q2", "question": "What did Brown v. Board of Education declare unconstitutional?", "option_a": "Poll taxes", "option_b": "Racial segregation in public schools", "option_c": "Employment discrimination", "option_d": "Voting restrictions", "correct_option": "b"}
+    ]
+  },
+  {
+    "topic_id": "cul-001",
+    "title": "Impressionism",
+    "summary": "Impressionism is a 19th-century art movement characterized by thin brush strokes, open composition, emphasis on light, and ordinary subject matter. It originated in Paris and was initially criticized before becoming highly influential.",
+    "category": "Culture",
+    "url": "https://en.wikipedia.org/wiki/Impressionism",
+    "why_matters": "Impressionism revolutionized art by breaking from academic traditions and paving the way for modern art movements.",
+    "difficulty_score": 2.0,
+    "facts": [
+      {"fact_id": "cul-001-f1", "fact_text": "Claude Monet's 'Impression, Sunrise' (1872) gave the movement its name — originally used as an insult by critics.", "source_section": "Origin"},
+      {"fact_id": "cul-001-f2", "fact_text": "The first Impressionist exhibition was held in 1874 in Paris, featuring 30 artists.", "source_section": "Exhibitions"},
+      {"fact_id": "cul-001-f3", "fact_text": "Key Impressionist painters include Monet, Renoir, Degas, and Pissarro.", "source_section": "Artists"},
+      {"fact_id": "cul-001-f4", "fact_text": "Impressionists often painted outdoors (en plein air) to capture natural light and its changing qualities.", "source_section": "Technique"}
+    ],
+    "quiz": [
+      {"quiz_id": "cul-001-q1", "question": "Which painting gave Impressionism its name?", "option_a": "Starry Night", "option_b": "Impression, Sunrise", "option_c": "Water Lilies", "option_d": "The Dance Class", "correct_option": "b"},
+      {"quiz_id": "cul-001-q2", "question": "When was the first Impressionist exhibition held?", "option_a": "1862", "option_b": "1874", "option_c": "1880", "option_d": "1890", "correct_option": "b"}
+    ]
+  },
+  {
+    "topic_id": "cul-002",
+    "title": "William Shakespeare",
+    "summary": "William Shakespeare (1564–1616) was an English playwright, poet, and actor widely regarded as the greatest writer in the English language. He wrote 39 plays, 154 sonnets, and two long narrative poems.",
+    "category": "Culture",
+    "url": "https://en.wikipedia.org/wiki/William_Shakespeare",
+    "why_matters": "Shakespeare's works have had an unparalleled impact on English literature, language, and theater for over 400 years.",
+    "difficulty_score": 1.5,
+    "facts": [
+      {"fact_id": "cul-002-f1", "fact_text": "Shakespeare invented over 1,700 words that are still used in English today, including 'eyeball,' 'lonely,' and 'generous.'", "source_section": "Language"},
+      {"fact_id": "cul-002-f2", "fact_text": "The Globe Theatre, where many of Shakespeare's plays were performed, could hold up to 3,000 spectators.", "source_section": "Theatre"},
+      {"fact_id": "cul-002-f3", "fact_text": "Shakespeare's plays have been translated into every living language.", "source_section": "Legacy"},
+      {"fact_id": "cul-002-f4", "fact_text": "His plays fall into three categories: comedies, histories, and tragedies, with Hamlet being the longest.", "source_section": "Works"}
+    ],
+    "quiz": [
+      {"quiz_id": "cul-002-q1", "question": "Approximately how many words did Shakespeare invent?", "option_a": "100", "option_b": "500", "option_c": "Over 1,700", "option_d": "Over 5,000", "correct_option": "c"},
+      {"quiz_id": "cul-002-q2", "question": "What is Shakespeare's longest play?", "option_a": "Macbeth", "option_b": "Romeo and Juliet", "option_c": "Hamlet", "option_d": "King Lear", "correct_option": "c"}
+    ]
+  },
+  {
+    "topic_id": "cul-003",
+    "title": "Jazz Music",
+    "summary": "Jazz originated in the African American communities of New Orleans in the late 19th and early 20th centuries. It blends elements of blues, ragtime, and European harmony, and is known for improvisation and swing rhythms.",
+    "category": "Culture",
+    "url": "https://en.wikipedia.org/wiki/Jazz",
+    "why_matters": "Jazz is considered America's greatest cultural contribution to the world and influenced nearly every genre of modern music.",
+    "difficulty_score": 2.0,
+    "facts": [
+      {"fact_id": "cul-003-f1", "fact_text": "Louis Armstrong, nicknamed 'Satchmo,' is considered one of the most influential figures in jazz history.", "source_section": "Key Figures"},
+      {"fact_id": "cul-003-f2", "fact_text": "Miles Davis's album 'Kind of Blue' (1959) is the best-selling jazz album of all time.", "source_section": "Albums"},
+      {"fact_id": "cul-003-f3", "fact_text": "Jazz was born in New Orleans, blending African rhythms with European musical traditions.", "source_section": "Origins"},
+      {"fact_id": "cul-003-f4", "fact_text": "UNESCO designated April 30 as International Jazz Day in 2011.", "source_section": "Recognition"}
+    ],
+    "quiz": [
+      {"quiz_id": "cul-003-q1", "question": "Where did jazz originate?", "option_a": "Chicago", "option_b": "New York", "option_c": "New Orleans", "option_d": "Memphis", "correct_option": "c"},
+      {"quiz_id": "cul-003-q2", "question": "What is the best-selling jazz album of all time?", "option_a": "A Love Supreme", "option_b": "Kind of Blue", "option_c": "Take Five", "option_d": "The Köln Concert", "correct_option": "b"}
+    ]
+  },
+  {
+    "topic_id": "cul-004",
+    "title": "Greek Mythology",
+    "summary": "Greek mythology is the body of myths originally told by ancient Greeks, concerning their gods, heroes, and the nature of the world. These stories have profoundly influenced Western art, literature, and culture.",
+    "category": "Culture",
+    "url": "https://en.wikipedia.org/wiki/Greek_mythology",
+    "why_matters": "Greek myths have influenced art, literature, psychology, and language for thousands of years and remain culturally relevant.",
+    "difficulty_score": 2.0,
+    "facts": [
+      {"fact_id": "cul-004-f1", "fact_text": "The 12 Olympian gods lived on Mount Olympus and were ruled by Zeus.", "source_section": "Gods"},
+      {"fact_id": "cul-004-f2", "fact_text": "The word 'marathon' comes from the legend of a Greek messenger who ran about 40 km from Marathon to Athens.", "source_section": "Heroes"},
+      {"fact_id": "cul-004-f3", "fact_text": "Homer's Iliad and Odyssey, written around 8th century BCE, are foundational texts of Greek mythology.", "source_section": "Literature"},
+      {"fact_id": "cul-004-f4", "fact_text": "Many English words come from Greek myths: 'narcissism' from Narcissus, 'echo' from Echo, 'titanic' from Titans.", "source_section": "Language"}
+    ],
+    "quiz": [
+      {"quiz_id": "cul-004-q1", "question": "Where did the 12 Olympian gods live?", "option_a": "Mount Parnassus", "option_b": "Mount Olympus", "option_c": "Mount Athos", "option_d": "Mount Vesuvius", "correct_option": "b"},
+      {"quiz_id": "cul-004-q2", "question": "What word comes from the Greek myth of Narcissus?", "option_a": "Narcotic", "option_b": "Narcissism", "option_c": "Narrative", "option_d": "Narrow", "correct_option": "b"}
+    ]
+  },
+  {
+    "topic_id": "cul-005",
+    "title": "Gothic Architecture",
+    "summary": "Gothic architecture flourished in Europe from the 12th to 16th centuries. It is characterized by pointed arches, ribbed vaults, flying buttresses, large stained glass windows, and soaring heights.",
+    "category": "Culture",
+    "url": "https://en.wikipedia.org/wiki/Gothic_architecture",
+    "why_matters": "Gothic architecture produced some of the world's most magnificent buildings and revolutionized structural engineering.",
+    "difficulty_score": 2.5,
+    "facts": [
+      {"fact_id": "cul-005-f1", "fact_text": "Notre-Dame de Paris, a masterpiece of Gothic architecture, was built between 1163 and 1345.", "source_section": "Landmarks"},
+      {"fact_id": "cul-005-f2", "fact_text": "Flying buttresses allowed Gothic buildings to be much taller and have thinner walls with larger windows.", "source_section": "Engineering"},
+      {"fact_id": "cul-005-f3", "fact_text": "The Cologne Cathedral took over 600 years to complete (1248–1880).", "source_section": "Landmarks"},
+      {"fact_id": "cul-005-f4", "fact_text": "Rose windows, circular stained glass windows, are a hallmark of Gothic cathedrals.", "source_section": "Features"}
+    ],
+    "quiz": [
+      {"quiz_id": "cul-005-q1", "question": "How long did the Cologne Cathedral take to complete?", "option_a": "100 years", "option_b": "200 years", "option_c": "Over 600 years", "option_d": "Over 800 years", "correct_option": "c"},
+      {"quiz_id": "cul-005-q2", "question": "What structural innovation allowed Gothic buildings to be taller?", "option_a": "Domes", "option_b": "Flying buttresses", "option_c": "Columns", "option_d": "Arches", "correct_option": "b"}
+    ]
+  },
+  {
+    "topic_id": "cul-006",
+    "title": "Street Art",
+    "summary": "Street art is visual art created in public locations, often unsanctioned. It includes graffiti, stencil art, sticker art, and murals. Banksy, the anonymous British artist, is the world's most famous street artist.",
+    "category": "Culture",
+    "url": "https://en.wikipedia.org/wiki/Street_art",
+    "why_matters": "Street art challenges traditional art boundaries, bringing art to the public and commenting on social and political issues.",
+    "difficulty_score": 1.5,
+    "facts": [
+      {"fact_id": "cul-006-f1", "fact_text": "Banksy's 'Girl with Balloon' partially shredded itself after being sold at auction for $1.4 million in 2018.", "source_section": "Banksy"},
+      {"fact_id": "cul-006-f2", "fact_text": "The Berlin Wall was one of the world's largest canvases for street art before its fall.", "source_section": "History"},
+      {"fact_id": "cul-006-f3", "fact_text": "Keith Haring began his art career drawing in New York City subway stations in the 1980s.", "source_section": "Pioneers"},
+      {"fact_id": "cul-006-f4", "fact_text": "Street art has moved from illegal vandalism to being exhibited in major museums and galleries worldwide.", "source_section": "Mainstream"}
+    ],
+    "quiz": [
+      {"quiz_id": "cul-006-q1", "question": "What happened to Banksy's 'Girl with Balloon' after being sold at auction?", "option_a": "It was stolen", "option_b": "It partially shredded itself", "option_c": "It was bought back", "option_d": "It was donated", "correct_option": "b"},
+      {"quiz_id": "cul-006-q2", "question": "Where did Keith Haring begin his art career?", "option_a": "Art galleries", "option_b": "NYC subway stations", "option_c": "London streets", "option_d": "Paris cafés", "correct_option": "b"}
+    ]
+  },
+  {
+    "topic_id": "cul-007",
+    "title": "Bollywood",
+    "summary": "Bollywood is the Hindi-language film industry based in Mumbai, India. It is one of the largest film industries in the world, producing over 1,500 films annually and known for its musical numbers and dramatic storytelling.",
+    "category": "Culture",
+    "url": "https://en.wikipedia.org/wiki/Bollywood",
+    "why_matters": "Bollywood produces more films per year than Hollywood and is a major cultural force across South Asia and globally.",
+    "difficulty_score": 1.5,
+    "facts": [
+      {"fact_id": "cul-007-f1", "fact_text": "Bollywood produces over 1,500 films per year, more than Hollywood.", "source_section": "Industry"},
+      {"fact_id": "cul-007-f2", "fact_text": "The name 'Bollywood' is a portmanteau of 'Bombay' (now Mumbai) and 'Hollywood.'", "source_section": "Name"},
+      {"fact_id": "cul-007-f3", "fact_text": "Bollywood films sell approximately 3.6 billion tickets annually worldwide.", "source_section": "Audience"},
+      {"fact_id": "cul-007-f4", "fact_text": "A typical Bollywood film includes 5-8 musical numbers interspersed throughout the story.", "source_section": "Style"}
+    ],
+    "quiz": [
+      {"quiz_id": "cul-007-q1", "question": "How many films does Bollywood produce per year?", "option_a": "About 500", "option_b": "About 800", "option_c": "Over 1,500", "option_d": "Over 3,000", "correct_option": "c"},
+      {"quiz_id": "cul-007-q2", "question": "Where is the name 'Bollywood' derived from?", "option_a": "Bombay + Hollywood", "option_b": "Bharat + Hollywood", "option_c": "Bollywood Road", "option_d": "British + Hollywood", "correct_option": "a"}
+    ]
+  },
+  {
+    "topic_id": "cul-008",
+    "title": "K-Pop",
+    "summary": "K-Pop (Korean popular music) is a music genre originating from South Korea that blends pop, hip-hop, R&B, and electronic dance music. It has become a global phenomenon with dedicated fanbases worldwide.",
+    "category": "Culture",
+    "url": "https://en.wikipedia.org/wiki/K-pop",
+    "why_matters": "K-Pop has become a multi-billion dollar global cultural export, influencing music, fashion, and entertainment worldwide.",
+    "difficulty_score": 1.5,
+    "facts": [
+      {"fact_id": "cul-008-f1", "fact_text": "BTS was the first K-Pop group to reach #1 on the Billboard Hot 100 with 'Dynamite' in 2020.", "source_section": "Global Impact"},
+      {"fact_id": "cul-008-f2", "fact_text": "The 'Korean Wave' (Hallyu) refers to the global spread of Korean culture since the late 1990s.", "source_section": "Hallyu"},
+      {"fact_id": "cul-008-f3", "fact_text": "K-Pop trainees often train for 2-5 years before debuting, with rigorous practice in singing, dancing, and languages.", "source_section": "Industry"},
+      {"fact_id": "cul-008-f4", "fact_text": "PSY's 'Gangnam Style' (2012) was the first YouTube video to reach 1 billion views.", "source_section": "Milestones"}
+    ],
+    "quiz": [
+      {"quiz_id": "cul-008-q1", "question": "What was the first YouTube video to reach 1 billion views?", "option_a": "Baby by Justin Bieber", "option_b": "Gangnam Style", "option_c": "Despacito", "option_d": "Shape of You", "correct_option": "b"},
+      {"quiz_id": "cul-008-q2", "question": "Which K-Pop group first reached #1 on Billboard Hot 100?", "option_a": "BLACKPINK", "option_b": "EXO", "option_c": "BTS", "option_d": "TWICE", "correct_option": "c"}
+    ]
+  },
+  {
+    "topic_id": "cul-009",
+    "title": "Anime",
+    "summary": "Anime is a style of animation that originated in Japan, characterized by colorful artwork, vibrant characters, and fantastical themes. It has become a global entertainment phenomenon with diverse genres and massive audiences.",
+    "category": "Culture",
+    "url": "https://en.wikipedia.org/wiki/Anime",
+    "why_matters": "Anime is a multi-billion dollar global industry that has shaped pop culture, art styles, and storytelling worldwide.",
+    "difficulty_score": 1.5,
+    "facts": [
+      {"fact_id": "cul-009-f1", "fact_text": "The global anime market was valued at over $25 billion in 2023.", "source_section": "Industry"},
+      {"fact_id": "cul-009-f2", "fact_text": "Osamu Tezuka, known as the 'God of Manga,' created Astro Boy in 1963, considered the first popular anime series.", "source_section": "History"},
+      {"fact_id": "cul-009-f3", "fact_text": "Spirited Away (2001) by Studio Ghibli won the Academy Award for Best Animated Feature.", "source_section": "Recognition"},
+      {"fact_id": "cul-009-f4", "fact_text": "Japan produces over 200 anime series per year.", "source_section": "Industry"}
+    ],
+    "quiz": [
+      {"quiz_id": "cul-009-q1", "question": "Who is known as the 'God of Manga'?", "option_a": "Hayao Miyazaki", "option_b": "Akira Toriyama", "option_c": "Osamu Tezuka", "option_d": "Eiichiro Oda", "correct_option": "c"},
+      {"quiz_id": "cul-009-q2", "question": "Which anime film won an Academy Award?", "option_a": "Akira", "option_b": "Spirited Away", "option_c": "Your Name", "option_d": "Ghost in the Shell", "correct_option": "b"}
+    ]
+  },
+  {
+    "topic_id": "cul-010",
+    "title": "Italian Renaissance Art",
+    "summary": "Italian Renaissance art (14th-17th century) marked a transition from medieval to modern art, emphasizing realism, perspective, and human anatomy. It produced some of the most celebrated artworks in history.",
+    "category": "Culture",
+    "url": "https://en.wikipedia.org/wiki/Italian_Renaissance_art",
+    "why_matters": "Renaissance art established techniques and principles that remain foundational to Western art today.",
+    "difficulty_score": 2.0,
+    "facts": [
+      {"fact_id": "cul-010-f1", "fact_text": "Leonardo da Vinci kept notebooks with mirror writing — text written right to left that can only be read in a mirror.", "source_section": "Leonardo"},
+      {"fact_id": "cul-010-f2", "fact_text": "Linear perspective was formalized by Filippo Brunelleschi around 1415, revolutionizing painting.", "source_section": "Techniques"},
+      {"fact_id": "cul-010-f3", "fact_text": "The statue of David by Michelangelo stands 5.17 meters (17 feet) tall and was carved from a single block of marble.", "source_section": "Michelangelo"},
+      {"fact_id": "cul-010-f4", "fact_text": "Raphael painted 'The School of Athens' between 1509 and 1511, depicting ancient Greek philosophers.", "source_section": "Raphael"}
+    ],
+    "quiz": [
+      {"quiz_id": "cul-010-q1", "question": "How tall is Michelangelo's David?", "option_a": "3 meters", "option_b": "Over 5 meters", "option_c": "7 meters", "option_d": "10 meters", "correct_option": "b"},
+      {"quiz_id": "cul-010-q2", "question": "Who formalized linear perspective in art?", "option_a": "Leonardo da Vinci", "option_b": "Michelangelo", "option_c": "Filippo Brunelleschi", "option_d": "Raphael", "correct_option": "c"}
+    ]
+  },
+  {
+    "topic_id": "tec-001",
+    "title": "Artificial Intelligence",
+    "summary": "Artificial Intelligence (AI) is the simulation of human intelligence by computer systems, including learning, reasoning, problem-solving, and language understanding. Modern AI is dominated by machine learning and deep neural networks.",
+    "category": "Technology",
+    "url": "https://en.wikipedia.org/wiki/Artificial_intelligence",
+    "why_matters": "AI is transforming every industry, from healthcare to transportation, and raising fundamental questions about the future of work and society.",
+    "difficulty_score": 3.0,
+    "facts": [
+      {"fact_id": "tec-001-f1", "fact_text": "The term 'Artificial Intelligence' was coined by John McCarthy at the Dartmouth Conference in 1956.", "source_section": "History"},
+      {"fact_id": "tec-001-f2", "fact_text": "GPT-4, released in 2023, has over 1 trillion parameters in its neural network.", "source_section": "Modern AI"},
+      {"fact_id": "tec-001-f3", "fact_text": "AlphaGo by DeepMind defeated the world champion of Go in 2016, a milestone previously thought decades away.", "source_section": "Milestones"},
+      {"fact_id": "tec-001-f4", "fact_text": "The global AI market is projected to exceed $500 billion by 2025.", "source_section": "Market"}
+    ],
+    "quiz": [
+      {"quiz_id": "tec-001-q1", "question": "When was the term 'Artificial Intelligence' coined?", "option_a": "1945", "option_b": "1950", "option_c": "1956", "option_d": "1965", "correct_option": "c"},
+      {"quiz_id": "tec-001-q2", "question": "What milestone did AlphaGo achieve in 2016?", "option_a": "Beat a chess champion", "option_b": "Beat the world Go champion", "option_c": "Passed the Turing Test", "option_d": "Wrote a novel", "correct_option": "b"}
+    ]
+  },
+  {
+    "topic_id": "tec-002",
+    "title": "The Internet",
+    "summary": "The Internet is a global network of interconnected computer networks using the TCP/IP protocol. It originated from ARPANET (1969) and has become essential to modern communication, commerce, and information access.",
+    "category": "Technology",
+    "url": "https://en.wikipedia.org/wiki/Internet",
+    "why_matters": "The Internet is arguably the most transformative technology of the late 20th century, reshaping every aspect of human society.",
+    "difficulty_score": 2.0,
+    "facts": [
+      {"fact_id": "tec-002-f1", "fact_text": "ARPANET, the precursor to the Internet, sent its first message on October 29, 1969.", "source_section": "History"},
+      {"fact_id": "tec-002-f2", "fact_text": "The World Wide Web was invented by Tim Berners-Lee in 1989 at CERN.", "source_section": "WWW"},
+      {"fact_id": "tec-002-f3", "fact_text": "As of 2024, over 5.3 billion people use the Internet — about 66% of the global population.", "source_section": "Usage"},
+      {"fact_id": "tec-002-f4", "fact_text": "The first website ever created is still online at info.cern.ch.", "source_section": "WWW"}
+    ],
+    "quiz": [
+      {"quiz_id": "tec-002-q1", "question": "What was the precursor to the Internet?", "option_a": "Ethernet", "option_b": "ARPANET", "option_c": "CompuServe", "option_d": "Telnet", "correct_option": "b"},
+      {"quiz_id": "tec-002-q2", "question": "Who invented the World Wide Web?", "option_a": "Vint Cerf", "option_b": "Bill Gates", "option_c": "Tim Berners-Lee", "option_d": "Steve Jobs", "correct_option": "c"}
+    ]
+  },
+  {
+    "topic_id": "tec-003",
+    "title": "Blockchain",
+    "summary": "Blockchain is a distributed ledger technology that records transactions across many computers so that no record can be altered retroactively. It is the underlying technology behind cryptocurrencies like Bitcoin.",
+    "category": "Technology",
+    "url": "https://en.wikipedia.org/wiki/Blockchain",
+    "why_matters": "Blockchain enables trustless, decentralized transactions and has applications beyond cryptocurrency in supply chains, voting, and more.",
+    "difficulty_score": 3.0,
+    "facts": [
+      {"fact_id": "tec-003-f1", "fact_text": "The Bitcoin whitepaper was published by the pseudonymous Satoshi Nakamoto in October 2008.", "source_section": "Origin"},
+      {"fact_id": "tec-003-f2", "fact_text": "A new Bitcoin block is mined approximately every 10 minutes.", "source_section": "Bitcoin"},
+      {"fact_id": "tec-003-f3", "fact_text": "Blockchain was first conceptualized by Stuart Haber and W. Scott Stornetta in 1991.", "source_section": "History"},
+      {"fact_id": "tec-003-f4", "fact_text": "Ethereum, launched in 2015, introduced smart contracts — self-executing contracts with terms written in code.", "source_section": "Ethereum"}
+    ],
+    "quiz": [
+      {"quiz_id": "tec-003-q1", "question": "Who published the Bitcoin whitepaper?", "option_a": "Vitalik Buterin", "option_b": "Satoshi Nakamoto", "option_c": "Nick Szabo", "option_d": "Hal Finney", "correct_option": "b"},
+      {"quiz_id": "tec-003-q2", "question": "What did Ethereum introduce to blockchain?", "option_a": "Proof of Stake", "option_b": "Mining", "option_c": "Smart contracts", "option_d": "Digital wallets", "correct_option": "c"}
+    ]
+  },
+  {
+    "topic_id": "tec-004",
+    "title": "Quantum Computing",
+    "summary": "Quantum computing harnesses quantum mechanical phenomena like superposition and entanglement to process information in fundamentally different ways than classical computers, potentially solving certain problems exponentially faster.",
+    "category": "Technology",
+    "url": "https://en.wikipedia.org/wiki/Quantum_computing",
+    "why_matters": "Quantum computing could revolutionize cryptography, drug discovery, materials science, and optimization problems.",
+    "difficulty_score": 4.5,
+    "facts": [
+      {"fact_id": "tec-004-f1", "fact_text": "IBM unveiled a 1,000-qubit quantum processor called Condor in 2023.", "source_section": "Hardware"},
+      {"fact_id": "tec-004-f2", "fact_text": "Quantum computers use qubits that can exist in superposition — being both 0 and 1 simultaneously.", "source_section": "Principles"},
+      {"fact_id": "tec-004-f3", "fact_text": "Google claimed quantum supremacy in 2019, performing a calculation in 200 seconds that would take a supercomputer 10,000 years.", "source_section": "Milestones"},
+      {"fact_id": "tec-004-f4", "fact_text": "The concept of quantum computing was first proposed by Richard Feynman in 1982.", "source_section": "History"}
+    ],
+    "quiz": [
+      {"quiz_id": "tec-004-q1", "question": "What can qubits do that classical bits cannot?", "option_a": "Store more data", "option_b": "Exist in superposition", "option_c": "Run faster", "option_d": "Connect to WiFi", "correct_option": "b"},
+      {"quiz_id": "tec-004-q2", "question": "When did Google claim quantum supremacy?", "option_a": "2017", "option_b": "2019", "option_c": "2021", "option_d": "2023", "correct_option": "b"}
+    ]
+  },
+  {
+    "topic_id": "tec-005",
+    "title": "Electric Cars",
+    "summary": "Electric vehicles (EVs) are powered by electric motors using energy stored in batteries. After decades of limited adoption, EVs have rapidly gained market share since the 2010s, led by companies like Tesla.",
+    "category": "Technology",
+    "url": "https://en.wikipedia.org/wiki/Electric_car",
+    "why_matters": "Electric cars are central to reducing transportation emissions and transitioning to sustainable energy.",
+    "difficulty_score": 2.0,
+    "facts": [
+      {"fact_id": "tec-005-f1", "fact_text": "The first crude electric car was developed in 1832 by Scottish inventor Robert Anderson.", "source_section": "History"},
+      {"fact_id": "tec-005-f2", "fact_text": "Electric cars accounted for about 18% of global car sales in 2023.", "source_section": "Market"},
+      {"fact_id": "tec-005-f3", "fact_text": "Modern EV batteries can last 8-15 years or 100,000-200,000 miles before significant degradation.", "source_section": "Technology"},
+      {"fact_id": "tec-005-f4", "fact_text": "China is the world's largest market for electric vehicles, accounting for about 60% of global EV sales.", "source_section": "Market"}
+    ],
+    "quiz": [
+      {"quiz_id": "tec-005-q1", "question": "When was the first electric car developed?", "option_a": "1885", "option_b": "1900", "option_c": "1832", "option_d": "1920", "correct_option": "c"},
+      {"quiz_id": "tec-005-q2", "question": "Which country is the largest EV market?", "option_a": "United States", "option_b": "Germany", "option_c": "Japan", "option_d": "China", "correct_option": "d"}
+    ]
+  },
+  {
+    "topic_id": "tec-006",
+    "title": "3D Printing",
+    "summary": "3D printing (additive manufacturing) creates three-dimensional objects by depositing material layer by layer. It is used in manufacturing, medicine, architecture, and consumer products.",
+    "category": "Technology",
+    "url": "https://en.wikipedia.org/wiki/3D_printing",
+    "why_matters": "3D printing is transforming manufacturing by enabling rapid prototyping, custom medical devices, and on-demand production.",
+    "difficulty_score": 2.5,
+    "facts": [
+      {"fact_id": "tec-006-f1", "fact_text": "The first 3D printing technology, stereolithography, was invented by Chuck Hull in 1983.", "source_section": "History"},
+      {"fact_id": "tec-006-f2", "fact_text": "3D-printed organs (bioprinting) are being developed and have successfully produced functional tissue.", "source_section": "Medicine"},
+      {"fact_id": "tec-006-f3", "fact_text": "NASA has tested 3D printers on the International Space Station to print tools on demand.", "source_section": "Space"},
+      {"fact_id": "tec-006-f4", "fact_text": "3D printing can use materials including plastics, metals, ceramics, food, and even human cells.", "source_section": "Materials"}
+    ],
+    "quiz": [
+      {"quiz_id": "tec-006-q1", "question": "When was the first 3D printing technology invented?", "option_a": "1970", "option_b": "1983", "option_c": "1995", "option_d": "2005", "correct_option": "b"},
+      {"quiz_id": "tec-006-q2", "question": "What has NASA tested 3D printing for?", "option_a": "Rocket engines", "option_b": "Food in space", "option_c": "Tools on the ISS", "option_d": "Space suits", "correct_option": "c"}
+    ]
+  },
+  {
+    "topic_id": "tec-007",
+    "title": "Space Exploration",
+    "summary": "Space exploration is the investigation of outer space using astronomy and space technology. From Sputnik in 1957 to Mars rovers and the James Webb Space Telescope, humanity continues to push the boundaries of space discovery.",
+    "category": "Technology",
+    "url": "https://en.wikipedia.org/wiki/Space_exploration",
+    "why_matters": "Space exploration drives technological innovation, scientific discovery, and may be essential for humanity's long-term future.",
+    "difficulty_score": 2.0,
+    "facts": [
+      {"fact_id": "tec-007-f1", "fact_text": "Sputnik 1, launched by the USSR on October 4, 1957, was the first artificial satellite.", "source_section": "Milestones"},
+      {"fact_id": "tec-007-f2", "fact_text": "The James Webb Space Telescope, launched in 2021, can observe objects 13.6 billion light-years away.", "source_section": "JWST"},
+      {"fact_id": "tec-007-f3", "fact_text": "SpaceX's Starship is designed to be the largest and most powerful rocket ever built, intended for Mars missions.", "source_section": "Future"},
+      {"fact_id": "tec-007-f4", "fact_text": "The International Space Station has been continuously inhabited since November 2000.", "source_section": "ISS"}
+    ],
+    "quiz": [
+      {"quiz_id": "tec-007-q1", "question": "What was the first artificial satellite?", "option_a": "Explorer 1", "option_b": "Sputnik 1", "option_c": "Vanguard 1", "option_d": "Telstar", "correct_option": "b"},
+      {"quiz_id": "tec-007-q2", "question": "Since when has the ISS been continuously inhabited?", "option_a": "1995", "option_b": "1998", "option_c": "2000", "option_d": "2004", "correct_option": "c"}
+    ]
+  },
+  {
+    "topic_id": "tec-008",
+    "title": "Smartphones",
+    "summary": "Smartphones are mobile devices combining computing, telephony, and multimedia capabilities. The first smartphone, IBM's Simon, was introduced in 1994, but the modern smartphone era began with the iPhone in 2007.",
+    "category": "Technology",
+    "url": "https://en.wikipedia.org/wiki/Smartphone",
+    "why_matters": "Smartphones have fundamentally changed how billions of people communicate, work, navigate, and access information.",
+    "difficulty_score": 1.5,
+    "facts": [
+      {"fact_id": "tec-008-f1", "fact_text": "The first smartphone, IBM Simon, was introduced in 1994 and had a touchscreen, email, and fax capabilities.", "source_section": "History"},
+      {"fact_id": "tec-008-f2", "fact_text": "Apple's iPhone, launched in 2007, revolutionized the smartphone industry and popularized touchscreens.", "source_section": "iPhone"},
+      {"fact_id": "tec-008-f3", "fact_text": "There are over 6.8 billion smartphone subscriptions worldwide as of 2023.", "source_section": "Usage"},
+      {"fact_id": "tec-008-f4", "fact_text": "The average person checks their smartphone about 96 times per day — roughly once every 10 minutes.", "source_section": "Behavior"}
+    ],
+    "quiz": [
+      {"quiz_id": "tec-008-q1", "question": "What was the first smartphone?", "option_a": "Nokia 9000", "option_b": "BlackBerry 850", "option_c": "IBM Simon", "option_d": "iPhone", "correct_option": "c"},
+      {"quiz_id": "tec-008-q2", "question": "When was the iPhone launched?", "option_a": "2005", "option_b": "2006", "option_c": "2007", "option_d": "2008", "correct_option": "c"}
+    ]
+  },
+  {
+    "topic_id": "tec-009",
+    "title": "Open Source Software",
+    "summary": "Open source software is software with source code that anyone can inspect, modify, and distribute. It powers much of the internet's infrastructure, including Linux, Android, and most web servers.",
+    "category": "Technology",
+    "url": "https://en.wikipedia.org/wiki/Open-source_software",
+    "why_matters": "Open source software underpins most of the modern digital world, from servers to smartphones to AI research.",
+    "difficulty_score": 2.0,
+    "facts": [
+      {"fact_id": "tec-009-f1", "fact_text": "Linux, created by Linus Torvalds in 1991, powers over 96% of the world's top 1 million servers.", "source_section": "Linux"},
+      {"fact_id": "tec-009-f2", "fact_text": "The term 'open source' was coined in 1998 at a meeting in Palo Alto, California.", "source_section": "History"},
+      {"fact_id": "tec-009-f3", "fact_text": "Android, the world's most popular mobile OS, is based on the open-source Linux kernel.", "source_section": "Android"},
+      {"fact_id": "tec-009-f4", "fact_text": "GitHub, the largest open source platform, hosts over 100 million repositories.", "source_section": "Platforms"}
+    ],
+    "quiz": [
+      {"quiz_id": "tec-009-q1", "question": "What percentage of top servers run Linux?", "option_a": "About 50%", "option_b": "About 70%", "option_c": "About 85%", "option_d": "Over 96%", "correct_option": "d"},
+      {"quiz_id": "tec-009-q2", "question": "Who created Linux?", "option_a": "Bill Gates", "option_b": "Steve Wozniak", "option_c": "Linus Torvalds", "option_d": "Dennis Ritchie", "correct_option": "c"}
+    ]
+  },
+  {
+    "topic_id": "tec-010",
+    "title": "Virtual Reality",
+    "summary": "Virtual Reality (VR) uses computer technology to create simulated environments that users can interact with using headsets and controllers. Modern VR is used in gaming, training, therapy, and architecture.",
+    "category": "Technology",
+    "url": "https://en.wikipedia.org/wiki/Virtual_reality",
+    "why_matters": "VR is transforming entertainment, education, healthcare, and workplace training with immersive experiences.",
+    "difficulty_score": 2.5,
+    "facts": [
+      {"fact_id": "tec-010-f1", "fact_text": "The first VR headset, the Sensorama, was developed by Morton Heilig in 1962.", "source_section": "History"},
+      {"fact_id": "tec-010-f2", "fact_text": "The term 'Virtual Reality' was coined by Jaron Lanier in 1987.", "source_section": "Terminology"},
+      {"fact_id": "tec-010-f3", "fact_text": "Meta's Quest 3, released in 2023, is one of the most popular standalone VR headsets.", "source_section": "Hardware"},
+      {"fact_id": "tec-010-f4", "fact_text": "VR is increasingly used in healthcare for surgical training, exposure therapy, and pain management.", "source_section": "Medicine"}
+    ],
+    "quiz": [
+      {"quiz_id": "tec-010-q1", "question": "When was the first VR headset developed?", "option_a": "1950", "option_b": "1962", "option_c": "1975", "option_d": "1985", "correct_option": "b"},
+      {"quiz_id": "tec-010-q2", "question": "Who coined the term 'Virtual Reality'?", "option_a": "Tim Berners-Lee", "option_b": "Mark Zuckerberg", "option_c": "Jaron Lanier", "option_d": "Palmer Luckey", "correct_option": "c"}
+    ]
+  }
+]

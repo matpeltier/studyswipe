@@ -1,0 +1,57 @@
+import uuid
+import streamlit as st
+from utils.database import init_db, get_connection, get_topic_count
+from utils.data_seeder import seed_database
+
+st.set_page_config(
+    page_title="StudySwipe",
+    page_icon=":material/school:",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
+
+if "user_session" not in st.session_state:
+    st.session_state.user_session = str(uuid.uuid4())
+
+init_db()
+seed_database()
+
+pages = [
+    st.Page("app_pages/feed.py", title="Feed", icon=":material/swipe:"),
+    st.Page("app_pages/discover.py", title="Discover", icon=":material/explore:"),
+    st.Page("app_pages/saved.py", title="Saved", icon=":material/bookmark:"),
+    st.Page("app_pages/quiz.py", title="Quiz", icon=":material/quiz:"),
+    st.Page("app_pages/analytics.py", title="Analytics", icon=":material/analytics:"),
+]
+
+page = st.navigation(pages, position="top")
+
+st.markdown(
+    """
+    <style>
+    [data-testid="stTopNav"] {
+        background: linear-gradient(90deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    }
+    .stApp {
+        background: linear-gradient(180deg, #0f0f23 0%, #1a1a2e 100%);
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+conn = get_connection()
+topic_count = get_topic_count(conn)
+conn.close()
+
+with st.sidebar:
+    st.image(
+        "https://img.icons8.com/fluency/96/study.png",
+        width=60,
+    )
+    st.markdown("# StudySwipe")
+    st.caption("Swipe, save, and quiz yourself on anything.")
+    st.markdown("---")
+    st.caption(f":material/database: **{topic_count}** topics loaded")
+
+page.run()
