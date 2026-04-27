@@ -2,11 +2,11 @@ SWIPE_CARD_HTML = """\
 <div id="swipe-container" style="
   position: relative;
   width: 100%;
-  max-width: 600px;
+  max-width: 900px;
   margin: 0 auto;
-  height: 420px;
+  height: min(70vh, 520px);
   perspective: 1000px;
-  user-select: none;
+  overflow: hidden;
 ">
   <div id="swipe-card" style="
     position: absolute;
@@ -14,14 +14,13 @@ SWIPE_CARD_HTML = """\
     border-radius: 16px;
     background: var(--st-secondary-background-color, #1a1a2e);
     border: 1px solid rgba(99,102,241,0.3);
-    padding: 24px;
-    overflow-y: auto;
-    cursor: grab;
+    padding: 20px 24px;
+    overflow: hidden;
     transition: box-shadow 0.2s ease;
     box-shadow: 0 4px 24px rgba(0,0,0,0.4);
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
   ">
     <div id="swipe-hint" style="
       position: absolute;
@@ -35,46 +34,60 @@ SWIPE_CARD_HTML = """\
       transition: opacity 0.15s ease;
       z-index: 10;
     "></div>
-    <div id="card-content" style="flex:1; display:flex; flex-direction:column; gap:8px;"></div>
+    <div id="card-content" style="flex:1; overflow-y:auto; overflow-x:hidden; display:flex; flex-direction:column; gap:6px; min-height:0;"></div>
+    <div id="swipe-arrows" style="
+      display:none;
+      justify-content:space-between; align-items:center;
+      padding-top:4px; font-size:0.8em; opacity:0.5;
+      color: var(--st-text-color, #e2e8f0); flex-shrink:0;
+    ">
+      <span>\\u2B05 Skip</span>
+      <span style="font-size:0.75em; opacity:0.7">Swipe to navigate</span>
+      <span>Save \\u27A1</span>
+    </div>
   </div>
-  <div id="nav-hint" style="
-    text-align: center;
-    margin-top: 8px;
-    padding-top: 8px;
-    font-size: 0.85em;
-    opacity: 0.6;
-    color: var(--st-text-color, #e2e8f0);
-  ">Drag left to skip, right to save. Use arrow keys for keyboard.</div>
 </div>
 """
 
 SWIPE_CARD_CSS = """\
-#swipe-card:active { cursor: grabbing; }
 #swipe-card.dragging { transition: none; }
 #swipe-card.fly-out {
   transition: transform 0.4s ease, opacity 0.4s ease;
 }
-#card-content h2 { margin: 0 0 4px 0; color: var(--st-text-color, #e2e8f0); }
+#card-content::-webkit-scrollbar { width: 4px; }
+#card-content::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.3); border-radius: 2px; }
+#card-content h2 { margin: 0 0 2px 0; color: var(--st-text-color, #e2e8f0); font-size: 1.3em; }
 #card-content .badge {
   display: inline-block;
   padding: 2px 10px;
   border-radius: 12px;
-  font-size: 0.8em;
+  font-size: 0.75em;
   font-weight: 600;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
-#card-content p { margin: 4px 0; line-height: 1.5; color: var(--st-text-color, #e2e8f0); }
-#card-content .meta { font-size: 0.85em; opacity: 0.8; }
+#card-content .meta { font-size: 0.8em; opacity: 0.8; margin: 0; color: var(--st-text-color, #e2e8f0); }
+#card-content p { margin: 4px 0; line-height: 1.4; color: var(--st-text-color, #e2e8f0); font-size: 0.92em; }
 #card-content .why-matters {
-  background: rgba(99,102,241,0.15);
+  background: rgba(99,102,241,0.12);
   border-left: 3px solid #6366f1;
-  padding: 8px 12px;
+  padding: 6px 10px;
   border-radius: 4px;
-  margin: 6px 0;
+  margin: 4px 0;
+  font-size: 0.88em;
 }
-#card-content .facts-list { margin: 4px 0; padding-left: 16px; }
-#card-content .facts-list li { margin: 4px 0; line-height: 1.4; color: var(--st-text-color, #e2e8f0); }
-#card-content .quiz-q { font-weight: 600; margin-top: 8px; }
+#card-content .facts-list { margin: 2px 0; padding-left: 14px; }
+#card-content .facts-list li { margin: 2px 0; line-height: 1.3; font-size: 0.88em; color: var(--st-text-color, #e2e8f0); }
+
+@media (pointer: coarse) {
+  #swipe-card { cursor: grab; user-select: none; touch-action: pan-y; }
+  #swipe-card:active { cursor: grabbing; }
+  #swipe-arrows { display: flex !important; }
+}
+@media (max-width: 640px) {
+  #swipe-container { height: min(65vh, 420px); }
+  #card-content h2 { font-size: 1.1em; }
+  #card-content p { font-size: 0.85em; }
+}
 """
 
 SWIPE_CARD_JS = """\
@@ -98,37 +111,36 @@ export default function(component) {
   if (t.popularity || t.difficulty) {
     html += `<div class="meta">`
     html += `${popIcons[t.popularity] || ''} ${t.popularity || ''}`
-    if (t.difficulty) html += ` &middot; ${t.difficulty}`
-    if (t.pageviews) html += ` &middot; ${t.pageviews.toLocaleString()} views/wk`
+    if (t.difficulty) html += ` \\u00B7 ${t.difficulty}`
+    if (t.pageviews) html += ` \\u00B7 ${t.pageviews.toLocaleString()} views/wk`
     html += `</div>`
   }
 
-  html += `<p>${t.summary}</p>`
+  const summary = t.summary
+  html += `<p>${summary}</p>`
 
   if (t.why_matters) {
     html += `<div class="why-matters">\\u{1F4A1} <strong>Why this matters:</strong> ${t.why_matters}</div>`
   }
 
   if (t.facts && t.facts.length > 0) {
-    html += `<strong>Key facts:</strong><ul class="facts-list">`
-    t.facts.forEach(f => { html += `<li>${f}</li>` })
-    html += `</ul>`
-  }
-
-  if (t.quiz_question) {
-    html += `<div class="quiz-q">\\u{1F4DD} ${t.quiz_question}</div>`
-    if (t.quiz_options) {
-      t.quiz_options.forEach(o => { html += `<div class="meta" style="padding:2px 0">\\u{25CB} ${o}</div>` })
+    html += `<strong style="font-size:0.9em">Key facts:</strong><ul class="facts-list">`
+    const maxFacts = t.facts.length > 3 ? 3 : t.facts.length
+    for (let i = 0; i < maxFacts; i++) {
+      html += `<li>${t.facts[i]}</li>`
     }
+    html += `</ul>`
   }
 
   content.innerHTML = html
 
-  let startX = 0, currentX = 0, isDragging = false
-  const THRESHOLD = 120
+  const isTouchDevice = window.matchMedia("(pointer: coarse)").matches
+
+  let startX = 0, startY = 0, currentX = 0, isDragging = false, isScrolling = false
+  const THRESHOLD = 100
 
   function updateCard(dx) {
-    const rot = dx * 0.08
+    const rot = dx * 0.06
     card.style.transform = `translateX(${dx}px) rotate(${rot}deg)`
     const progress = Math.min(Math.abs(dx) / THRESHOLD, 1)
     if (dx > 0) {
@@ -169,43 +181,49 @@ export default function(component) {
     setTimeout(resetCard, 50)
   }
 
-  card.addEventListener("mousedown", e => { isDragging = true; startX = e.clientX; card.classList.add("dragging"); e.preventDefault() })
-  card.addEventListener("touchstart", e => { isDragging = true; startX = e.touches[0].clientX; card.classList.add("dragging") }, {passive:true})
+  if (!isTouchDevice) return
 
-  const onMove = (clientX) => {
+  const shadow = card.getRootNode()
+
+  const onTouchStart = (e) => {
+    startX = e.touches[0].clientX; startY = e.touches[0].clientY
+    isDragging = false; isScrolling = false; currentX = 0
+    card.classList.add("dragging")
+  }
+  shadow.addEventListener("touchstart", onTouchStart, true)
+
+  const onTouchMove = (e) => {
+    const dx = e.touches[0].clientX - startX
+    const dy = e.touches[0].clientY - startY
+    if (!isDragging && !isScrolling) {
+      if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 5) { isScrolling = true; return }
+      if (Math.abs(dx) > 5) { isDragging = true }
+    }
     if (!isDragging) return
-    currentX = clientX - startX
+    currentX = dx
     updateCard(currentX)
   }
-  document.addEventListener("mousemove", e => onMove(e.clientX))
-  document.addEventListener("touchmove", e => onMove(e.touches[0].clientX), {passive:true})
+  shadow.addEventListener("touchmove", onTouchMove, {passive:true})
 
-  const onEnd = () => {
-    if (!isDragging) return
-    isDragging = false
+  const onTouchEnd = () => {
+    if (!isDragging && !isScrolling) return
+    isDragging = false; isScrolling = false
     card.classList.remove("dragging")
-    if (Math.abs(currentX) > THRESHOLD) {
+    if (currentX !== 0 && Math.abs(currentX) > THRESHOLD) {
       flyOut(currentX > 0 ? 1 : -1)
     } else {
       updateCard(0)
     }
     currentX = 0
   }
-  document.addEventListener("mouseup", onEnd)
-  document.addEventListener("touchend", onEnd)
-
-  const onKey = (e) => {
-    if (e.key === "ArrowRight") flyOut(1)
-    else if (e.key === "ArrowLeft") flyOut(-1)
-  }
-  document.addEventListener("keydown", onKey)
+  shadow.addEventListener("touchend", onTouchEnd)
+  parentElement.addEventListener("touchend", onTouchEnd)
 
   return () => {
-    document.removeEventListener("mousemove", onMove)
-    document.removeEventListener("mouseup", onEnd)
-    document.removeEventListener("touchmove", onMove)
-    document.removeEventListener("touchend", onEnd)
-    document.removeEventListener("keydown", onKey)
+    shadow.removeEventListener("touchstart", onTouchStart, true)
+    shadow.removeEventListener("touchmove", onTouchMove)
+    shadow.removeEventListener("touchend", onTouchEnd)
+    parentElement.removeEventListener("touchend", onTouchEnd)
   }
 }
 """

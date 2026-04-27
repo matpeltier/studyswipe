@@ -1,86 +1,110 @@
-import json
-import os
-import random
 import logging
+import time
 
-from utils.database import (
-    get_connection,
-    insert_topic,
-    insert_metrics,
-    insert_fact,
-    insert_quiz,
-    get_topic_count,
-)
-from utils.models import Topic, TopicMetrics, FactCard, QuizItem
+from utils.database import get_connection, get_topic_count
+from utils.wikipedia_fetcher import fetch_and_add_article
 
 logger = logging.getLogger(__name__)
 
-SEED_FILE = os.path.join(os.path.dirname(__file__), "..", "data", "seed_topics.json")
+SEED_TITLES = [
+    "Albert Einstein",
+    "Quantum mechanics",
+    "Theory of relativity",
+    "DNA",
+    "Black hole",
+    "Periodic table",
+    "Evolution",
+    "Climate change",
+    "Artificial intelligence",
+    "Solar System",
+    "Atomic theory",
+    "Photosynthesis",
+    "Neuroscience",
+    "Vaccine",
+    "CRISPR",
+    "General relativity",
+    "Superconductivity",
+    "Machine learning",
+    "Robotics",
+    "Internet",
+    "Blockchain",
+    "Virtual reality",
+    "Space exploration",
+    "Satellite",
+    "3D printing",
+    "Nanotechnology",
+    "Cybersecurity",
+    "Quantum computing",
+    "Algorithm",
+    "Drones",
+    "World War II",
+    "Roman Empire",
+    "French Revolution",
+    "Ancient Egypt",
+    "Renaissance",
+    "Byzantine Empire",
+    "Viking Age",
+    "Industrial Revolution",
+    "Cold War",
+    "Silk Road",
+    "Democracy",
+    "United Nations",
+    "European Union",
+    "Constitution",
+    "Human rights",
+    "Impressionism",
+    "Jazz",
+    "Ancient Greece",
+    "Philosophy",
+    "Opera",
+]
 
 
-def seed_database(force: bool = False):
+def seed_database(force: bool = False, progress_cb=None):
     conn = get_connection()
     try:
         count = get_topic_count(conn)
         if count > 0 and not force:
             logger.info("Database already has %d topics, skipping seed.", count)
-            return
+            return count
 
-        if not os.path.exists(SEED_FILE):
-            logger.error("Seed file not found: %s", SEED_FILE)
-            return
+        titles_to_fetch = []
+        existing = {
+            r["title"] for r in conn.execute("SELECT title FROM topics").fetchall()
+        }
+        for title in SEED_TITLES:
+            if title not in existing:
+                titles_to_fetch.append(title)
 
-        with open(SEED_FILE, "r", encoding="utf-8") as f:
-            topics_data = json.load(f)
+        if not titles_to_fetch:
+            logger.info("All seed topics already in database.")
+            return get_topic_count(conn)
 
-        for item in topics_data:
-            topic = Topic(
-                topic_id=item["topic_id"],
-                title=item["title"],
-                summary=item["summary"],
-                category=item["category"],
-                url=item.get("url", ""),
-                why_matters=item.get("why_matters", ""),
-            )
-            insert_topic(conn, topic)
+        logger.info("Seeding %d topics from Wikipedia...", len(titles_to_fetch))
+        added = 0
+        for i, title in enumerate(titles_to_fetch):
+            if progress_cb:
+                progress_cb(i, len(titles_to_fetch), title)
 
-            base_pv = random.randint(5000, 500000)
-            pv_7d = int(base_pv * random.uniform(0.15, 0.35))
-            metrics = TopicMetrics(
-                topic_id=item["topic_id"],
-                pageviews_7d=pv_7d,
-                pageviews_30d=base_pv,
-                trend_score=round(random.uniform(0.1, 10.0), 2),
-                difficulty_score=item.get(
-                    "difficulty_score", round(random.uniform(1.0, 5.0), 1)
-                ),
-            )
-            insert_metrics(conn, metrics)
-
-            for fact_data in item.get("facts", []):
-                fact = FactCard(
-                    fact_id=fact_data["fact_id"],
-                    topic_id=item["topic_id"],
-                    fact_text=fact_data["fact_text"],
-                    source_section=fact_data.get("source_section", ""),
+            tid = fetch_and_add_article(title)
+            if tid:
+                added += 1
+                logger.info("  [%d/%d] Added: %s", i + 1, len(titles_to_fetch), title)
+            else:
+                logger.warning(
+                    "  [%d/%d] Skipped: %s", i + 1, len(titles_to_fetch), title
                 )
-                insert_fact(conn, fact)
 
-            for quiz_data in item.get("quiz", []):
-                quiz = QuizItem(
-                    quiz_id=quiz_data["quiz_id"],
-                    topic_id=item["topic_id"],
-                    question=quiz_data["question"],
-                    option_a=quiz_data.get("option_a", ""),
-                    option_b=quiz_data.get("option_b", ""),
-                    option_c=quiz_data.get("option_c", ""),
-                    option_d=quiz_data.get("option_d", ""),
-                    correct_option=quiz_data.get("correct_option", "a"),
-                )
-                insert_quiz(conn, quiz)
+            time.sleep(0.3)
 
-        conn.commit()
-        logger.info("Seeded %d topics successfully.", len(topics_data))
+        final_count = get_topic_count(conn)
+        logger.info(
+            "Seeding complete: %d/%d topics added, %d total in DB.",
+            added,
+            len(titles_to_fetch),
+            final_count,
+        )
+        return final_count
     finally:
         conn.close()
 

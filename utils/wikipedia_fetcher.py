@@ -3,6 +3,7 @@ import re
 import uuid
 from typing import Optional
 
+from utils.ai_quiz_generator import generate_quizzes_with_ai
 from utils.database import (
     get_connection,
     insert_topic,
@@ -284,9 +285,26 @@ def fetch_and_add_article(title: str) -> Optional[str]:
             )
         )
 
-    quizzes = _generate_quizzes(facts_text, topic_id)
-    for q in quizzes:
-        q.topic_id = topic_id
+    ai_raw = generate_quizzes_with_ai(topic.title, summary, facts_text, count=3)
+    if ai_raw:
+        quizzes = []
+        for i, qd in enumerate(ai_raw):
+            quizzes.append(
+                QuizItem(
+                    quiz_id=f"ai-{topic_id}-q{i}",
+                    topic_id=topic_id,
+                    question=qd["question"],
+                    option_a=qd["option_a"],
+                    option_b=qd["option_b"],
+                    option_c=qd["option_c"],
+                    option_d=qd["option_d"],
+                    correct_option=qd["correct_option"],
+                )
+            )
+    else:
+        quizzes = _generate_quizzes(facts_text, topic_id)
+        for q in quizzes:
+            q.topic_id = topic_id
 
     conn = get_connection()
     try:

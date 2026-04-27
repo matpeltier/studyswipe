@@ -1,4 +1,3 @@
-import json
 import random as _random
 
 import streamlit as st
@@ -77,21 +76,6 @@ else:
         "difficulty": card.difficulty_label,
         "pageviews": card.metrics.pageviews_7d if card.metrics else 0,
         "facts": [f.fact_text for f in card.facts],
-        "quiz_question": card.quiz_items[0].question if card.quiz_items else None,
-        "quiz_options": (
-            [
-                o
-                for o in [
-                    card.quiz_items[0].option_a,
-                    card.quiz_items[0].option_b,
-                    card.quiz_items[0].option_c,
-                    card.quiz_items[0].option_d,
-                ]
-                if o
-            ]
-            if card.quiz_items
-            else []
-        ),
     }
 
     needs_reset = st.session_state.pop("swipe_needs_reset", True)

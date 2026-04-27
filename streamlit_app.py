@@ -2,6 +2,7 @@ import uuid
 import streamlit as st
 from utils.database import init_db, get_connection, get_topic_count
 from utils.data_seeder import seed_database
+from utils.session_component import get_session_id
 
 st.set_page_config(
     page_title="StudySwipe",
@@ -10,11 +11,30 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-if "user_session" not in st.session_state:
-    st.session_state.user_session = str(uuid.uuid4())
-
 init_db()
-seed_database()
+
+if "user_session" not in st.session_state:
+    session_id = get_session_id()
+    st.session_state.user_session = session_id
+
+conn = get_connection()
+topic_count = get_topic_count(conn)
+conn.close()
+
+if topic_count == 0:
+    progress_text = st.empty()
+    progress_bar = st.progress(0, text="Loading topics from Wikipedia...")
+
+    def on_progress(current, total, title):
+        pct = int((current + 1) / total * 100)
+        progress_bar.progress(
+            pct,
+            text=f"Loading {current + 1}/{total}: {title}",
+        )
+
+    seed_database(progress_cb=on_progress)
+    progress_bar.empty()
+    progress_text.empty()
 
 pages = [
     st.Page("app_pages/feed.py", title="Feed", icon=":material/swipe:"),
@@ -45,11 +65,7 @@ topic_count = get_topic_count(conn)
 conn.close()
 
 with st.sidebar:
-    st.image(
-        "https://img.icons8.com/fluency/96/study.png",
-        width=60,
-    )
-    st.markdown("# StudySwipe")
+    st.markdown("## :material/school: StudySwipe")
     st.caption("Swipe, save, and quiz yourself on anything.")
     st.markdown("---")
     st.caption(f":material/database: **{topic_count}** topics loaded")
