@@ -1,7 +1,7 @@
 import logging
 import re
 import uuid
-from typing import Optional
+import random
 
 from utils.ai_quiz_generator import generate_quizzes_with_ai
 from utils.database import (
@@ -10,7 +10,6 @@ from utils.database import (
     insert_metrics,
     insert_fact,
     insert_quiz,
-    get_topic_count,
 )
 from utils.models import Topic, TopicMetrics, FactCard, QuizItem
 from utils.wikipedia_api import (
@@ -24,136 +23,30 @@ from utils.wikipedia_api import (
 logger = logging.getLogger(__name__)
 
 CATEGORY_KEYWORDS = {
-    "Science": [
-        "physics",
-        "chemistry",
-        "biology",
-        "medicine",
-        "astronomy",
-        "genetics",
-        "quantum",
-        "atom",
-        "molecule",
-        "evolution",
-        "dna",
-        "cell",
-        "planet",
-        "star",
-        "galaxy",
-        "climate",
-        "ecosystem",
-        "species",
-        "element",
-        "chemical",
-        "energy",
-        "force",
-        "gravity",
-        "particle",
-    ],
-    "History": [
-        "war",
-        "empire",
-        "kingdom",
-        "revolution",
-        "ancient",
-        "medieval",
-        "dynasty",
-        "battle",
-        "treaty",
-        "colonial",
-        "century",
-        "civilization",
-        "pharaoh",
-        "roman",
-        "greece",
-        "renaissance",
-        "independence",
-        "conquest",
-        "monarchy",
-        "republic",
-    ],
-    "Politics": [
-        "democracy",
-        "election",
-        "government",
-        "parliament",
-        "congress",
-        "constitution",
-        "law",
-        "rights",
-        "vote",
-        "political",
-        "president",
-        "senate",
-        "legislation",
-        "policy",
-        "diplomacy",
-        "treaty",
-        "international",
-        "united nations",
-        "nato",
-        "eu ",
-    ],
-    "Culture": [
-        "art",
-        "music",
-        "painting",
-        "sculpture",
-        "film",
-        "literature",
-        "poetry",
-        "theatre",
-        "theater",
-        "dance",
-        "architecture",
-        "mythology",
-        "language",
-        "religion",
-        "festival",
-        "cuisine",
-        "fashion",
-        "design",
-        "opera",
-        "jazz",
-        "rock",
-        "cinema",
-    ],
-    "Technology": [
-        "computer",
-        "software",
-        "internet",
-        "algorithm",
-        "artificial intelligence",
-        "robot",
-        "digital",
-        "electronic",
-        "programming",
-        "data",
-        "network",
-        "machine learning",
-        "blockchain",
-        "virtual reality",
-        "drone",
-        "satellite",
-        "rocket",
-        "space",
-        "engineering",
-        "innovation",
-    ],
+    "Science": ("physics", "chemistry", "biology", "dna", "evolution", "climate", "quantum"),
+    "History": ("war", "empire", "revolution", "ancient", "medieval", "roman", "civilization"),
+    "Politics": ("democracy", "election", "government", "law", "rights", "constitution", "united nations"),
+    "Culture": ("art", "music", "painting", "literature", "theatre", "opera", "jazz", "cinema"),
+    "Technology": ("computer", "software", "internet", "algorithm", "robot", "programming", "blockchain"),
 }
 
 
-def _guess_category(title: str, summary: str) -> str:
+def _guess_category(title, summary):
     text = (title + " " + summary).lower()
-    scores = {}
+    best_cat = "Technology"
+    best_score = 0
     for cat, keywords in CATEGORY_KEYWORDS.items():
-        scores[cat] = sum(1 for kw in keywords if kw in text)
-    if not scores or max(scores.values()) == 0:
-        return "Technology"
-    return max(scores, key=scores.get)
+        score = 0
+        for kw in keywords:
+            if kw in text:
+                score = score + 1
+        if score > best_score:
+            best_cat = cat
+            best_score = score
+    return best_cat
 
 
-def _extract_facts_from_sections(extract: str) -> list[str]:
+def _extract_facts_from_sections(extract):
     paragraphs = [p.strip() for p in extract.split("\n\n") if p.strip()]
     facts = []
     for para in paragraphs[:4]:
@@ -167,7 +60,17 @@ def _extract_facts_from_sections(extract: str) -> list[str]:
     return facts
 
 
-def _generate_quiz_from_sentence(sentence: str, idx: int) -> Optional[QuizItem]:
+def _generate_number_quiz(facts, prefix):
+    quizzes = []
+    for i, fact in enumerate(facts):
+        quiz = _create_number_quiz(fact, i)
+        if quiz:
+            quiz.quiz_id = f"wiki-{prefix}-q{i}"
+            quizzes.append(quiz)
+    return quizzes
+
+
+def _create_number_quiz(sentence, idx):
     numbers = re.findall(r"\b(\d{1,3}(?:,\d{3})*(?:\.\d+)?)\b", sentence)
     if numbers:
         original = numbers[0]
@@ -194,8 +97,8 @@ def _generate_quiz_from_sentence(sentence: str, idx: int) -> Optional[QuizItem]:
     if year_match:
         original = year_match[0]
         y = int(original)
-        offsets = [-10, 10, -50, 50, 5, -5]
         wrongs = []
+        offsets = [-10, 10, -50, 50, 5, -5]
         for off in offsets:
             w = str(y + off)
             if w != original:
@@ -219,17 +122,67 @@ def _generate_quiz_from_sentence(sentence: str, idx: int) -> Optional[QuizItem]:
     return None
 
 
-def _generate_quizzes(facts: list[str], prefix: str) -> list[QuizItem]:
-    quizzes = []
-    for i, fact in enumerate(facts):
-        quiz = _generate_quiz_from_sentence(fact, i)
-        if quiz:
-            quiz.quiz_id = f"wiki-{prefix}-q{i}"
-            quizzes.append(quiz)
+def _generate_true_false_quiz(fact, topic_title, index):
+    if random.random() < 0.5:
+        return QuizItem(
+            quiz_id=f"tf-{topic_title[:3].lower()}-{index}-t",
+            topic_id="",
+            question=f"True or False: {fact}",
+            option_a="True",
+            option_b="False",
+            option_c="Not sure",
+            option_d="",
+            correct_option="a",
+        )
+    else:
+        modified = _modify_fact(fact)
+        if modified:
+            return QuizItem(
+                quiz_id=f"tf-{topic_title[:3].lower()}-{index}-f",
+                topic_id="",
+                question=f"True or False: {modified}",
+                option_a="True",
+                option_b="False",
+                option_c="Not sure",
+                option_d="",
+                correct_option="b",
+            )
+    return None
+
+
+def _modify_fact(fact):
+    number_words = {
+        "first": "second",
+        "last": "first",
+        "largest": "smallest",
+        "smallest": "largest",
+        "oldest": "youngest",
+        "highest": "lowest",
+        "longest": "shortest",
+        "most": "least",
+        "over": "under",
+    }
+    for word, replacement in number_words.items():
+        if word in fact.lower():
+            if word == fact.lower().split()[0]:
+                return fact.lower().replace(word, replacement).capitalize()
+            else:
+                return fact.replace(word, replacement)
+    return None
+
+
+def _generate_quizzes(facts, prefix, topic_title):
+    quizzes = _generate_number_quiz(facts, prefix)
+    if len(quizzes) == 0:
+        for i, fact in enumerate(facts):
+            quiz = _generate_true_false_quiz(fact, topic_title, i)
+            if quiz:
+                quiz.quiz_id = f"wiki-{prefix}-tf{i}"
+                quizzes.append(quiz)
     return quizzes
 
 
-def fetch_and_add_article(title: str) -> Optional[str]:
+def fetch_and_add_article(title):
     summary_data = get_summary(title)
     if not summary_data or not summary_data.get("extract"):
         return None
@@ -276,12 +229,12 @@ def fetch_and_add_article(title: str) -> Optional[str]:
     )
 
     fact_cards = []
-    for i, ft in enumerate(facts_text[:5]):
+    for i in range(min(len(facts_text), 5)):
         fact_cards.append(
             FactCard(
                 fact_id=f"{topic_id}-f{i}",
                 topic_id=topic_id,
-                fact_text=ft,
+                fact_text=facts_text[i],
             )
         )
 
@@ -302,7 +255,7 @@ def fetch_and_add_article(title: str) -> Optional[str]:
                 )
             )
     else:
-        quizzes = _generate_quizzes(facts_text, topic_id)
+        quizzes = _generate_quizzes(facts_text, topic_id, topic.title)
         for q in quizzes:
             q.topic_id = topic_id
 
@@ -324,7 +277,7 @@ def fetch_and_add_article(title: str) -> Optional[str]:
         conn.close()
 
 
-def fetch_trending_articles(count: int = 10) -> list[str]:
+def fetch_trending_articles(count=10):
     added = []
     titles = get_random_articles(count * 3)
     for title in titles:
@@ -336,7 +289,7 @@ def fetch_trending_articles(count: int = 10) -> list[str]:
     return added
 
 
-def search_and_add(query: str, max_results: int = 5) -> list[str]:
+def search_and_add(query, max_results=5):
     results = search_articles(query, limit=max_results * 2)
     added = []
     for r in results:
@@ -346,29 +299,3 @@ def search_and_add(query: str, max_results: int = 5) -> list[str]:
         if tid:
             added.append(tid)
     return added
-
-
-def refresh_pageviews_for_existing() -> int:
-    conn = get_connection()
-    rows = conn.execute("SELECT topic_id, title FROM topics").fetchall()
-    conn.close()
-
-    updated = 0
-    for row in rows:
-        title = row["title"].replace(" ", "_")
-        pv = get_page_views(title)
-        if pv:
-            conn = get_connection()
-            conn.execute(
-                "UPDATE topic_metrics SET pageviews_7d = ?, pageviews_30d = ?, trend_score = ? WHERE topic_id = ?",
-                (
-                    pv["pageviews_7d"],
-                    pv["pageviews_30d"],
-                    round(pv["pageviews_7d"] / max(pv["pageviews_30d"], 1) * 10, 2),
-                    row["topic_id"],
-                ),
-            )
-            conn.commit()
-            conn.close()
-            updated += 1
-    return updated

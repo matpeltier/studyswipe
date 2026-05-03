@@ -1,3 +1,5 @@
+import random as _random
+
 import streamlit as st
 from utils.database import (
     get_connection,
@@ -6,17 +8,7 @@ from utils.database import (
     record_quiz_answer,
     get_quiz_stats,
 )
-
-CATEGORY_COLORS = {
-    "Science": "green",
-    "History": "blue",
-    "Politics": "orange",
-    "Culture": "violet",
-    "Technology": "red",
-}
-
-
-import random as _random
+from utils.constants import CATEGORY_COLORS
 
 conn = get_connection()
 user_session = st.session_state.get("user_session", "default")
@@ -67,7 +59,9 @@ if st.button(
     )
 
     quiz_items = []
-    for card in cards:
+    card_index = 0
+    while len(quiz_items) < num_questions and card_index < len(cards):
+        card = cards[card_index]
         for qi in card.quiz_items:
             quiz_items.append(
                 {
@@ -89,6 +83,9 @@ if st.button(
                     "correct_option": qi.correct_option,
                 }
             )
+            if len(quiz_items) >= num_questions:
+                break
+        card_index = card_index + 1
 
     _random.shuffle(quiz_items)
     st.session_state.quiz_items = quiz_items[:num_questions]
@@ -148,48 +145,48 @@ else:
             st.markdown(f"**{item['topic_title']}**")
             st.markdown(f"### {item['question']}")
 
-            options = item["options"]
-            correct_key = item["correct_option"]
-            correct_idx = ord(correct_key) - ord("a")
-            correct_text = (
-                options[correct_idx] if correct_idx < len(options) else options[0]
-            )
+        options = item["options"]
+        correct_key = item["correct_option"]
+        correct_idx = ord(correct_key) - ord("a")
+        correct_text = (
+            options[correct_idx] if correct_idx < len(options) else options[0]
+        )
 
-            answer_key = f"quiz_answer_{quiz_idx}"
-            selected = st.radio("Your answer:", options, index=None, key=answer_key)
+        answer_key = f"quiz_answer_{quiz_idx}"
+        selected = st.radio("Your answer:", options, index=None, key=answer_key)
 
-            if st.button("Submit answer", key=f"submit_{quiz_idx}", type="primary"):
-                if selected:
-                    is_correct = selected == correct_text
-                    record_quiz_answer(
-                        conn,
-                        user_session,
-                        item["topic_id"],
-                        item["quiz_id"],
-                        selected,
-                        is_correct,
+        if st.button("Submit answer", key=f"submit_{quiz_idx}", type="primary"):
+            if selected:
+                is_correct = selected == correct_text
+                record_quiz_answer(
+                    conn,
+                    user_session,
+                    item["topic_id"],
+                    item["quiz_id"],
+                    selected,
+                    is_correct,
+                )
+                st.session_state.quiz_answered.append(
+                    {
+                        "topic_title": item["topic_title"],
+                        "question": item["question"],
+                        "correct": is_correct,
+                    }
+                )
+                if is_correct:
+                    st.session_state.quiz_score = (
+                        st.session_state.get("quiz_score", 0) + 1
                     )
-                    st.session_state.quiz_answered.append(
-                        {
-                            "topic_title": item["topic_title"],
-                            "question": item["question"],
-                            "correct": is_correct,
-                        }
-                    )
-                    if is_correct:
-                        st.session_state.quiz_score = (
-                            st.session_state.get("quiz_score", 0) + 1
-                        )
-                    st.session_state.quiz_index = quiz_idx + 1
+                st.session_state.quiz_index = quiz_idx + 1
 
-                    if is_correct:
-                        st.toast("Correct!", icon=":material/check_circle:")
-                    else:
-                        st.toast(
-                            f"Wrong! Answer: {correct_text}", icon=":material/cancel:"
-                        )
-                    st.rerun()
+                if is_correct:
+                    st.toast("Correct!", icon=":material/check_circle:")
                 else:
-                    st.warning("Select an answer first.", icon=":material/warning:")
+                    st.toast(
+                        f"Wrong! Answer: {correct_text}", icon=":material/cancel:"
+                    )
+                st.rerun()
+            else:
+                st.warning("Select an answer first.", icon=":material/warning:")
 
     conn.close()

@@ -10,22 +10,7 @@ from utils.database import (
     record_view,
     record_quiz_answer,
 )
-from utils.swipe_component import SWIPE_CARD_HTML, SWIPE_CARD_CSS, SWIPE_CARD_JS
-
-CATEGORY_COLORS = {
-    "Science": "green",
-    "History": "blue",
-    "Politics": "orange",
-    "Culture": "violet",
-    "Technology": "red",
-}
-
-swipe_card = st.components.v2.component(
-    "swipe_card",
-    html=SWIPE_CARD_HTML,
-    css=SWIPE_CARD_CSS,
-    js=SWIPE_CARD_JS,
-)
+from utils.constants import CATEGORY_COLORS
 
 conn = get_connection()
 user_session = st.session_state.get("user_session", "default")
@@ -49,7 +34,7 @@ with st.sidebar:
     collection = st.text_input(
         "Save to collection", value="General", key="feed_collection"
     )
-    st.caption(f"Logged in as: `{user_session[:8]}...`")
+    st.caption(f"Session: `{user_session[:8]}...`")
 
 st.session_state.setdefault("feed_index", 0)
 
@@ -67,53 +52,36 @@ else:
 
     st.progress((idx + 1) / len(cards), text=f"Card {idx + 1} of {len(cards)}")
 
-    topic_data = {
-        "title": card.topic.title,
-        "category": card.topic.category,
-        "summary": card.topic.summary,
-        "why_matters": card.topic.why_matters or "",
-        "popularity": card.popularity_label,
-        "difficulty": card.difficulty_label,
-        "pageviews": card.metrics.pageviews_7d if card.metrics else 0,
-        "facts": [f.fact_text for f in card.facts],
-    }
+    with st.container(border=True):
+        cat_color = CATEGORY_COLORS.get(card.topic.category, "gray")
+        st.markdown(f":{cat_color}-badge[{card.topic.category}]")
+        st.markdown(f"## {card.topic.title}")
 
-    needs_reset = st.session_state.pop("swipe_needs_reset", True)
+        popularity = card.get_popularity_label()
+        difficulty = card.get_difficulty_label()
+        meta_line = f"{popularity} · {difficulty}"
+        if card.metrics:
+            meta_line = meta_line + f" · {card.metrics.pageviews_7d} views/wk"
+        st.caption(meta_line)
 
-    result = swipe_card(
-        data={"topic": topic_data, "reset": needs_reset},
-        key=f"swipe_{card.topic.topic_id}_{idx}",
-        on_swipe_value_change=lambda: None,
-        on_swiped_change=lambda: None,
-    )
+        st.markdown(card.topic.summary)
 
-    swipe_action = result.swiped if result else None
+        if card.topic.why_matters:
+            st.info(f"**Why this matters:** {card.topic.why_matters}")
 
-    if swipe_action == "save":
-        collection_name = st.session_state.get("feed_collection", "General")
-        save_topic(conn, user_session, card.topic.topic_id, collection_name)
-        record_view(conn, user_session, card.topic.topic_id)
-        st.session_state.feed_index = (idx + 1) % len(cards)
-        st.session_state.swipe_needs_reset = True
-        st.toast(
-            f"Saved '{card.topic.title}' to {collection_name}!",
-            icon=":material/bookmark_added:",
-        )
-        st.rerun()
-    elif swipe_action == "skip":
-        record_view(conn, user_session, card.topic.topic_id)
-        st.session_state.feed_index = (idx + 1) % len(cards)
-        st.session_state.swipe_needs_reset = True
-        st.toast("Skipped!", icon=":material/fast_forward:")
-        st.rerun()
+        if card.facts:
+            with st.expander(f"View {len(card.facts)} key facts"):
+                for fact in card.facts:
+                    st.markdown(f"- {fact.fact_text}")
 
-    if card.quiz_items:
+    if card.has_quiz():
         quiz = card.quiz_items[0]
         st.markdown("---")
         st.markdown(f"**:material/quiz: Quick check:** {quiz.question}")
+        option_keys = ("option_a", "option_b", "option_c", "option_d")
         options = []
         correct_idx = 0
-        for oi, opt_key in enumerate(["option_a", "option_b", "option_c", "option_d"]):
+        for oi, opt_key in enumerate(option_keys):
             opt_val = getattr(quiz, opt_key)
             if opt_val:
                 options.append(opt_val)
@@ -151,46 +119,33 @@ else:
             else:
                 st.warning("Select an answer first.", icon=":material/warning:")
 
-    btn_col1, btn_col2, btn_col3, btn_col4 = st.columns(4)
+    btn_col1, btn_col2, btn_col3, btn_col4, btn_col5 = st.columns(5)
     with btn_col1:
-        if st.button(
-            ":material/arrow_back: Prev", key="feed_prev", use_container_width=True
-        ):
+        if st.button(":material/skip_previous: Prev", key="feed_prev", use_container_width=True):
             st.session_state.feed_index = max(0, idx - 1)
-            st.session_state.swipe_needs_reset = True
             st.rerun()
     with btn_col2:
-        if st.button(
-            ":material/shuffle: Random", key="feed_random", use_container_width=True
-        ):
-            st.session_state.feed_index = _random.randint(0, len(cards) - 1)
-            st.session_state.swipe_needs_reset = True
+        if st.button(":material/bookmark_remove: Skip", key="feed_skip", use_container_width=True):
+            record_view(conn, user_session, card.topic.topic_id)
+            st.session_state.feed_index = (idx + 1) % len(cards)
+            st.toast("Skipped!", icon=":material/fast_forward:")
             st.rerun()
     with btn_col3:
+        if st.button(":material/shuffle: Random", key="feed_random", use_container_width=True):
+            st.session_state.feed_index = _random.randint(0, len(cards) - 1)
+            st.rerun()
+    with btn_col4:
         if card.is_saved:
-            if st.button(
-                ":material/bookmark_remove: Unsave",
-                key=f"unsave_{card.topic.topic_id}",
-                use_container_width=True,
-            ):
+            if st.button(":material/bookmark_remove: Unsave", key=f"unsave_{card.topic.topic_id}", use_container_width=True):
                 unsave_topic(conn, user_session, card.topic.topic_id)
                 st.rerun()
         else:
-            if st.button(
-                ":material/bookmark_add: Save",
-                key=f"save_{card.topic.topic_id}",
-                use_container_width=True,
-                type="primary",
-            ):
+            if st.button(":material/bookmark_add: Save", key=f"save_{card.topic.topic_id}", use_container_width=True, type="primary"):
                 col_name = st.session_state.get("feed_collection", "General")
                 save_topic(conn, user_session, card.topic.topic_id, col_name)
                 st.toast("Saved!", icon=":material/bookmark_added:")
-    with btn_col4:
+    with btn_col5:
         if card.topic.url:
-            st.link_button(
-                ":material/open_in_new: Wikipedia",
-                card.topic.url,
-                use_container_width=True,
-            )
+            st.link_button(":material/open_in_new: Wikipedia", card.topic.url, use_container_width=True)
 
     conn.close()

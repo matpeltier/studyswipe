@@ -6,7 +6,7 @@ from utils.wikipedia_fetcher import fetch_and_add_article
 
 logger = logging.getLogger(__name__)
 
-SEED_TITLES = [
+SEED_TITLES = (
     "Albert Einstein",
     "Quantum mechanics",
     "Theory of relativity",
@@ -57,10 +57,12 @@ SEED_TITLES = [
     "Ancient Greece",
     "Philosophy",
     "Opera",
-]
+)
+
+MAX_RETRIES = 3
 
 
-def seed_database(force: bool = False, progress_cb=None):
+def seed_database(force=False, progress_cb=None):
     conn = get_connection()
     try:
         count = get_topic_count(conn)
@@ -69,9 +71,10 @@ def seed_database(force: bool = False, progress_cb=None):
             return count
 
         titles_to_fetch = []
-        existing = {
-            r["title"] for r in conn.execute("SELECT title FROM topics").fetchall()
-        }
+        existing_rows = conn.execute("SELECT title FROM topics").fetchall()
+        existing = set()
+        for r in existing_rows:
+            existing.add(r["title"])
         for title in SEED_TITLES:
             if title not in existing:
                 titles_to_fetch.append(title)
@@ -86,9 +89,17 @@ def seed_database(force: bool = False, progress_cb=None):
             if progress_cb:
                 progress_cb(i, len(titles_to_fetch), title)
 
-            tid = fetch_and_add_article(title)
+            retries = 0
+            tid = None
+            while tid is None and retries < MAX_RETRIES:
+                tid = fetch_and_add_article(title)
+                if tid is None:
+                    retries = retries + 1
+                    if retries < MAX_RETRIES:
+                        time.sleep(1)
+
             if tid:
-                added += 1
+                added = added + 1
                 logger.info("  [%d/%d] Added: %s", i + 1, len(titles_to_fetch), title)
             else:
                 logger.warning(

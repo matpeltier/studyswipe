@@ -1,7 +1,6 @@
 import sqlite3
 import uuid
 from datetime import datetime, timezone
-from typing import Optional
 
 from utils.models import (
     Topic,
@@ -21,7 +20,7 @@ os.makedirs(_DB_DIR, exist_ok=True)
 DB_PATH = os.path.join(_DB_DIR, "studyswipe.db")
 
 
-def get_connection() -> sqlite3.Connection:
+def get_connection():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA journal_mode=WAL")
@@ -105,7 +104,7 @@ def init_db():
     conn.close()
 
 
-def insert_topic(conn: sqlite3.Connection, topic: Topic):
+def insert_topic(conn, topic):
     conn.execute(
         """INSERT OR IGNORE INTO topics (topic_id, title, summary, category, wikidata_id, image_url, url, why_matters)
            VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
@@ -122,7 +121,7 @@ def insert_topic(conn: sqlite3.Connection, topic: Topic):
     )
 
 
-def insert_metrics(conn: sqlite3.Connection, metrics: TopicMetrics):
+def insert_metrics(conn, metrics):
     conn.execute(
         """INSERT OR IGNORE INTO topic_metrics (topic_id, pageviews_7d, pageviews_30d, trend_score, difficulty_score)
            VALUES (?, ?, ?, ?, ?)""",
@@ -136,7 +135,7 @@ def insert_metrics(conn: sqlite3.Connection, metrics: TopicMetrics):
     )
 
 
-def insert_fact(conn: sqlite3.Connection, fact: FactCard):
+def insert_fact(conn, fact):
     conn.execute(
         """INSERT OR IGNORE INTO fact_cards (fact_id, topic_id, fact_text, source_section)
            VALUES (?, ?, ?, ?)""",
@@ -144,7 +143,7 @@ def insert_fact(conn: sqlite3.Connection, fact: FactCard):
     )
 
 
-def insert_quiz(conn: sqlite3.Connection, quiz: QuizItem):
+def insert_quiz(conn, quiz):
     conn.execute(
         """INSERT OR IGNORE INTO quiz_items (quiz_id, topic_id, question, option_a, option_b, option_c, option_d, correct_option)
            VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
@@ -161,42 +160,78 @@ def insert_quiz(conn: sqlite3.Connection, quiz: QuizItem):
     )
 
 
-def get_topic_count(conn: sqlite3.Connection) -> int:
+def get_topic_count(conn):
     row = conn.execute("SELECT COUNT(*) as c FROM topics").fetchone()
     return row["c"]
 
 
-def get_categories(conn: sqlite3.Connection) -> list[str]:
+def get_categories(conn):
     rows = conn.execute(
         "SELECT DISTINCT category FROM topics ORDER BY category"
     ).fetchall()
-    return [r["category"] for r in rows]
+    categories = []
+    for r in rows:
+        categories.append(r["category"])
+    return categories
 
 
-def get_topic_card(
-    conn: sqlite3.Connection, topic_id: str, user_session: str
-) -> Optional[TopicCard]:
+def get_topic_card(conn, topic_id, user_session):
     row = conn.execute(
         "SELECT * FROM topics WHERE topic_id = ?", (topic_id,)
     ).fetchone()
     if not row:
         return None
-    topic = Topic(**dict(row))
+    topic = Topic(
+        topic_id=row["topic_id"],
+        title=row["title"],
+        summary=row["summary"],
+        category=row["category"],
+        wikidata_id=row["wikidata_id"],
+        image_url=row["image_url"],
+        url=row["url"],
+        why_matters=row["why_matters"],
+    )
 
     mrow = conn.execute(
         "SELECT * FROM topic_metrics WHERE topic_id = ?", (topic_id,)
     ).fetchone()
-    metrics = TopicMetrics(**dict(mrow)) if mrow else None
+    metrics = None
+    if mrow:
+        metrics = TopicMetrics(
+            topic_id=mrow["topic_id"],
+            pageviews_7d=mrow["pageviews_7d"],
+            pageviews_30d=mrow["pageviews_30d"],
+            trend_score=mrow["trend_score"],
+            difficulty_score=mrow["difficulty_score"],
+        )
 
     frows = conn.execute(
         "SELECT * FROM fact_cards WHERE topic_id = ?", (topic_id,)
     ).fetchall()
-    facts = [FactCard(**dict(r)) for r in frows]
+    facts = []
+    for r in frows:
+        facts.append(FactCard(
+            fact_id=r["fact_id"],
+            topic_id=r["topic_id"],
+            fact_text=r["fact_text"],
+            source_section=r["source_section"],
+        ))
 
     qrows = conn.execute(
         "SELECT * FROM quiz_items WHERE topic_id = ?", (topic_id,)
     ).fetchall()
-    quizzes = [QuizItem(**dict(r)) for r in qrows]
+    quizzes = []
+    for r in qrows:
+        quizzes.append(QuizItem(
+            quiz_id=r["quiz_id"],
+            topic_id=r["topic_id"],
+            question=r["question"],
+            option_a=r["option_a"],
+            option_b=r["option_b"],
+            option_c=r["option_c"],
+            option_d=r["option_d"],
+            correct_option=r["correct_option"],
+        ))
 
     saved = (
         conn.execute(
@@ -224,21 +259,14 @@ def get_topic_card(
     )
 
 
-def get_feed_topics(
-    conn: sqlite3.Connection,
-    user_session: str,
-    category: Optional[str] = None,
-    sort_by: str = "trending",
-    limit: int = 50,
-    exclude_ids: Optional[list[str]] = None,
-) -> list[TopicCard]:
-    excluded = exclude_ids or []
+def get_feed_topics(conn, user_session, category=None, sort_by="trending", limit=50, exclude_ids=None):
+    excluded = exclude_ids if exclude_ids else []
     query = """
         SELECT t.topic_id FROM topics t
         LEFT JOIN topic_metrics m ON t.topic_id = m.topic_id
         WHERE 1=1
     """
-    params: list = []
+    params = []
 
     if category and category != "All":
         query += " AND t.category = ?"
@@ -274,9 +302,7 @@ def get_feed_topics(
     return cards
 
 
-def save_topic(
-    conn: sqlite3.Connection, user_session: str, topic_id: str, collection_name: str
-):
+def save_topic(conn, user_session, topic_id, collection_name):
     now = datetime.now(timezone.utc).isoformat()
     conn.execute(
         """INSERT OR IGNORE INTO saved_topics (user_session, topic_id, collection_name, saved_at)
@@ -286,12 +312,7 @@ def save_topic(
     conn.commit()
 
 
-def unsave_topic(
-    conn: sqlite3.Connection,
-    user_session: str,
-    topic_id: str,
-    collection_name: Optional[str] = None,
-):
+def unsave_topic(conn, user_session, topic_id, collection_name=None):
     if collection_name:
         conn.execute(
             "DELETE FROM saved_topics WHERE user_session = ? AND topic_id = ? AND collection_name = ?",
@@ -305,15 +326,13 @@ def unsave_topic(
     conn.commit()
 
 
-def get_saved_topics(
-    conn: sqlite3.Connection, user_session: str, collection_name: Optional[str] = None
-) -> list[TopicCard]:
+def get_saved_topics(conn, user_session, collection_name=None):
     query = """
         SELECT DISTINCT t.topic_id FROM topics t
         INNER JOIN saved_topics s ON t.topic_id = s.topic_id
         WHERE s.user_session = ?
     """
-    params: list = [user_session]
+    params = [user_session]
 
     if collection_name and collection_name != "All Collections":
         query += " AND s.collection_name = ?"
@@ -321,25 +340,26 @@ def get_saved_topics(
 
     query += " ORDER BY s.saved_at DESC"
     rows = conn.execute(query, params).fetchall()
-    return [get_topic_card(conn, r["topic_id"], user_session) for r in rows if r]
+    cards = []
+    for r in rows:
+        card = get_topic_card(conn, r["topic_id"], user_session)
+        if card:
+            cards.append(card)
+    return cards
 
 
-def get_collections(conn: sqlite3.Connection, user_session: str) -> list[str]:
+def get_collections(conn, user_session):
     rows = conn.execute(
         "SELECT DISTINCT collection_name FROM saved_topics WHERE user_session = ? ORDER BY collection_name",
         (user_session,),
     ).fetchall()
-    return [r["collection_name"] for r in rows]
+    collections = []
+    for r in rows:
+        collections.append(r["collection_name"])
+    return collections
 
 
-def record_quiz_answer(
-    conn: sqlite3.Connection,
-    user_session: str,
-    topic_id: str,
-    quiz_id: str,
-    selected_option: str,
-    is_correct: bool,
-):
+def record_quiz_answer(conn, user_session, topic_id, quiz_id, selected_option, is_correct):
     now = datetime.now(timezone.utc).isoformat()
     history_id = str(uuid.uuid4())[:8]
     conn.execute(
@@ -358,7 +378,7 @@ def record_quiz_answer(
     conn.commit()
 
 
-def record_view(conn: sqlite3.Connection, user_session: str, topic_id: str):
+def record_view(conn, user_session, topic_id):
     now = datetime.now(timezone.utc).isoformat()
     conn.execute(
         """INSERT OR REPLACE INTO viewed_topics (user_session, topic_id, viewed_at)
@@ -368,17 +388,26 @@ def record_view(conn: sqlite3.Connection, user_session: str, topic_id: str):
     conn.commit()
 
 
-def get_quiz_history(
-    conn: sqlite3.Connection, user_session: str
-) -> list[QuizHistoryEntry]:
+def get_quiz_history(conn, user_session):
     rows = conn.execute(
         "SELECT * FROM quiz_history WHERE user_session = ? ORDER BY answered_at DESC",
         (user_session,),
     ).fetchall()
-    return [QuizHistoryEntry(**dict(r)) for r in rows]
+    history = []
+    for r in rows:
+        history.append(QuizHistoryEntry(
+            history_id=r["history_id"],
+            user_session=r["user_session"],
+            topic_id=r["topic_id"],
+            quiz_id=r["quiz_id"],
+            selected_option=r["selected_option"],
+            is_correct=bool(r["is_correct"]),
+            answered_at=r["answered_at"],
+        ))
+    return history
 
 
-def get_quiz_stats(conn: sqlite3.Connection, user_session: str) -> dict:
+def get_quiz_stats(conn, user_session):
     row = conn.execute(
         """SELECT
             COUNT(*) as total_answers,
@@ -407,7 +436,7 @@ def get_quiz_stats(conn: sqlite3.Connection, user_session: str) -> dict:
     }
 
 
-def get_analytics(conn: sqlite3.Connection, user_session: str) -> dict:
+def get_analytics(conn, user_session):
     stats = get_quiz_stats(conn, user_session)
 
     viewed = conn.execute(
@@ -428,7 +457,9 @@ def get_analytics(conn: sqlite3.Connection, user_session: str) -> dict:
         ORDER BY quizzed DESC""",
         (user_session,),
     ).fetchall()
-    category_stats = {r["category"]: r["quizzed"] for r in cat_rows}
+    category_stats = {}
+    for r in cat_rows:
+        category_stats[r["category"]] = r["quizzed"]
 
     top_saved = conn.execute(
         """SELECT t.title, t.category, COUNT(*) as save_count
@@ -440,7 +471,9 @@ def get_analytics(conn: sqlite3.Connection, user_session: str) -> dict:
         LIMIT 10""",
         (user_session,),
     ).fetchall()
-    most_saved = [dict(r) for r in top_saved]
+    most_saved = []
+    for r in top_saved:
+        most_saved.append({"title": r["title"], "category": r["category"], "save_count": r["save_count"]})
 
     accuracy_by_cat = conn.execute(
         """SELECT t.category,
@@ -461,7 +494,11 @@ def get_analytics(conn: sqlite3.Connection, user_session: str) -> dict:
         )
 
     return {
-        **stats,
+        "total_answers": stats["total_answers"],
+        "correct_answers": stats["correct_answers"],
+        "accuracy": stats["accuracy"],
+        "topics_quizzed": stats["topics_quizzed"],
+        "unique_questions": stats["unique_questions"],
         "viewed_count": viewed,
         "saved_count": saved,
         "category_stats": category_stats,

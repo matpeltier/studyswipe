@@ -1,22 +1,17 @@
 import json
 import logging
 import os
-from typing import Optional
 
 import requests
 
 logger = logging.getLogger(__name__)
 
 GOOGLE_AI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent"
-MODEL = "gemini-2.5-flash-lite"
-
-_session = requests.Session()
 
 
-def _get_api_key() -> Optional[str]:
+def _get_api_key():
     try:
         import streamlit as st
-
         key = st.secrets.get("GOOGLE_AI_API_KEY")
         if key:
             return key
@@ -25,18 +20,18 @@ def _get_api_key() -> Optional[str]:
     return os.environ.get("GOOGLE_AI_API_KEY")
 
 
-def generate_quizzes_with_ai(
-    title: str,
-    summary: str,
-    facts: list[str],
-    count: int = 3,
-) -> list[dict]:
+def generate_quizzes_with_ai(title, summary, facts, count=3):
     api_key = _get_api_key()
     if not api_key:
         logger.warning("No Google AI API key found, skipping AI quiz generation")
         return []
 
-    facts_text = "\n".join(f"- {f}" for f in facts[:5])
+    facts_text = ""
+    for i, f in enumerate(facts[:5]):
+        if i == 0:
+            facts_text = f"- {f}"
+        else:
+            facts_text = facts_text + f"\n- {f}"
 
     prompt = f"""Generate {count} multiple-choice quiz questions about "{title}".
 
@@ -65,7 +60,7 @@ Return ONLY a JSON array with this exact format, no other text:
 ]"""
 
     try:
-        resp = _session.post(
+        resp = requests.post(
             f"{GOOGLE_AI_URL}?key={api_key}",
             json={
                 "contents": [{"parts": [{"text": prompt}]}],
@@ -87,20 +82,15 @@ Return ONLY a JSON array with this exact format, no other text:
         quizzes = json.loads(content[json_start:json_end])
 
         valid = []
+        required_keys = ("question", "option_a", "option_b", "option_c", "option_d", "correct_option")
         for q in quizzes:
-            if all(
-                k in q
-                for k in (
-                    "question",
-                    "option_a",
-                    "option_b",
-                    "option_c",
-                    "option_d",
-                    "correct_option",
-                )
-            ):
-                if q["correct_option"] in ("a", "b", "c", "d"):
-                    valid.append(q)
+            has_all_keys = True
+            for k in required_keys:
+                if k not in q:
+                    has_all_keys = False
+                    break
+            if has_all_keys and q["correct_option"] in ("a", "b", "c", "d"):
+                valid.append(q)
 
         logger.info("Generated %d AI quizzes for %s", len(valid), title)
         return valid

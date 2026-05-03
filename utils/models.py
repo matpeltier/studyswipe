@@ -1,78 +1,73 @@
-from dataclasses import dataclass, field
-from typing import Optional
-
-
-@dataclass
 class Topic:
-    topic_id: str
-    title: str
-    summary: str
-    category: str
-    wikidata_id: Optional[str] = None
-    image_url: Optional[str] = None
-    url: Optional[str] = None
-    why_matters: Optional[str] = None
+    def __init__(self, topic_id, title, summary, category, wikidata_id=None, image_url=None, url=None, why_matters=None):
+        self.topic_id = topic_id
+        self.title = title
+        self.summary = summary
+        self.category = category
+        self.wikidata_id = wikidata_id
+        self.image_url = image_url
+        self.url = url
+        self.why_matters = why_matters
 
 
-@dataclass
 class TopicMetrics:
-    topic_id: str
-    pageviews_7d: int = 0
-    pageviews_30d: int = 0
-    trend_score: float = 0.0
-    difficulty_score: float = 0.0
+    def __init__(self, topic_id, pageviews_7d=0, pageviews_30d=0, trend_score=0.0, difficulty_score=0.0):
+        self.topic_id = topic_id
+        self.pageviews_7d = pageviews_7d
+        self.pageviews_30d = pageviews_30d
+        self.trend_score = trend_score
+        self.difficulty_score = difficulty_score
 
 
-@dataclass
 class FactCard:
-    fact_id: str
-    topic_id: str
-    fact_text: str
-    source_section: Optional[str] = None
+    def __init__(self, fact_id, topic_id, fact_text, source_section=None):
+        self.fact_id = fact_id
+        self.topic_id = topic_id
+        self.fact_text = fact_text
+        self.source_section = source_section
 
 
-@dataclass
 class QuizItem:
-    quiz_id: str
-    topic_id: str
-    question: str
-    option_a: str = ""
-    option_b: str = ""
-    option_c: str = ""
-    option_d: str = ""
-    correct_option: str = "a"
+    def __init__(self, quiz_id, topic_id, question, option_a="", option_b="", option_c="", option_d="", correct_option="a"):
+        self.quiz_id = quiz_id
+        self.topic_id = topic_id
+        self.question = question
+        self.option_a = option_a
+        self.option_b = option_b
+        self.option_c = option_c
+        self.option_d = option_d
+        self.correct_option = correct_option
 
 
-@dataclass
 class SavedTopic:
-    user_session: str
-    topic_id: str
-    collection_name: str
-    saved_at: str = ""
+    def __init__(self, user_session, topic_id, collection_name, saved_at=""):
+        self.user_session = user_session
+        self.topic_id = topic_id
+        self.collection_name = collection_name
+        self.saved_at = saved_at
 
 
-@dataclass
 class QuizHistoryEntry:
-    history_id: str
-    user_session: str
-    topic_id: str
-    quiz_id: str
-    selected_option: str
-    is_correct: bool
-    answered_at: str = ""
+    def __init__(self, history_id, user_session, topic_id, quiz_id, selected_option, is_correct, answered_at=""):
+        self.history_id = history_id
+        self.user_session = user_session
+        self.topic_id = topic_id
+        self.quiz_id = quiz_id
+        self.selected_option = selected_option
+        self.is_correct = is_correct
+        self.answered_at = answered_at
 
 
-@dataclass
 class TopicCard:
-    topic: Topic
-    metrics: Optional[TopicMetrics] = None
-    facts: list = field(default_factory=list)
-    quiz_items: list = field(default_factory=list)
-    is_saved: bool = False
-    is_viewed: bool = False
+    def __init__(self, topic, metrics=None, facts=None, quiz_items=None, is_saved=False, is_viewed=False):
+        self.topic = topic
+        self.metrics = metrics
+        self.facts = facts if facts else []
+        self.quiz_items = quiz_items if quiz_items else []
+        self.is_saved = is_saved
+        self.is_viewed = is_viewed
 
-    @property
-    def popularity_label(self) -> str:
+    def get_popularity_label(self):
         if not self.metrics:
             return "Unknown"
         pv = self.metrics.pageviews_7d
@@ -84,8 +79,7 @@ class TopicCard:
             return "Moderate"
         return "Niche"
 
-    @property
-    def difficulty_label(self) -> str:
+    def get_difficulty_label(self):
         if not self.metrics:
             return "Medium"
         ds = self.metrics.difficulty_score
@@ -94,3 +88,6 @@ class TopicCard:
         elif ds <= 3.5:
             return "Medium"
         return "Hard"
+
+    def has_quiz(self):
+        return len(self.quiz_items) > 0

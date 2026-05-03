@@ -7,7 +7,7 @@ from utils.database import (
     unsave_topic,
     get_categories,
 )
-
+from utils.constants import CATEGORY_COLORS
 
 conn = get_connection()
 user_session = st.session_state.get("user_session", "default")
@@ -48,13 +48,7 @@ else:
         with st.container(border=True):
             col1, col2 = st.columns([5, 1])
             with col1:
-                cat_color = {
-                    "Science": "green",
-                    "History": "blue",
-                    "Politics": "orange",
-                    "Culture": "violet",
-                    "Technology": "red",
-                }.get(card.topic.category, "gray")
+                cat_color = CATEGORY_COLORS.get(card.topic.category, "gray")
                 st.markdown(f":{cat_color}-badge[{card.topic.category}]")
                 st.markdown(f"### {card.topic.title}")
                 st.caption(
