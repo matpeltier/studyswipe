@@ -1,6 +1,6 @@
 import uuid
 import streamlit as st
-from utils.database import init_db, get_connection, get_topic_count
+from utils.storage import get_topic_count
 from utils.data_seeder import seed_database
 
 st.set_page_config(
@@ -10,14 +10,10 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-init_db()
-
 if "user_session" not in st.session_state:
     st.session_state.user_session = str(uuid.uuid4())
 
-conn = get_connection()
-topic_count = get_topic_count(conn)
-conn.close()
+topic_count = get_topic_count()
 
 if topic_count == 0:
     progress_text = st.empty()
@@ -44,9 +40,7 @@ pages = [
 
 page = st.navigation(pages, position="top")
 
-conn = get_connection()
-topic_count = get_topic_count(conn)
-conn.close()
+topic_count = get_topic_count()
 
 with st.sidebar:
     st.markdown("## :material/school: StudySwipe")

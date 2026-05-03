@@ -1,8 +1,7 @@
 import random as _random
 
 import streamlit as st
-from utils.database import (
-    get_connection,
+from utils.storage import (
     get_feed_topics,
     get_categories,
     record_quiz_answer,
@@ -10,12 +9,11 @@ from utils.database import (
 )
 from utils.constants import CATEGORY_COLORS
 
-conn = get_connection()
 user_session = st.session_state.get("user_session", "default")
-categories = get_categories(conn)
+categories = get_categories()
 all_cats = ["All"] + categories
 
-stats = get_quiz_stats(conn, user_session)
+stats = get_quiz_stats(user_session)
 
 with st.sidebar:
     st.subheader("Quiz settings")
@@ -54,45 +52,34 @@ if st.button(
         "Hard": "difficulty_hard",
     }
     sort_by = sort_map.get(difficulty_filter, "random")
-    cards = get_feed_topics(
-        conn, user_session, category=cat_filter, sort_by=sort_by, limit=50
+    topics = get_feed_topics(
+        user_session, category=cat_filter, sort_by=sort_by, limit=50
     )
 
     quiz_items = []
-    card_index = 0
-    while len(quiz_items) < num_questions and card_index < len(cards):
-        card = cards[card_index]
-        for qi in card.quiz_items:
-            quiz_items.append(
-                {
-                    "topic_id": card.topic.topic_id,
-                    "topic_title": card.topic.title,
-                    "category": card.topic.category,
-                    "quiz_id": qi.quiz_id,
-                    "question": qi.question,
-                    "options": [
-                        o
-                        for o in [
-                            qi.option_a,
-                            qi.option_b,
-                            qi.option_c,
-                            qi.option_d,
-                        ]
-                        if o
-                    ],
-                    "correct_option": qi.correct_option,
-                }
-            )
+    topic_index = 0
+    while len(quiz_items) < num_questions and topic_index < len(topics):
+        topic = topics[topic_index]
+        for qi in topic.get("quizzes", []):
+            quiz_items.append({
+                "topic_id": topic["topic_id"],
+                "topic_title": topic["title"],
+                "category": topic["category"],
+                "quiz_id": qi["quiz_id"],
+                "question": qi["question"],
+                "options": [o for o in [qi["option_a"], qi["option_b"], qi["option_c"], qi["option_d"]] if o],
+                "correct_option": qi["correct_option"],
+            })
             if len(quiz_items) >= num_questions:
                 break
-        card_index = card_index + 1
+        topic_index = topic_index + 1
 
     _random.shuffle(quiz_items)
     st.session_state.quiz_items = quiz_items[:num_questions]
     st.rerun()
 
 if not st.session_state.get("quiz_active", False):
-    conn.close()
+    pass
 else:
     quiz_items = st.session_state.get("quiz_items", [])
     quiz_idx = st.session_state.get("quiz_index", 0)
@@ -115,21 +102,15 @@ else:
         elif pct >= 60:
             st.markdown(":material/thumb_up: **Good job!** Keep reviewing to improve.")
         else:
-            st.markdown(
-                ":material/menu_book: **Keep learning!** Review saved topics and try again."
-            )
+            st.markdown(":material/menu_book: **Keep learning!** Review saved topics and try again.")
 
         answered = st.session_state.get("quiz_answered", [])
         if answered:
             st.markdown("### Review")
             for ans in answered:
-                icon = (
-                    ":material/check_circle:" if ans["correct"] else ":material/cancel:"
-                )
+                icon = ":material/check_circle:" if ans["correct"] else ":material/cancel:"
                 color = "green" if ans["correct"] else "red"
-                st.markdown(
-                    f":{color}[{icon}] **{ans['topic_title']}** — {ans['question']}"
-                )
+                st.markdown(f":{color}[{icon}] **{ans['topic_title']}** — {ans['question']}")
 
         if st.button(":material/refresh: New quiz", key="new_quiz_btn"):
             st.session_state.quiz_active = False
@@ -148,9 +129,7 @@ else:
         options = item["options"]
         correct_key = item["correct_option"]
         correct_idx = ord(correct_key) - ord("a")
-        correct_text = (
-            options[correct_idx] if correct_idx < len(options) else options[0]
-        )
+        correct_text = options[correct_idx] if correct_idx < len(options) else options[0]
 
         answer_key = f"quiz_answer_{quiz_idx}"
         selected = st.radio("Your answer:", options, index=None, key=answer_key)
@@ -159,34 +138,25 @@ else:
             if selected:
                 is_correct = selected == correct_text
                 record_quiz_answer(
-                    conn,
                     user_session,
                     item["topic_id"],
                     item["quiz_id"],
                     selected,
                     is_correct,
                 )
-                st.session_state.quiz_answered.append(
-                    {
-                        "topic_title": item["topic_title"],
-                        "question": item["question"],
-                        "correct": is_correct,
-                    }
-                )
+                st.session_state.quiz_answered.append({
+                    "topic_title": item["topic_title"],
+                    "question": item["question"],
+                    "correct": is_correct,
+                })
                 if is_correct:
-                    st.session_state.quiz_score = (
-                        st.session_state.get("quiz_score", 0) + 1
-                    )
+                    st.session_state.quiz_score = st.session_state.get("quiz_score", 0) + 1
                 st.session_state.quiz_index = quiz_idx + 1
 
                 if is_correct:
                     st.toast("Correct!", icon=":material/check_circle:")
                 else:
-                    st.toast(
-                        f"Wrong! Answer: {correct_text}", icon=":material/cancel:"
-                    )
+                    st.toast(f"Wrong! Answer: {correct_text}", icon=":material/cancel:")
                 st.rerun()
             else:
                 st.warning("Select an answer first.", icon=":material/warning:")
-
-    conn.close()

@@ -1,11 +1,10 @@
 import pandas as pd
 import streamlit as st
-from utils.database import get_connection, get_analytics, get_categories
+from utils.storage import get_analytics, get_categories
 from utils.constants import CATEGORY_COLORS
 
-conn = get_connection()
 user_session = st.session_state.get("user_session", "default")
-analytics = get_analytics(conn, user_session)
+analytics = get_analytics(user_session)
 
 st.subheader("Your learning dashboard")
 
@@ -41,12 +40,10 @@ if most_saved:
         )
 
 st.subheader("Database overview")
-categories = get_categories(conn)
+categories = get_categories()
 overview_cols = st.columns(len(categories)) if categories else []
 for i, cat in enumerate(categories):
     with overview_cols[i]:
         count = category_stats.get(cat, 0)
         cat_color = CATEGORY_COLORS.get(cat, "gray")
         st.metric(f":{cat_color}-badge[{cat}]", f"{count} quizzed")
-
-conn.close()

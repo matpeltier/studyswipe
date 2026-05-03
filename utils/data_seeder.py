@@ -1,10 +1,7 @@
-import logging
 import time
 
-from utils.database import get_connection, get_topic_count
+from utils.storage import get_topic_count
 from utils.wikipedia_fetcher import fetch_and_add_article
-
-logger = logging.getLogger(__name__)
 
 SEED_TITLES = (
     "Albert Einstein",
@@ -63,63 +60,52 @@ MAX_RETRIES = 3
 
 
 def seed_database(force=False, progress_cb=None):
-    conn = get_connection()
-    try:
-        count = get_topic_count(conn)
-        if count > 0 and not force:
-            logger.info("Database already has %d topics, skipping seed.", count)
-            return count
+    count = get_topic_count()
+    if count > 0 and not force:
+        print(f"Database already has {count} topics, skipping seed.")
+        return count
 
-        titles_to_fetch = []
-        existing_rows = conn.execute("SELECT title FROM topics").fetchall()
-        existing = set()
-        for r in existing_rows:
-            existing.add(r["title"])
-        for title in SEED_TITLES:
-            if title not in existing:
-                titles_to_fetch.append(title)
+    titles_to_fetch = []
+    from utils.storage import load_data
+    data = load_data()
+    existing = set()
+    for topic in data["topics"]:
+        existing.add(topic["title"])
+    for title in SEED_TITLES:
+        if title not in existing:
+            titles_to_fetch.append(title)
 
-        if not titles_to_fetch:
-            logger.info("All seed topics already in database.")
-            return get_topic_count(conn)
+    if not titles_to_fetch:
+        print("All seed topics already in database.")
+        return get_topic_count()
 
-        logger.info("Seeding %d topics from Wikipedia...", len(titles_to_fetch))
-        added = 0
-        for i, title in enumerate(titles_to_fetch):
-            if progress_cb:
-                progress_cb(i, len(titles_to_fetch), title)
+    print(f"Seeding {len(titles_to_fetch)} topics from Wikipedia...")
+    added = 0
+    for i, title in enumerate(titles_to_fetch):
+        if progress_cb:
+            progress_cb(i, len(titles_to_fetch), title)
 
-            retries = 0
-            tid = None
-            while tid is None and retries < MAX_RETRIES:
-                tid = fetch_and_add_article(title)
-                if tid is None:
-                    retries = retries + 1
-                    if retries < MAX_RETRIES:
-                        time.sleep(1)
+        retries = 0
+        tid = None
+        while tid is None and retries < MAX_RETRIES:
+            tid = fetch_and_add_article(title)
+            if tid is None:
+                retries = retries + 1
+                if retries < MAX_RETRIES:
+                    time.sleep(1)
 
-            if tid:
-                added = added + 1
-                logger.info("  [%d/%d] Added: %s", i + 1, len(titles_to_fetch), title)
-            else:
-                logger.warning(
-                    "  [%d/%d] Skipped: %s", i + 1, len(titles_to_fetch), title
-                )
+        if tid:
+            added = added + 1
+            print(f"  [{i + 1}/{len(titles_to_fetch)}] Added: {title}")
+        else:
+            print(f"  [{i + 1}/{len(titles_to_fetch)}] Skipped: {title}")
 
-            time.sleep(0.3)
+        time.sleep(0.3)
 
-        final_count = get_topic_count(conn)
-        logger.info(
-            "Seeding complete: %d/%d topics added, %d total in DB.",
-            added,
-            len(titles_to_fetch),
-            final_count,
-        )
-        return final_count
-    finally:
-        conn.close()
+    final_count = get_topic_count()
+    print(f"Seeding complete: {added}/{len(titles_to_fetch)} topics added, {final_count} total.")
+    return final_count
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
     seed_database(force=True)

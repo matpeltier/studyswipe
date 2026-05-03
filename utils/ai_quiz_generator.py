@@ -1,10 +1,7 @@
 import json
-import logging
 import os
 
 import requests
-
-logger = logging.getLogger(__name__)
 
 GOOGLE_AI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent"
 
@@ -23,7 +20,7 @@ def _get_api_key():
 def generate_quizzes_with_ai(title, summary, facts, count=3):
     api_key = _get_api_key()
     if not api_key:
-        logger.warning("No Google AI API key found, skipping AI quiz generation")
+        print("No Google AI API key found, skipping AI quiz generation")
         return []
 
     facts_text = ""
@@ -76,7 +73,7 @@ Return ONLY a JSON array with this exact format, no other text:
         json_start = content.find("[")
         json_end = content.rfind("]") + 1
         if json_start == -1 or json_end == 0:
-            logger.warning("No JSON array found in AI response for %s", title)
+            print(f"No JSON array found in AI response for {title}")
             return []
 
         quizzes = json.loads(content[json_start:json_end])
@@ -92,9 +89,9 @@ Return ONLY a JSON array with this exact format, no other text:
             if has_all_keys and q["correct_option"] in ("a", "b", "c", "d"):
                 valid.append(q)
 
-        logger.info("Generated %d AI quizzes for %s", len(valid), title)
+        print(f"Generated {len(valid)} AI quizzes for {title}")
         return valid
 
     except Exception as e:
-        logger.warning("AI quiz generation failed for %s: %s", title, e)
+        print(f"AI quiz generation failed for {title}: {e}")
         return []

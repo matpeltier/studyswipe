@@ -1,23 +1,22 @@
-import logging
+import json
+import os
+import random
 import time
 
 import requests
 
-logger = logging.getLogger(__name__)
-
 WIKIPEDIA_API = "https://en.wikipedia.org/api/rest_v1"
 WIKIPEDIA_ACTION_API = "https://en.wikipedia.org/w/api.php"
-
-_session = requests.Session()
-_session.headers.update({"User-Agent": "StudySwipe/1.0 (educational project)"})
+HEADERS = {"User-Agent": "StudySwipe/1.0 (educational project)"}
 
 
 def get_summary(title):
     retries = 0
     while retries < 3:
         try:
-            resp = _session.get(
+            resp = requests.get(
                 f"{WIKIPEDIA_API}/page/summary/{title}",
+                headers=HEADERS,
                 timeout=10,
             )
             resp.raise_for_status()
@@ -31,7 +30,7 @@ def get_summary(title):
             }
         except Exception as e:
             retries = retries + 1
-            logger.warning("Failed to fetch summary for %s (attempt %d): %s", title, retries, e)
+            print(f"Failed to fetch summary for {title} (attempt {retries}): {e}")
             if retries < 3:
                 time.sleep(1)
     return None
@@ -50,7 +49,7 @@ def get_extract(title, sentences=5):
                 "explaintext": True,
                 "format": "json",
             }
-            resp = _session.get(WIKIPEDIA_ACTION_API, params=params, timeout=10)
+            resp = requests.get(WIKIPEDIA_ACTION_API, params=params, headers=HEADERS, timeout=10)
             resp.raise_for_status()
             data = resp.json()
             pages = data.get("query", {}).get("pages", {})
@@ -59,7 +58,7 @@ def get_extract(title, sentences=5):
             return None
         except Exception as e:
             retries = retries + 1
-            logger.warning("Failed to fetch extract for %s (attempt %d): %s", title, retries, e)
+            print(f"Failed to fetch extract for {title} (attempt {retries}): {e}")
             if retries < 3:
                 time.sleep(1)
     return None
@@ -74,21 +73,19 @@ def search_articles(query, limit=10):
             "srlimit": limit,
             "format": "json",
         }
-        resp = _session.get(WIKIPEDIA_ACTION_API, params=params, timeout=10)
+        resp = requests.get(WIKIPEDIA_ACTION_API, params=params, headers=HEADERS, timeout=10)
         resp.raise_for_status()
         data = resp.json()
         results = []
         for item in data.get("query", {}).get("search", []):
-            results.append(
-                {
-                    "title": item["title"],
-                    "snippet": item.get("snippet", ""),
-                    "pageid": item.get("pageid"),
-                }
-            )
+            results.append({
+                "title": item["title"],
+                "snippet": item.get("snippet", ""),
+                "pageid": item.get("pageid"),
+            })
         return results
     except Exception as e:
-        logger.warning("Failed to search for %s: %s", query, e)
+        print(f"Failed to search for {query}: {e}")
         return []
 
 
@@ -101,7 +98,7 @@ def get_random_articles(count=10):
             "rnlimit": count,
             "format": "json",
         }
-        resp = _session.get(WIKIPEDIA_ACTION_API, params=params, timeout=10)
+        resp = requests.get(WIKIPEDIA_ACTION_API, params=params, headers=HEADERS, timeout=10)
         resp.raise_for_status()
         data = resp.json()
         titles = []
@@ -109,7 +106,7 @@ def get_random_articles(count=10):
             titles.append(item["title"])
         return titles
     except Exception as e:
-        logger.warning("Failed to get random articles: %s", e)
+        print(f"Failed to get random articles: {e}")
         return []
 
 
@@ -120,7 +117,7 @@ def get_page_views(article, days=30):
         end = datetime.utcnow().strftime("%Y%m%d")
         start = (datetime.utcnow() - timedelta(days=days)).strftime("%Y%m%d")
         url = f"https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/{article}/daily/{start}/{end}"
-        resp = requests.get(url, timeout=10)
+        resp = requests.get(url, headers=HEADERS, timeout=10)
         resp.raise_for_status()
         data = resp.json()
         items = data.get("items", [])
@@ -138,5 +135,5 @@ def get_page_views(article, days=30):
             "pageviews_7d": seven_day,
         }
     except Exception as e:
-        logger.warning("Failed to get page views for %s: %s", article, e)
+        print(f"Failed to get page views for {article}: {e}")
         return None

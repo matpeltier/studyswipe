@@ -1,14 +1,11 @@
 import streamlit as st
-from utils.database import get_connection, get_topic_count
+from utils.storage import get_topic_count
 from utils.wikipedia_fetcher import fetch_trending_articles, search_and_add
 from utils.constants import CATEGORY_COLORS
 
 st.subheader("Discover from Wikipedia")
 
-conn = get_connection()
-current_count = get_topic_count(conn)
-conn.close()
-
+current_count = get_topic_count()
 st.caption(f"Your database has **{current_count}** topics. Use the tools below to fetch more from Wikipedia.")
 
 st.markdown("---")
@@ -27,12 +24,11 @@ if st.button(":material/search: Search and add topics", key="wiki_search_btn", t
         if added:
             st.success(f"Added **{len(added)}** new topics from Wikipedia!", icon=":material/check_circle:")
             for tid in added:
-                conn = get_connection()
-                row = conn.execute("SELECT title, category FROM topics WHERE topic_id = ?", (tid,)).fetchone()
-                conn.close()
-                if row:
-                    cat_color = CATEGORY_COLORS.get(row["category"], "gray")
-                    st.markdown(f"- :{cat_color}-badge[{row['category']}] **{row['title']}**")
+                from utils.storage import get_topic_by_id
+                topic = get_topic_by_id(tid)
+                if topic:
+                    cat_color = CATEGORY_COLORS.get(topic["category"], "gray")
+                    st.markdown(f"- :{cat_color}-badge[{topic['category']}] **{topic['title']}**")
         else:
             st.warning("No new articles found. Try different keywords.", icon=":material/warning:")
     else:
@@ -49,11 +45,10 @@ if st.button(":material/casino: Fetch random from Wikipedia", key="wiki_fetch_bt
     if added:
         st.success(f"Added **{len(added)}** new topics!", icon=":material/check_circle:")
         for tid in added:
-            conn = get_connection()
-            row = conn.execute("SELECT title, category FROM topics WHERE topic_id = ?", (tid,)).fetchone()
-            conn.close()
-            if row:
-                cat_color = CATEGORY_COLORS.get(row["category"], "gray")
-                st.markdown(f"- :{cat_color}-badge[{row['category']}] **{row['title']}**")
+            from utils.storage import get_topic_by_id
+            topic = get_topic_by_id(tid)
+            if topic:
+                cat_color = CATEGORY_COLORS.get(topic["category"], "gray")
+                st.markdown(f"- :{cat_color}-badge[{topic['category']}] **{topic['title']}**")
     else:
         st.warning("Could not fetch articles. Try again later.", icon=":material/warning:")
