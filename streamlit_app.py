@@ -10,6 +10,43 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+st.markdown("""
+<style>
+    /* Navigation tabs — much bigger */
+    .stNavigationTabs [data-baseweb="tab"],
+    [data-testid="stTabs"] [data-baseweb="tab"],
+    [data-baseweb="tab"] {
+        font-size: 1.4rem !important;
+        font-weight: 700 !important;
+        padding: 16px 36px !important;
+        min-height: 56px !important;
+    }
+    .stNavigationTabs [data-baseweb="tab-list"],
+    [data-testid="stTabs"] [data-baseweb="tab-list"],
+    [data-baseweb="tab-list"] {
+        gap: 4px !important;
+        height: auto !important;
+    }
+    .stNavigationTabs [data-baseweb="tab-border"],
+    [data-testid="stTabs"] [data-baseweb="tab-border"],
+    [data-baseweb="tab-border"] {
+        height: 5px !important;
+    }
+    header [data-testid="stTabs"],
+    .stApp > header > div {
+        padding: 8px 16px !important;
+        min-height: 64px !important;
+    }
+
+    /* Sidebar logo */
+    [data-testid="stSidebar"] h1,
+    [data-testid="stSidebar"] h2,
+    [data-testid="stSidebar"] h3 {
+        font-size: 2rem !important;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 if "user_session" not in st.session_state:
     st.session_state.user_session = str(uuid.uuid4())
 
@@ -40,10 +77,20 @@ pages = [
 
 page = st.navigation(pages, position="top")
 
+st.markdown("""
+<div style="display: flex; align-items: center; gap: 14px; padding: 8px 0 12px 0;">
+    <span style="font-size: 2.8rem; line-height: 1;">&#127891;</span>
+    <div>
+        <h1 style="margin: 0; font-size: 2.2rem; font-weight: 800; color: #6366f1; letter-spacing: -0.02em;">StudySwipe</h1>
+        <p style="margin: 0; font-size: 0.9rem; color: #94a3b8;">Swipe, save, and quiz yourself on anything.</p>
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
 topic_count = get_topic_count()
 
 with st.sidebar:
-    st.markdown("## :material/school: StudySwipe")
+    st.markdown("# :material/school: StudySwipe")
     st.caption("Swipe, save, and quiz yourself on anything.")
     st.markdown("---")
     st.caption(f":material/database: **{topic_count}** topics loaded")

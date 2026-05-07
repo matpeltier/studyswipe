@@ -1,8 +1,10 @@
 import json
 import os
+import tempfile
 
 DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data")
-DATA_FILE = os.path.join(DATA_DIR, "studyswipe_data.json")
+DATA_FILE = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "studyswipe_data.json")
+LOCK_FILE = DATA_FILE + ".lock"
 
 
 def _ensure_dir():
@@ -10,23 +12,59 @@ def _ensure_dir():
         os.makedirs(DATA_DIR)
 
 
+def _lock():
+    import fcntl
+    _ensure_dir()
+    _lock._fd = open(LOCK_FILE, "w")
+    fcntl.flock(_lock._fd, fcntl.LOCK_EX)
+
+
+def _unlock():
+    import fcntl
+    if hasattr(_lock, "_fd") and _lock._fd:
+        fcntl.flock(_lock._fd, fcntl.LOCK_UN)
+        _lock._fd.close()
+        _lock._fd = None
+
+
 def load_data():
     _ensure_dir()
-    if os.path.exists(DATA_FILE):
-        with open(DATA_FILE, "r") as f:
-            return json.load(f)
-    return {
+    defaults = {
         "topics": [],
         "saved": {},
         "quiz_history": [],
         "viewed": {},
+        "user_progress": {},
+        "spaced_repetition": {},
+        "challenge_results": {},
+        "lobbies": {},
     }
+    if os.path.exists(DATA_FILE):
+        _lock()
+        try:
+            with open(DATA_FILE, "r") as f:
+                data = json.load(f)
+            for key, value in defaults.items():
+                if key not in data:
+                    data[key] = value
+            return data
+        except (json.JSONDecodeError, ValueError):
+            return defaults
+        finally:
+            _unlock()
+    return defaults
 
 
 def save_data(data):
     _ensure_dir()
-    with open(DATA_FILE, "w") as f:
-        json.dump(data, f, indent=2)
+    _lock()
+    try:
+        fd, tmp_path = tempfile.mkstemp(dir=DATA_DIR, suffix=".tmp")
+        with os.fdopen(fd, "w") as f:
+            json.dump(data, f, indent=2)
+        os.replace(tmp_path, DATA_FILE)
+    finally:
+        _unlock()
 
 
 def get_topic_count():
@@ -323,3 +361,181 @@ def is_topic_viewed(user_session, topic_id):
     if user_session not in data["viewed"]:
         return False
     return topic_id in data["viewed"][user_session]
+
+
+def _get_user_progress(data, user_session):
+    if user_session not in data["user_progress"]:
+        data["user_progress"][user_session] = {
+            "xp": 0,
+            "level": 1,
+            "streak_days": 0,
+            "last_active_date": "",
+            "total_cards_viewed": 0,
+            "total_quizzes_taken": 0,
+            "achievements": [],
+        }
+    return data["user_progress"][user_session]
+
+
+def _check_achievements(progress):
+    achievements = []
+    checks = [
+        ("card_explorer", progress["total_cards_viewed"] >= 10),
+        ("knowledge_seeker", progress["total_cards_viewed"] >= 50),
+        ("streak_3", progress["streak_days"] >= 3),
+        ("streak_7", progress["streak_days"] >= 7),
+        ("centurion", progress["xp"] >= 100),
+        ("scholar", progress["xp"] >= 500),
+    ]
+    for ach_id, earned in checks:
+        if earned and ach_id not in progress["achievements"]:
+            achievements.append(ach_id)
+    return achievements
+
+
+def add_xp(user_session, amount, reason=""):
+    data = load_data()
+    from datetime import datetime, timezone
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+    progress = _get_user_progress(data, user_session)
+
+    if progress["last_active_date"] and progress["last_active_date"] != today:
+        from datetime import timedelta
+        last = datetime.strptime(progress["last_active_date"], "%Y-%m-%d")
+        now = datetime.strptime(today, "%Y-%m-%d")
+        days_diff = (now - last).days
+        if days_diff == 1:
+            progress["streak_days"] += 1
+        elif days_diff > 1:
+            progress["streak_days"] = 1
+
+    progress["xp"] += amount
+    progress["last_active_date"] = today
+    progress["level"] = 1 + progress["xp"] // 100
+
+    new_achievements = _check_achievements(progress)
+    for ach in new_achievements:
+        if ach not in progress["achievements"]:
+            progress["achievements"].append(ach)
+
+    if reason == "viewed_card":
+        progress["total_cards_viewed"] += 1
+    elif reason in ("correct_answer", "wrong_answer"):
+        pass
+    elif reason == "quiz_completed":
+        progress["total_quizzes_taken"] += 1
+
+    save_data(data)
+    return {
+        "xp": progress["xp"],
+        "level": progress["level"],
+        "streak_days": progress["streak_days"],
+        "new_achievements": new_achievements,
+    }
+
+
+def get_user_progress(user_session):
+    data = load_data()
+    return _get_user_progress(data, user_session)
+
+
+def save_challenge_result(challenge_code, user_session, score, total):
+    data = load_data()
+    if "challenge_results" not in data:
+        data["challenge_results"] = {}
+    if challenge_code not in data["challenge_results"]:
+        data["challenge_results"][challenge_code] = []
+    from datetime import datetime, timezone
+    data["challenge_results"][challenge_code].append({
+        "user_session": user_session,
+        "score": score,
+        "total": total,
+        "completed_at": datetime.now(timezone.utc).isoformat(),
+    })
+    save_data(data)
+
+
+def get_challenge_results(challenge_code):
+    data = load_data()
+    results = data.get("challenge_results", {}).get(challenge_code, [])
+    results.sort(key=lambda r: r["score"], reverse=True)
+    return results
+
+
+def create_lobby(lobby_code, host_session, host_name, seed_data, num_questions):
+    data = load_data()
+    if "lobbies" not in data:
+        data["lobbies"] = {}
+    from datetime import datetime, timezone
+    data["lobbies"][lobby_code] = {
+        "status": "waiting",
+        "seed_data": seed_data,
+        "num_questions": num_questions,
+        "players": [{
+            "session": host_session,
+            "name": host_name,
+            "score": None,
+            "finished": False,
+            "finished_at": None,
+        }],
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "started_at": None,
+    }
+    save_data(data)
+
+
+def join_lobby(lobby_code, user_session, user_name):
+    data = load_data()
+    lobby = data.get("lobbies", {}).get(lobby_code)
+    if not lobby or lobby["status"] != "waiting":
+        return None
+    for p in lobby["players"]:
+        if p["session"] == user_session:
+            return lobby
+    lobby["players"].append({
+        "session": user_session,
+        "name": user_name,
+        "score": None,
+        "finished": False,
+        "finished_at": None,
+    })
+    save_data(data)
+    return lobby
+
+
+def start_lobby(lobby_code, quiz_items=None):
+    data = load_data()
+    lobby = data.get("lobbies", {}).get(lobby_code)
+    if not lobby or lobby["status"] != "waiting":
+        return False
+    from datetime import datetime, timezone
+    lobby["status"] = "active"
+    lobby["started_at"] = datetime.now(timezone.utc).isoformat()
+    if quiz_items is not None:
+        lobby["quiz_items"] = quiz_items
+    save_data(data)
+    return True
+
+
+def finish_lobby_player(lobby_code, user_session, score, total):
+    data = load_data()
+    lobby = data.get("lobbies", {}).get(lobby_code)
+    if not lobby:
+        return
+    from datetime import datetime, timezone
+    for p in lobby["players"]:
+        if p["session"] == user_session:
+            p["score"] = score
+            p["total"] = total
+            p["finished"] = True
+            p["finished_at"] = datetime.now(timezone.utc).isoformat()
+    all_done = all(p["finished"] for p in lobby["players"])
+    if all_done:
+        lobby["status"] = "finished"
+    save_data(data)
+
+
+def get_lobby(lobby_code):
+    data = load_data()
+    return data.get("lobbies", {}).get(lobby_code, None)

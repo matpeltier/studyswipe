@@ -2315,10 +2315,577 @@
     }
   ],
   "saved": {},
-  "quiz_history": [],
+  "quiz_history": [
+    {
+      "user_session": "9bf65f57-2579-40c0-86a2-05c5fc3374b6",
+      "topic_id": "wiki-c012e1fd",
+      "quiz_id": "wiki-wiki-c012e1fd-q1",
+      "selected_option": "12",
+      "is_correct": false,
+      "answered_at": "2026-05-07T11:08:11.652238+00:00"
+    },
+    {
+      "user_session": "9bf65f57-2579-40c0-86a2-05c5fc3374b6",
+      "topic_id": "wiki-c9a79389",
+      "quiz_id": "wiki-wiki-c9a79389-q3",
+      "selected_option": "15",
+      "is_correct": false,
+      "answered_at": "2026-05-07T11:08:13.644367+00:00"
+    },
+    {
+      "user_session": "9bf65f57-2579-40c0-86a2-05c5fc3374b6",
+      "topic_id": "wiki-268ba868",
+      "quiz_id": "wiki-wiki-268ba868-tf0",
+      "selected_option": "True",
+      "is_correct": true,
+      "answered_at": "2026-05-07T11:08:15.952300+00:00"
+    },
+    {
+      "user_session": "9bf65f57-2579-40c0-86a2-05c5fc3374b6",
+      "topic_id": "wiki-268ba868",
+      "quiz_id": "wiki-wiki-268ba868-tf1",
+      "selected_option": "Not sure",
+      "is_correct": false,
+      "answered_at": "2026-05-07T11:08:17.353135+00:00"
+    },
+    {
+      "user_session": "9bf65f57-2579-40c0-86a2-05c5fc3374b6",
+      "topic_id": "wiki-268ba868",
+      "quiz_id": "wiki-wiki-268ba868-tf2",
+      "selected_option": "False",
+      "is_correct": false,
+      "answered_at": "2026-05-07T11:08:19.469694+00:00"
+    },
+    {
+      "user_session": "68634b49-32e6-4f15-80e0-b17faa5c9dee",
+      "topic_id": "wiki-c012e1fd",
+      "quiz_id": "wiki-wiki-c012e1fd-q1",
+      "selected_option": "6",
+      "is_correct": true,
+      "answered_at": "2026-05-07T11:08:23.570468+00:00"
+    },
+    {
+      "user_session": "68634b49-32e6-4f15-80e0-b17faa5c9dee",
+      "topic_id": "wiki-c9a79389",
+      "quiz_id": "wiki-wiki-c9a79389-q3",
+      "selected_option": "15",
+      "is_correct": false,
+      "answered_at": "2026-05-07T11:08:24.569933+00:00"
+    },
+    {
+      "user_session": "68634b49-32e6-4f15-80e0-b17faa5c9dee",
+      "topic_id": "wiki-268ba868",
+      "quiz_id": "wiki-wiki-268ba868-tf0",
+      "selected_option": "False",
+      "is_correct": false,
+      "answered_at": "2026-05-07T11:08:25.644373+00:00"
+    },
+    {
+      "user_session": "68634b49-32e6-4f15-80e0-b17faa5c9dee",
+      "topic_id": "wiki-268ba868",
+      "quiz_id": "wiki-wiki-268ba868-tf1",
+      "selected_option": "True",
+      "is_correct": true,
+      "answered_at": "2026-05-07T11:08:27.010760+00:00"
+    },
+    {
+      "user_session": "68634b49-32e6-4f15-80e0-b17faa5c9dee",
+      "topic_id": "wiki-268ba868",
+      "quiz_id": "wiki-wiki-268ba868-tf2",
+      "selected_option": "False",
+      "is_correct": false,
+      "answered_at": "2026-05-07T11:08:29.435894+00:00"
+    },
+    {
+      "user_session": "68634b49-32e6-4f15-80e0-b17faa5c9dee",
+      "topic_id": "wiki-eaeadce5",
+      "quiz_id": "wiki-wiki-eaeadce5-tf0",
+      "selected_option": "True",
+      "is_correct": true,
+      "answered_at": "2026-05-07T11:10:41.375940+00:00"
+    },
+    {
+      "user_session": "68634b49-32e6-4f15-80e0-b17faa5c9dee",
+      "topic_id": "wiki-eaeadce5",
+      "quiz_id": "wiki-wiki-eaeadce5-tf1",
+      "selected_option": "False",
+      "is_correct": false,
+      "answered_at": "2026-05-07T11:10:42.447570+00:00"
+    },
+    {
+      "user_session": "68634b49-32e6-4f15-80e0-b17faa5c9dee",
+      "topic_id": "wiki-e5c9f668",
+      "quiz_id": "wiki-wiki-e5c9f668-tf0",
+      "selected_option": "True",
+      "is_correct": true,
+      "answered_at": "2026-05-07T11:10:43.300192+00:00"
+    },
+    {
+      "user_session": "68634b49-32e6-4f15-80e0-b17faa5c9dee",
+      "topic_id": "wiki-e5c9f668",
+      "quiz_id": "wiki-wiki-e5c9f668-tf1",
+      "selected_option": "True",
+      "is_correct": true,
+      "answered_at": "2026-05-07T11:10:44.234355+00:00"
+    },
+    {
+      "user_session": "68634b49-32e6-4f15-80e0-b17faa5c9dee",
+      "topic_id": "wiki-e5c9f668",
+      "quiz_id": "wiki-wiki-e5c9f668-tf3",
+      "selected_option": "True",
+      "is_correct": true,
+      "answered_at": "2026-05-07T11:10:46.084819+00:00"
+    },
+    {
+      "user_session": "9bf65f57-2579-40c0-86a2-05c5fc3374b6",
+      "topic_id": "wiki-eaeadce5",
+      "quiz_id": "wiki-wiki-eaeadce5-tf0",
+      "selected_option": "False",
+      "is_correct": false,
+      "answered_at": "2026-05-07T11:10:51.613934+00:00"
+    },
+    {
+      "user_session": "9bf65f57-2579-40c0-86a2-05c5fc3374b6",
+      "topic_id": "wiki-eaeadce5",
+      "quiz_id": "wiki-wiki-eaeadce5-tf1",
+      "selected_option": "False",
+      "is_correct": false,
+      "answered_at": "2026-05-07T11:10:52.811936+00:00"
+    },
+    {
+      "user_session": "9bf65f57-2579-40c0-86a2-05c5fc3374b6",
+      "topic_id": "wiki-e5c9f668",
+      "quiz_id": "wiki-wiki-e5c9f668-tf0",
+      "selected_option": "False",
+      "is_correct": false,
+      "answered_at": "2026-05-07T11:10:54.065413+00:00"
+    },
+    {
+      "user_session": "9bf65f57-2579-40c0-86a2-05c5fc3374b6",
+      "topic_id": "wiki-e5c9f668",
+      "quiz_id": "wiki-wiki-e5c9f668-tf1",
+      "selected_option": "False",
+      "is_correct": false,
+      "answered_at": "2026-05-07T11:10:55.151406+00:00"
+    },
+    {
+      "user_session": "9bf65f57-2579-40c0-86a2-05c5fc3374b6",
+      "topic_id": "wiki-e5c9f668",
+      "quiz_id": "wiki-wiki-e5c9f668-tf3",
+      "selected_option": "Not sure",
+      "is_correct": false,
+      "answered_at": "2026-05-07T11:10:56.784105+00:00"
+    },
+    {
+      "user_session": "7ba016ad-c76e-4069-a8da-88d5e8de8354",
+      "topic_id": "wiki-c012e1fd",
+      "quiz_id": "wiki-wiki-c012e1fd-q1",
+      "selected_option": "12",
+      "is_correct": false,
+      "answered_at": "2026-05-07T11:17:08.610860+00:00"
+    },
+    {
+      "user_session": "7ba016ad-c76e-4069-a8da-88d5e8de8354",
+      "topic_id": "wiki-cecdf908",
+      "quiz_id": "wiki-wiki-cecdf908-tf2",
+      "selected_option": "Not sure",
+      "is_correct": false,
+      "answered_at": "2026-05-07T11:17:09.504403+00:00"
+    },
+    {
+      "user_session": "7ba016ad-c76e-4069-a8da-88d5e8de8354",
+      "topic_id": "wiki-cecdf908",
+      "quiz_id": "wiki-wiki-cecdf908-tf4",
+      "selected_option": "True",
+      "is_correct": true,
+      "answered_at": "2026-05-07T11:17:10.739292+00:00"
+    },
+    {
+      "user_session": "7ba016ad-c76e-4069-a8da-88d5e8de8354",
+      "topic_id": "wiki-c113b4b9",
+      "quiz_id": "wiki-wiki-c113b4b9-q1",
+      "selected_option": "3200",
+      "is_correct": false,
+      "answered_at": "2026-05-07T11:17:11.496142+00:00"
+    },
+    {
+      "user_session": "7ba016ad-c76e-4069-a8da-88d5e8de8354",
+      "topic_id": "wiki-945f61c7",
+      "quiz_id": "wiki-wiki-945f61c7-tf0",
+      "selected_option": "False",
+      "is_correct": false,
+      "answered_at": "2026-05-07T11:17:12.538162+00:00"
+    },
+    {
+      "user_session": "4cc13b27-784f-4441-aabf-4e9d2c24a825",
+      "topic_id": "wiki-c012e1fd",
+      "quiz_id": "wiki-wiki-c012e1fd-q1",
+      "selected_option": "9",
+      "is_correct": false,
+      "answered_at": "2026-05-07T11:17:16.436295+00:00"
+    },
+    {
+      "user_session": "4cc13b27-784f-4441-aabf-4e9d2c24a825",
+      "topic_id": "wiki-cecdf908",
+      "quiz_id": "wiki-wiki-cecdf908-tf2",
+      "selected_option": "Not sure",
+      "is_correct": false,
+      "answered_at": "2026-05-07T11:17:17.432286+00:00"
+    },
+    {
+      "user_session": "4cc13b27-784f-4441-aabf-4e9d2c24a825",
+      "topic_id": "wiki-cecdf908",
+      "quiz_id": "wiki-wiki-cecdf908-tf4",
+      "selected_option": "Not sure",
+      "is_correct": false,
+      "answered_at": "2026-05-07T11:17:18.512525+00:00"
+    },
+    {
+      "user_session": "4cc13b27-784f-4441-aabf-4e9d2c24a825",
+      "topic_id": "wiki-c113b4b9",
+      "quiz_id": "wiki-wiki-c113b4b9-q1",
+      "selected_option": "9600",
+      "is_correct": false,
+      "answered_at": "2026-05-07T11:17:19.519017+00:00"
+    },
+    {
+      "user_session": "4cc13b27-784f-4441-aabf-4e9d2c24a825",
+      "topic_id": "wiki-945f61c7",
+      "quiz_id": "wiki-wiki-945f61c7-tf0",
+      "selected_option": "Not sure",
+      "is_correct": false,
+      "answered_at": "2026-05-07T11:17:20.881988+00:00"
+    },
+    {
+      "user_session": "14bf7ecd-0138-47e0-8f14-dfe14b860274",
+      "topic_id": "wiki-c012e1fd",
+      "quiz_id": "wiki-wiki-c012e1fd-q1",
+      "selected_option": "3",
+      "is_correct": false,
+      "answered_at": "2026-05-07T11:17:23.838204+00:00"
+    },
+    {
+      "user_session": "14bf7ecd-0138-47e0-8f14-dfe14b860274",
+      "topic_id": "wiki-cecdf908",
+      "quiz_id": "wiki-wiki-cecdf908-tf2",
+      "selected_option": "Not sure",
+      "is_correct": false,
+      "answered_at": "2026-05-07T11:17:24.933834+00:00"
+    },
+    {
+      "user_session": "14bf7ecd-0138-47e0-8f14-dfe14b860274",
+      "topic_id": "wiki-cecdf908",
+      "quiz_id": "wiki-wiki-cecdf908-tf4",
+      "selected_option": "False",
+      "is_correct": false,
+      "answered_at": "2026-05-07T11:17:25.890708+00:00"
+    },
+    {
+      "user_session": "14bf7ecd-0138-47e0-8f14-dfe14b860274",
+      "topic_id": "wiki-c113b4b9",
+      "quiz_id": "wiki-wiki-c113b4b9-q1",
+      "selected_option": "9600",
+      "is_correct": false,
+      "answered_at": "2026-05-07T11:17:26.970978+00:00"
+    },
+    {
+      "user_session": "14bf7ecd-0138-47e0-8f14-dfe14b860274",
+      "topic_id": "wiki-945f61c7",
+      "quiz_id": "wiki-wiki-945f61c7-tf0",
+      "selected_option": "Not sure",
+      "is_correct": false,
+      "answered_at": "2026-05-07T11:17:28.329198+00:00"
+    }
+  ],
   "viewed": {
     "5ff83a71-f4b3-4df7-be41-1e3577b77a1f": [
       "wiki-945f61c7"
+    ],
+    "41f518e8-c67f-44a1-ab84-7d56d78c3222": [
+      "wiki-945f61c7",
+      "wiki-cecdf908"
+    ],
+    "3bab764f-931c-4d91-8a05-fb1b3bca1ba6": [
+      "wiki-268ba868"
+    ],
+    "a80c7998-f45c-49d8-be9a-6fa50127ae64": [
+      "wiki-c012e1fd",
+      "wiki-6ae08414"
+    ],
+    "c682c5a4-78e2-40bf-babc-62e655e5d8ff": [
+      "wiki-31787e89"
     ]
+  },
+  "user_progress": {
+    "41f518e8-c67f-44a1-ab84-7d56d78c3222": {
+      "xp": 10,
+      "level": 1,
+      "streak_days": 0,
+      "last_active_date": "2026-05-07",
+      "total_cards_viewed": 2,
+      "total_quizzes_taken": 0,
+      "achievements": []
+    },
+    "5d89470b-5474-41eb-a5a8-e327fd460e56": {
+      "xp": 40,
+      "level": 1,
+      "streak_days": 0,
+      "last_active_date": "2026-05-07",
+      "total_cards_viewed": 0,
+      "total_quizzes_taken": 2,
+      "achievements": []
+    },
+    "b234549f-fe83-4d5d-ac7d-86d5d1452ec7": {
+      "xp": 120,
+      "level": 2,
+      "streak_days": 0,
+      "last_active_date": "2026-05-07",
+      "total_cards_viewed": 0,
+      "total_quizzes_taken": 6,
+      "achievements": [
+        "centurion"
+      ]
+    },
+    "68634b49-32e6-4f15-80e0-b17faa5c9dee": {
+      "xp": 283,
+      "level": 3,
+      "streak_days": 0,
+      "last_active_date": "2026-05-07",
+      "total_cards_viewed": 0,
+      "total_quizzes_taken": 10,
+      "achievements": [
+        "centurion"
+      ]
+    },
+    "9bf65f57-2579-40c0-86a2-05c5fc3374b6": {
+      "xp": 408,
+      "level": 5,
+      "streak_days": 0,
+      "last_active_date": "2026-05-07",
+      "total_cards_viewed": 0,
+      "total_quizzes_taken": 19,
+      "achievements": [
+        "centurion"
+      ]
+    },
+    "7ba016ad-c76e-4069-a8da-88d5e8de8354": {
+      "xp": 58,
+      "level": 1,
+      "streak_days": 0,
+      "last_active_date": "2026-05-07",
+      "total_cards_viewed": 0,
+      "total_quizzes_taken": 2,
+      "achievements": []
+    },
+    "4cc13b27-784f-4441-aabf-4e9d2c24a825": {
+      "xp": 50,
+      "level": 1,
+      "streak_days": 0,
+      "last_active_date": "2026-05-07",
+      "total_cards_viewed": 0,
+      "total_quizzes_taken": 2,
+      "achievements": []
+    },
+    "14bf7ecd-0138-47e0-8f14-dfe14b860274": {
+      "xp": 50,
+      "level": 1,
+      "streak_days": 0,
+      "last_active_date": "2026-05-07",
+      "total_cards_viewed": 0,
+      "total_quizzes_taken": 2,
+      "achievements": []
+    },
+    "3bab764f-931c-4d91-8a05-fb1b3bca1ba6": {
+      "xp": 5,
+      "level": 1,
+      "streak_days": 0,
+      "last_active_date": "2026-05-07",
+      "total_cards_viewed": 1,
+      "total_quizzes_taken": 0,
+      "achievements": []
+    },
+    "a80c7998-f45c-49d8-be9a-6fa50127ae64": {
+      "xp": 10,
+      "level": 1,
+      "streak_days": 0,
+      "last_active_date": "2026-05-07",
+      "total_cards_viewed": 2,
+      "total_quizzes_taken": 0,
+      "achievements": []
+    },
+    "c682c5a4-78e2-40bf-babc-62e655e5d8ff": {
+      "xp": 5,
+      "level": 1,
+      "streak_days": 0,
+      "last_active_date": "2026-05-07",
+      "total_cards_viewed": 1,
+      "total_quizzes_taken": 0,
+      "achievements": []
+    }
+  },
+  "spaced_repetition": {
+    "wiki-wiki-268ba868-tf0": {
+      "ease_factor": 2.6,
+      "interval": 1,
+      "repetitions": 1,
+      "next_review": "2026-05-08T11:25:31.547260+00:00",
+      "last_review": "2026-05-07T11:25:31.547241+00:00",
+      "last_quality": 5
+    },
+    "wiki-wiki-268ba868-tf1": {
+      "ease_factor": 2.6,
+      "interval": 1,
+      "repetitions": 1,
+      "next_review": "2026-05-08T11:25:31.550900+00:00",
+      "last_review": "2026-05-07T11:25:31.550892+00:00",
+      "last_quality": 5
+    },
+    "wiki-wiki-268ba868-tf2": {
+      "ease_factor": 2.6,
+      "interval": 1,
+      "repetitions": 1,
+      "next_review": "2026-05-08T11:25:31.553346+00:00",
+      "last_review": "2026-05-07T11:25:31.553342+00:00",
+      "last_quality": 5
+    },
+    "wiki-wiki-268ba868-tf3": {
+      "ease_factor": 2.6,
+      "interval": 1,
+      "repetitions": 1,
+      "next_review": "2026-05-08T11:25:31.555891+00:00",
+      "last_review": "2026-05-07T11:25:31.555884+00:00",
+      "last_quality": 5
+    },
+    "wiki-wiki-268ba868-tf4": {
+      "ease_factor": 2.6,
+      "interval": 1,
+      "repetitions": 1,
+      "next_review": "2026-05-08T11:25:31.558065+00:00",
+      "last_review": "2026-05-07T11:25:31.558060+00:00",
+      "last_quality": 5
+    },
+    "wiki-wiki-c012e1fd-q1": {
+      "ease_factor": 2.1799999999999997,
+      "interval": 1,
+      "repetitions": 0,
+      "next_review": "2026-05-08T11:28:19.537244+00:00",
+      "last_review": "2026-05-07T11:28:19.537210+00:00",
+      "last_quality": 2
+    },
+    "wiki-wiki-6ae08414-q3": {
+      "ease_factor": 2.6,
+      "interval": 1,
+      "repetitions": 1,
+      "next_review": "2026-05-08T11:28:30.370967+00:00",
+      "last_review": "2026-05-07T11:28:30.370951+00:00",
+      "last_quality": 5
+    },
+    "wiki-wiki-31787e89-q4": {
+      "ease_factor": 2.36,
+      "interval": 1,
+      "repetitions": 1,
+      "next_review": "2026-05-08T11:32:35.927966+00:00",
+      "last_review": "2026-05-07T11:32:35.927917+00:00",
+      "last_quality": 3
+    }
+  },
+  "challenge_results": {
+    "eyJjIjoiQWxsIiwibiI6NSwiZCI6IkFsbCIsInMiOjM3NzA4OX0": [
+      {
+        "user_session": "68634b49-32e6-4f15-80e0-b17faa5c9dee",
+        "score": 2,
+        "total": 5,
+        "completed_at": "2026-05-07T11:10:16.467638+00:00"
+      },
+      {
+        "user_session": "68634b49-32e6-4f15-80e0-b17faa5c9dee",
+        "score": 2,
+        "total": 5,
+        "completed_at": "2026-05-07T11:10:19.474730+00:00"
+      }
+    ],
+    "eyJjIjoiQWxsIiwibiI6NSwiZCI6IkFsbCIsInMiOjY5OTYzN30": [
+      {
+        "user_session": "68634b49-32e6-4f15-80e0-b17faa5c9dee",
+        "score": 4,
+        "total": 5,
+        "completed_at": "2026-05-07T11:10:46.129320+00:00"
+      }
+    ]
+  },
+  "lobbies": {
+    "eyJjIjoiQWxsIiwibiI6NSwiZCI6IkFsbCIsInMiOjY4Mjg2NH0": {
+      "status": "active",
+      "seed_data": {
+        "c": "All",
+        "n": 5,
+        "d": "All",
+        "s": 682864
+      },
+      "num_questions": 5,
+      "players": [
+        {
+          "session": "7ba3e11d-7f8b-4012-b29d-4cd95788d4d4",
+          "name": "Player 1",
+          "score": null,
+          "finished": false,
+          "finished_at": null
+        },
+        {
+          "session": "37a79630-c28d-4e23-860f-6709126c2f0e",
+          "name": "Player 2",
+          "score": null,
+          "finished": false,
+          "finished_at": null
+        },
+        {
+          "session": "a7cda0a2-c1bc-4248-ba5f-093972fb1971",
+          "name": "Player 3",
+          "score": null,
+          "finished": false,
+          "finished_at": null
+        }
+      ],
+      "created_at": "2026-05-07T11:14:33.641477+00:00",
+      "started_at": "2026-05-07T11:14:59.266787+00:00"
+    },
+    "eyJjIjoiQWxsIiwibiI6NSwiZCI6IkFsbCIsInMiOjgzNDAzMH0": {
+      "status": "finished",
+      "seed_data": {
+        "c": "All",
+        "n": 5,
+        "d": "All",
+        "s": 834030
+      },
+      "num_questions": 5,
+      "players": [
+        {
+          "session": "7ba016ad-c76e-4069-a8da-88d5e8de8354",
+          "name": "Player 1",
+          "score": 1,
+          "finished": true,
+          "finished_at": "2026-05-07T11:17:12.580219+00:00",
+          "total": 5
+        },
+        {
+          "session": "4cc13b27-784f-4441-aabf-4e9d2c24a825",
+          "name": "Player 2",
+          "score": 0,
+          "finished": true,
+          "finished_at": "2026-05-07T11:17:20.915005+00:00",
+          "total": 5
+        },
+        {
+          "session": "14bf7ecd-0138-47e0-8f14-dfe14b860274",
+          "name": "Player 3",
+          "score": 0,
+          "finished": true,
+          "finished_at": "2026-05-07T11:17:28.372201+00:00",
+          "total": 5
+        }
+      ],
+      "created_at": "2026-05-07T11:16:49.188719+00:00",
+      "started_at": "2026-05-07T11:17:02.852607+00:00"
+    }
   }
 }
