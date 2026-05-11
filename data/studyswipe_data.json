@@ -2721,6 +2721,15 @@
       "total_cards_viewed": 1,
       "total_quizzes_taken": 0,
       "achievements": []
+    },
+    "09e03609-4c84-4b49-928d-b3894587a4e1": {
+      "xp": 2,
+      "level": 1,
+      "streak_days": 0,
+      "last_active_date": "2026-05-11",
+      "total_cards_viewed": 0,
+      "total_quizzes_taken": 0,
+      "achievements": []
     }
   },
   "spaced_repetition": {
@@ -2907,6 +2916,124 @@
       ],
       "created_at": "2026-05-11T12:18:29.093613+00:00",
       "started_at": null
+    },
+    "eyJjIjoiQWxsIiwibiI6NSwiZCI6IkFsbCIsInMiOjE2NTU4Mn0": {
+      "status": "cancelled",
+      "seed_data": {
+        "c": "All",
+        "n": 5,
+        "d": "All",
+        "s": 165582
+      },
+      "num_questions": 5,
+      "players": [
+        {
+          "session": "09e03609-4c84-4b49-928d-b3894587a4e1",
+          "name": "Player 1",
+          "score": null,
+          "finished": false,
+          "finished_at": null
+        }
+      ],
+      "created_at": "2026-05-11T16:29:48.828349+00:00",
+      "started_at": null
+    },
+    "eyJjIjoiQWxsIiwibiI6NSwiZCI6IkFsbCIsInMiOjI2Nzg3Nn0": {
+      "status": "active",
+      "seed_data": {
+        "c": "All",
+        "n": 5,
+        "d": "All",
+        "s": 267876
+      },
+      "num_questions": 5,
+      "players": [
+        {
+          "session": "09e03609-4c84-4b49-928d-b3894587a4e1",
+          "name": "Player 1",
+          "score": null,
+          "finished": false,
+          "finished_at": null
+        },
+        {
+          "session": "f3bb87c5-692f-4149-8d68-ef7215e20695",
+          "name": "Player 2",
+          "score": null,
+          "finished": false,
+          "finished_at": null
+        }
+      ],
+      "created_at": "2026-05-11T16:29:53.671198+00:00",
+      "started_at": "2026-05-11T16:30:10.150654+00:00",
+      "quiz_items": [
+        {
+          "topic_id": "wiki-b9bb6309",
+          "topic_title": "Photosynthesis",
+          "category": "Culture",
+          "quiz_id": "wiki-wiki-b9bb6309-tf0",
+          "question": "True or False: Photosynthesis is a system of biological processes by which photopigment-bearing autotrophic organisms, such as most plants, algae and cyanobacteria, convert light energy \u2014 typically from sunlight \u2014 into the chemical energy necessary to fuel their metabolism.",
+          "options": [
+            "True",
+            "False",
+            "Not sure"
+          ],
+          "correct_idx": 0
+        },
+        {
+          "topic_id": "wiki-b9bb6309",
+          "topic_title": "Photosynthesis",
+          "category": "Culture",
+          "quiz_id": "wiki-wiki-b9bb6309-tf1",
+          "question": "True or False: The term photosynthesis usually refers to oxygenic photosynthesis, a process that releases oxygen as a byproduct of water splitting.",
+          "options": [
+            "True",
+            "False",
+            "Not sure"
+          ],
+          "correct_idx": 0
+        },
+        {
+          "topic_id": "wiki-b9bb6309",
+          "topic_title": "Photosynthesis",
+          "category": "Culture",
+          "quiz_id": "wiki-wiki-b9bb6309-tf2",
+          "question": "True or False: Photosynthetic organisms store the converted chemical energy within the bonds of intracellular organic compounds, typically carbohydrates like sugars, starches, phytoglycogen and cellulose.",
+          "options": [
+            "True",
+            "False",
+            "Not sure"
+          ],
+          "correct_idx": 0
+        },
+        {
+          "topic_id": "wiki-c113b4b9",
+          "topic_title": "Silk Road",
+          "category": "History",
+          "quiz_id": "wiki-wiki-c113b4b9-q1",
+          "question": "Spanning over ____\u00a0km (4,000\u00a0mi) on land, it played a central role in facilitating economic, cultural, political, and religious interactions between the Eastern and Western worlds.",
+          "options": [
+            "6,400",
+            "12800",
+            "3200",
+            "9600"
+          ],
+          "correct_idx": 0
+        },
+        {
+          "topic_id": "wiki-078c980e",
+          "topic_title": "Nanotechnology",
+          "category": "Science",
+          "quiz_id": "wiki-wiki-078c980e-q0",
+          "question": "Nanotechnology is the manipulation of matter with at least one dimension sized from ____ to ____00 nanometers (nm).",
+          "options": [
+            "1",
+            "2.0",
+            "3.0",
+            "1"
+          ],
+          "correct_idx": 0
+        }
+      ]
     }
   }
 }

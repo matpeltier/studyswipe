@@ -1,5 +1,4 @@
 import random as _random
-import time
 
 import streamlit as st
 from utils.storage import (
@@ -8,11 +7,6 @@ from utils.storage import (
     record_quiz_answer,
     get_quiz_stats,
     add_xp,
-    create_lobby,
-    join_lobby,
-    start_lobby,
-    finish_lobby_player,
-    get_lobby,
 )
 from utils.constants import CATEGORY_COLORS, ACHIEVEMENT_NAMES
 from utils.spaced_repetition import get_due_cards, record_review, get_card_state
@@ -41,243 +35,108 @@ with st.sidebar:
         else:
             st.caption(":material/check_circle: No cards due — keep reviewing!")
 
-st.subheader("Your quiz stats")
-stat_col1, stat_col2, stat_col3 = st.columns(3)
-with stat_col1:
-    st.metric("Questions answered", stats["total_answers"])
-with stat_col2:
-    st.metric("Correct answers", stats["correct_answers"])
-with stat_col3:
-    st.metric("Accuracy", f"{stats['accuracy']}%")
+if not st.session_state.get("quiz_active", False):
+    st.subheader("Your quiz stats")
+    stat_col1, stat_col2, stat_col3 = st.columns(3)
+    with stat_col1:
+        st.metric("Questions answered", stats["total_answers"])
+    with stat_col2:
+        st.metric("Correct answers", stats["correct_answers"])
+    with stat_col3:
+        st.metric("Accuracy", f"{stats['accuracy']}%")
 
-lobby_state = st.session_state.get("lobby_state", "none")
-
-if lobby_state == "none":
-    st.markdown("---")
-    st.markdown("### :material/group: Multiplayer")
-    mp_col1, mp_col2 = st.columns(2)
-
-    with mp_col1:
-        with st.container(border=True):
-            st.markdown(":material/add_circle: **Create Lobby**")
-            st.caption("Start a game and invite others")
-            player_name = st.text_input("Your name", value="Player 1", key="host_name")
-            if st.button("Create lobby", key="create_lobby_btn", type="primary", use_container_width=True):
-                from utils.challenge import generate_challenge_code
-                code, seed_data = generate_challenge_code(
-                    quiz_cat, num_questions, difficulty_filter
-                )
-                create_lobby(code, user_session, player_name, seed_data, num_questions)
-                st.session_state.lobby_code = code
-                st.session_state.lobby_state = "waiting"
-                st.session_state.is_host = True
-                st.rerun()
-
-    with mp_col2:
-        with st.container(border=True):
-            st.markdown(":material/login: **Join Lobby**")
-            st.caption("Enter a code to join a game")
-            join_code = st.text_input("Lobby code", key="join_code_input")
-            join_name = st.text_input("Your name", value="Player 2", key="join_name")
-            if st.button("Join lobby", key="join_lobby_btn", use_container_width=True):
-                lobby = join_lobby(join_code, user_session, join_name)
-                if lobby:
-                    st.session_state.lobby_code = join_code
-                    st.session_state.lobby_state = "waiting"
-                    st.session_state.is_host = False
-                    st.rerun()
-                else:
-                    st.error("Lobby not found or already started")
-
-elif lobby_state == "waiting":
-    lobby_code = st.session_state.get("lobby_code", "")
-    lobby = get_lobby(lobby_code)
-
-    if not lobby:
-        st.error("Lobby not found")
-        st.session_state.lobby_state = "none"
-        st.rerun()
-
-    is_host = st.session_state.get("is_host", False)
-
-    st.markdown("---")
-    st.markdown(f"### :material/group: Lobby")
-    st.code(lobby_code)
-    st.caption("Share this code with other players")
-
-    st.markdown("### Players")
-    for i, p in enumerate(lobby["players"]):
-        you = " (you)" if p["session"] == user_session else ""
-        host_tag = " :crown:" if i == 0 else ""
-        st.markdown(f"{'🟢' if not p['finished'] else '✅'} **{p['name']}**{host_tag}{you}")
-
-    if is_host:
-        if len(lobby["players"]) < 2:
-            st.info("Waiting for at least 1 more player to join...")
-        else:
-            if st.button(":material/play_arrow: Start game!", key="start_lobby_btn", type="primary", use_container_width=True):
-                from utils.challenge import get_challenge_questions
-                topics = get_feed_topics(user_session, category=None, sort_by="trending", limit=100)
-                seed_data = lobby["seed_data"]
-                n = lobby["num_questions"]
-                quiz_items = get_challenge_questions(seed_data, topics, n)
-                start_lobby(lobby_code, quiz_items=quiz_items)
-                st.session_state.quiz_active = True
-                st.session_state.quiz_index = 0
-                st.session_state.quiz_score = 0
-                st.session_state.quiz_answered = []
-                st.session_state.sr_mode_active = False
-                st.session_state.quiz_items = quiz_items
-                st.session_state.lobby_state = "playing"
-                st.rerun()
-
-    placeholder = st.empty()
-    with placeholder:
-        st.caption("Refreshing lobby...")
-
-    time.sleep(3)
-
-    lobby = get_lobby(lobby_code)
-    if lobby and lobby["status"] == "active":
-        quiz_items = lobby.get("quiz_items", [])
-        if not quiz_items:
-            st.error("No quiz questions available — the host may still be starting.")
-            st.rerun()
-
+    if st.button(
+        ":material/play_arrow: Start new quiz",
+        key="start_quiz",
+        type="primary",
+        use_container_width=True,
+    ):
         st.session_state.quiz_active = True
         st.session_state.quiz_index = 0
         st.session_state.quiz_score = 0
         st.session_state.quiz_answered = []
-        st.session_state.sr_mode_active = False
-        st.session_state.quiz_items = quiz_items
-        st.session_state.lobby_state = "playing"
-        st.rerun()
-    else:
-        st.rerun()
+        st.session_state.sr_mode_active = sr_mode
 
-elif lobby_state == "done":
-    lobby_code = st.session_state.get("lobby_code", "")
-    lobby = get_lobby(lobby_code)
-
-    if lobby:
-        st.markdown("---")
-        st.markdown("### :material/emoji_events: Final Leaderboard")
-        sorted_players = sorted(lobby["players"], key=lambda p: (p["score"] or 0), reverse=True)
-        for i, p in enumerate(sorted_players):
-            is_me = p["session"] == user_session
-            medal = ["🥇", "🥈", "🥉"][i] if i < 3 else f"#{i + 1}"
-            score_str = f"{p['score']}/{p['total']}" if p["score"] is not None else "DNF"
-            pct_str = f" ({round(p['score']/p['total']*100)}%)" if p["score"] is not None else ""
-            you_tag = " (you)" if is_me else ""
-            host_tag = " :crown:" if i == 0 and p["score"] is not None else ""
-            style = "**" if is_me else ""
-            st.markdown(f"{style}{medal} {p['name']}: {score_str}{pct_str}{host_tag}{you_tag}{style}")
-
-        if st.button(":material/refresh: Back to quiz", key="exit_lobby_btn"):
-            st.session_state.lobby_state = "none"
-            st.session_state.lobby_code = None
-            st.rerun()
-
-if st.button(
-    ":material/play_arrow: Start new quiz",
-    key="start_quiz",
-    type="primary",
-    use_container_width=True,
-):
-    st.session_state.quiz_active = True
-    st.session_state.quiz_index = 0
-    st.session_state.quiz_score = 0
-    st.session_state.quiz_answered = []
-    st.session_state.sr_mode_active = sr_mode
-
-    cat_filter = quiz_cat if quiz_cat != "All" else None
-    sort_map = {
-        "Easy": "difficulty_easy",
-        "Medium": "trending",
-        "Hard": "difficulty_hard",
-    }
-    sort_by = sort_map.get(difficulty_filter, "random")
-    topics = get_feed_topics(
-        user_session, category=cat_filter, sort_by=sort_by, limit=50
-    )
-
-    def _build_quiz_item(qi, topic):
-        option_keys = ("option_a", "option_b", "option_c", "option_d")
-        options = []
-        correct_idx = 0
-        for oi, opt_key in enumerate(option_keys):
-            opt_val = qi.get(opt_key, "")
-            if opt_val:
-                options.append(opt_val)
-                if opt_key == qi["correct_option"]:
-                    correct_idx = oi
-        return {
-            "topic_id": topic["topic_id"],
-            "topic_title": topic["title"],
-            "category": topic["category"],
-            "quiz_id": qi["quiz_id"],
-            "question": qi["question"],
-            "options": options,
-            "correct_idx": correct_idx,
+        cat_filter = quiz_cat if quiz_cat != "All" else None
+        sort_map = {
+            "Easy": "difficulty_easy",
+            "Medium": "trending",
+            "Hard": "difficulty_hard",
         }
+        sort_by = sort_map.get(difficulty_filter, "random")
+        topics = get_feed_topics(
+            user_session, category=cat_filter, sort_by=sort_by, limit=50
+        )
 
-    if sr_mode:
-        due_quiz_ids = get_due_cards(user_session, limit=num_questions)
-        sr_items = []
-        for quiz_id in due_quiz_ids:
-            for topic in topics:
-                for qi in topic.get("quizzes", []):
-                    if qi["quiz_id"] == quiz_id:
-                        sr_items.append(_build_quiz_item(qi, topic))
+        def _build_quiz_item(qi, topic):
+            option_keys = ("option_a", "option_b", "option_c", "option_d")
+            options = []
+            correct_idx = 0
+            for oi, opt_key in enumerate(option_keys):
+                opt_val = qi.get(opt_key, "")
+                if opt_val:
+                    options.append(opt_val)
+                    if opt_key == qi["correct_option"]:
+                        correct_idx = oi
+            return {
+                "topic_id": topic["topic_id"],
+                "topic_title": topic["title"],
+                "category": topic["category"],
+                "quiz_id": qi["quiz_id"],
+                "question": qi["question"],
+                "options": options,
+                "correct_idx": correct_idx,
+            }
+
+        if sr_mode:
+            due_quiz_ids = get_due_cards(user_session, limit=num_questions)
+            sr_items = []
+            for quiz_id in due_quiz_ids:
+                for topic in topics:
+                    for qi in topic.get("quizzes", []):
+                        if qi["quiz_id"] == quiz_id:
+                            sr_items.append(_build_quiz_item(qi, topic))
+                            break
+                    if len(sr_items) >= num_questions:
                         break
                 if len(sr_items) >= num_questions:
                     break
-            if len(sr_items) >= num_questions:
-                break
-        remaining = num_questions - len(sr_items)
-        if remaining > 0:
-            for topic in topics:
+            remaining = num_questions - len(sr_items)
+            if remaining > 0:
+                for topic in topics:
+                    for qi in topic.get("quizzes", []):
+                        if qi["quiz_id"] not in due_quiz_ids:
+                            sr_items.append(_build_quiz_item(qi, topic))
+                            if len(sr_items) >= num_questions:
+                                break
+                    if len(sr_items) >= num_questions:
+                        break
+            quiz_items = sr_items[:num_questions]
+        else:
+            quiz_items = []
+            topic_index = 0
+            while len(quiz_items) < num_questions and topic_index < len(topics):
+                topic = topics[topic_index]
                 for qi in topic.get("quizzes", []):
-                    if qi["quiz_id"] not in due_quiz_ids:
-                        sr_items.append(_build_quiz_item(qi, topic))
-                        if len(sr_items) >= num_questions:
-                            break
-                if len(sr_items) >= num_questions:
-                    break
-        quiz_items = sr_items[:num_questions]
-    else:
-        quiz_items = []
-        topic_index = 0
-        while len(quiz_items) < num_questions and topic_index < len(topics):
-            topic = topics[topic_index]
-            for qi in topic.get("quizzes", []):
-                quiz_items.append(_build_quiz_item(qi, topic))
-                if len(quiz_items) >= num_questions:
-                    break
-            topic_index = topic_index + 1
-        _random.shuffle(quiz_items)
-        quiz_items = quiz_items[:num_questions]
+                    quiz_items.append(_build_quiz_item(qi, topic))
+                    if len(quiz_items) >= num_questions:
+                        break
+                topic_index = topic_index + 1
+            _random.shuffle(quiz_items)
+            quiz_items = quiz_items[:num_questions]
 
-    st.session_state.quiz_items = quiz_items
-    st.rerun()
+        st.session_state.quiz_items = quiz_items
+        st.rerun()
 
-if not st.session_state.get("quiz_active", False):
-    pass
 else:
     quiz_items = st.session_state.get("quiz_items", [])
     quiz_idx = st.session_state.get("quiz_index", 0)
     is_sr = st.session_state.get("sr_mode_active", False)
-    in_lobby = st.session_state.get("lobby_state") == "playing"
 
     if quiz_idx >= len(quiz_items):
         score = st.session_state.get("quiz_score", 0)
         total = len(quiz_items)
         pct = round(score / total * 100) if total > 0 else 0
-
-        if in_lobby:
-            lobby_code = st.session_state.get("lobby_code", "")
-            finish_lobby_player(lobby_code, user_session, score, total)
-            st.session_state.lobby_state = "done"
 
         st.success("Quiz complete!", icon=":material/trophy:")
         add_xp(user_session, 20, "quiz_completed")
@@ -297,33 +156,17 @@ else:
         else:
             st.markdown(":material/menu_book: **Keep learning!** Review saved topics and try again.")
 
-        if in_lobby:
-            st.markdown("---")
-            st.markdown("### :material/hourglass_empty: Waiting for other players...")
-            placeholder = st.empty()
-            with placeholder:
-                st.spinner("Checking for other players...")
+        answered = st.session_state.get("quiz_answered", [])
+        if answered:
+            st.markdown("### Review")
+            for ans in answered:
+                icon = ":material/check_circle:" if ans["correct"] else ":material/cancel:"
+                color = "green" if ans["correct"] else "red"
+                st.markdown(f":{color}[{icon}] **{ans['topic_title']}** — {ans['question']}")
 
-            time.sleep(3)
-
-            lobby = get_lobby(lobby_code)
-            if lobby and lobby["status"] == "finished":
-                st.session_state.lobby_state = "done"
-                st.rerun()
-            else:
-                st.rerun()
-        else:
-            answered = st.session_state.get("quiz_answered", [])
-            if answered:
-                st.markdown("### Review")
-                for ans in answered:
-                    icon = ":material/check_circle:" if ans["correct"] else ":material/cancel:"
-                    color = "green" if ans["correct"] else "red"
-                    st.markdown(f":{color}[{icon}] **{ans['topic_title']}** — {ans['question']}")
-
-            if st.button(":material/refresh: New quiz", key="new_quiz_btn"):
-                st.session_state.quiz_active = False
-                st.rerun()
+        if st.button(":material/refresh: New quiz", key="new_quiz_btn"):
+            st.session_state.quiz_active = False
+            st.rerun()
     else:
         item = quiz_items[quiz_idx]
         progress = (quiz_idx + 1) / len(quiz_items)

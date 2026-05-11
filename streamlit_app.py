@@ -72,6 +72,7 @@ pages = [
     st.Page("app_pages/discover.py", title="Discover", icon=":material/explore:"),
     st.Page("app_pages/saved.py", title="Saved", icon=":material/bookmark:"),
     st.Page("app_pages/quiz.py", title="Quiz", icon=":material/quiz:"),
+    st.Page("app_pages/multiplayer.py", title="Multiplayer", icon=":material/group:"),
     st.Page("app_pages/analytics.py", title="Analytics", icon=":material/analytics:"),
 ]
 

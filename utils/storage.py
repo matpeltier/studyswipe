@@ -536,6 +536,14 @@ def finish_lobby_player(lobby_code, user_session, score, total):
     save_data(data)
 
 
+def cancel_lobby(lobby_code):
+    data = load_data()
+    lobbies = data.get("lobbies", {})
+    if lobby_code in lobbies:
+        lobbies[lobby_code]["status"] = "cancelled"
+        save_data(data)
+
+
 def get_lobby(lobby_code):
     data = load_data()
     return data.get("lobbies", {}).get(lobby_code, None)
