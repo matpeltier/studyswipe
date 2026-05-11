@@ -14,12 +14,6 @@ from utils.storage import (
 )
 from utils.constants import CATEGORY_COLORS, ACHIEVEMENT_NAMES
 
-st.set_page_config(
-    page_title="StudySwipe - Multiplayer",
-    page_icon=":material/group:",
-    layout="wide",
-)
-
 user_session = st.session_state.get("user_session", "default")
 categories = get_categories()
 all_cats = ["All"] + categories
