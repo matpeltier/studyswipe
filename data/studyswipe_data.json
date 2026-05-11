@@ -2886,6 +2886,27 @@
       ],
       "created_at": "2026-05-07T11:16:49.188719+00:00",
       "started_at": "2026-05-07T11:17:02.852607+00:00"
+    },
+    "eyJjIjoiQWxsIiwibiI6NSwiZCI6IkFsbCIsInMiOjMxNTg5NX0": {
+      "status": "waiting",
+      "seed_data": {
+        "c": "All",
+        "n": 5,
+        "d": "All",
+        "s": 315895
+      },
+      "num_questions": 5,
+      "players": [
+        {
+          "session": "9fd6f393-3d29-4135-8d90-3a8ce003d769",
+          "name": "Player 1",
+          "score": null,
+          "finished": false,
+          "finished_at": null
+        }
+      ],
+      "created_at": "2026-05-11T12:18:29.093613+00:00",
+      "started_at": null
     }
   }
 }

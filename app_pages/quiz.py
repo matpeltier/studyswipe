@@ -41,15 +41,26 @@ with st.sidebar:
         else:
             st.caption(":material/check_circle: No cards due — keep reviewing!")
 
-    st.sidebar.markdown("---")
-    st.sidebar.subheader(":material/group: Multiplayer")
+st.subheader("Your quiz stats")
+stat_col1, stat_col2, stat_col3 = st.columns(3)
+with stat_col1:
+    st.metric("Questions answered", stats["total_answers"])
+with stat_col2:
+    st.metric("Correct answers", stats["correct_answers"])
+with stat_col3:
+    st.metric("Accuracy", f"{stats['accuracy']}%")
 
-    lobby_state = st.session_state.get("lobby_state", "none")  # none, waiting, playing, done
+lobby_state = st.session_state.get("lobby_state", "none")
 
-    if lobby_state == "none":
-        challenge_tab1, challenge_tab2 = st.sidebar.tabs(["Create", "Join"])
+if lobby_state == "none":
+    st.markdown("---")
+    st.markdown("### :material/group: Multiplayer")
+    mp_col1, mp_col2 = st.columns(2)
 
-        with challenge_tab1:
+    with mp_col1:
+        with st.container(border=True):
+            st.markdown(":material/add_circle: **Create Lobby**")
+            st.caption("Start a game and invite others")
             player_name = st.text_input("Your name", value="Player 1", key="host_name")
             if st.button("Create lobby", key="create_lobby_btn", type="primary", use_container_width=True):
                 from utils.challenge import generate_challenge_code
@@ -62,7 +73,10 @@ with st.sidebar:
                 st.session_state.is_host = True
                 st.rerun()
 
-        with challenge_tab2:
+    with mp_col2:
+        with st.container(border=True):
+            st.markdown(":material/login: **Join Lobby**")
+            st.caption("Enter a code to join a game")
             join_code = st.text_input("Lobby code", key="join_code_input")
             join_name = st.text_input("Your name", value="Player 2", key="join_name")
             if st.button("Join lobby", key="join_lobby_btn", use_container_width=True):
@@ -75,18 +89,7 @@ with st.sidebar:
                 else:
                     st.error("Lobby not found or already started")
 
-st.subheader("Your quiz stats")
-stat_col1, stat_col2, stat_col3 = st.columns(3)
-with stat_col1:
-    st.metric("Questions answered", stats["total_answers"])
-with stat_col2:
-    st.metric("Correct answers", stats["correct_answers"])
-with stat_col3:
-    st.metric("Accuracy", f"{stats['accuracy']}%")
-
-lobby_state = st.session_state.get("lobby_state", "none")
-
-if lobby_state == "waiting":
+elif lobby_state == "waiting":
     lobby_code = st.session_state.get("lobby_code", "")
     lobby = get_lobby(lobby_code)
 
@@ -97,6 +100,7 @@ if lobby_state == "waiting":
 
     is_host = st.session_state.get("is_host", False)
 
+    st.markdown("---")
     st.markdown(f"### :material/group: Lobby")
     st.code(lobby_code)
     st.caption("Share this code with other players")
@@ -156,6 +160,7 @@ elif lobby_state == "done":
     lobby = get_lobby(lobby_code)
 
     if lobby:
+        st.markdown("---")
         st.markdown("### :material/emoji_events: Final Leaderboard")
         sorted_players = sorted(lobby["players"], key=lambda p: (p["score"] or 0), reverse=True)
         for i, p in enumerate(sorted_players):
